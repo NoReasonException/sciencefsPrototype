@@ -31,7 +31,7 @@ class Parser:
             raise e
         return dictionaryList
 
-    def organise(self,paramString,data):
+    def queryAnalyzer(self,paramString,data):
         """
             parse the -o (organise parameter) and returns the queried data
         """
@@ -46,8 +46,8 @@ class Parser:
     def __getStructure(self,paramString):
         pass
     def __getConditions(self,paramString):
-	args=paramString.split("/")                 #split the initial string in / -> the first will be the query , the next will be the format of mount
-        conditions=args[0].split("&")               #split in & in order to take the and's 
+
+        conditions=paramString.split("&")               #split in & in order to take the and's 
         return conditions
     def __applyConditions(self,conditions,data):
 #        print(data)
@@ -61,12 +61,13 @@ class Parser:
             for i in conditions:
                 tmpData=c
                 equationPair=i.split("=")
+                print(equationPair)
                 equationPairLeftHand=equationPair[0].split(".")
                 equationPairRightHand=equationPair[1]
                 for j in equationPairLeftHand:
                     tmpData=tmpData[j]
                 if tmpData!=equationPairRightHand:
-                    print("%s != %s  %d.json"%(tmpData,equationPair[1],data.index(c)))
+                    #print("%s != %s  %d.json"%(tmpData,equationPair[1],data.index(c)))
                     flag=True
                     break
             if(flag):
@@ -85,18 +86,19 @@ class Parser:
 
         logging.basicConfig(level=logging.DEBUG,format="%(levelname)s\t|%(msg)s")
         welcomeMessage()
-        s,o=0,0
+        n,s,q=0,0,0
         sources=None 
         try:
-            s=argv.index("-s")
-            o=argv.index("-o")
+            s=argv.index("-s") #source of .json file
+            q=argv.index("-q") #query
+            n=argv.index("-n") #namespace structure
         except:
             usage()
             return
-        logging.debug("parse the -q parameter")
+        logging.debug("parse the -s parameter")
         sources=self.loadsources(argv[s+1])
-        logging.debug("Parse the -o parameter")
-        self.organise(argv[o+1],sources)
+        logging.debug("Parse the -q parameter")
+        self.queryAnalyzer(argv[q+1],sources)
 
     
     
