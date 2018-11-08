@@ -40,9 +40,21 @@ class Node:
             self.__data=None
     @staticmethod
     def pathToNodeTranslator(rootNode,path):
-        tmp=rootnode
-        pathelements=path.split('/')
+        nodeNames=path.split('/')
+        tmp=rootNode
+        for i in range(1,len(nodeNames)):
+            childrenOfCurrentNode=map(lambda x:x.getName(),tmp.getData())
+            if tmp.isDirectory() and nodeNames[i] in childrenOfCurrentNode:
+                print(nodeNames[i])
+                tmp=tmp.getData()[childrenOfCurrentNode.index(nodeNames[i])]
+            elif tmp.isFile() and tmp.getName()==nodeNames[-1]:
+                break
+            else:
+                return None
+        return tmp
         
+
+                
             
     
     def getFullPath (self):
