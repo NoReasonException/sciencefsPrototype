@@ -5,10 +5,18 @@ z=Node.createDirectoryFile(None,None,"folderOfHello",0o755)
 y=Node.createRegularFile(None,None,"hello",0o755)
 n=Node.createRegularFile(None,None,"bla",0o755)
 
-x.addChildren(z)
-z.addChildren(y)
-z.addChildren(n)
-print(Node.pathToNodeTranslator(x,y.getFullPath()))
-print(Node.pathToNodeTranslator(x,"/folderOfHello/bla").getFullPath()+"\tfound")
-print(Node.pathToNodeTranslator(x,"/folderOfHello").getName())
-print(x.toStandardDict())
+#x.addChildren(z)
+#z.addChildren(y)
+#z.addChildren(n)
+
+
+rootDir=Node.pathToNodeTranslator(x,"/")
+rootDir.addChildren(z)
+Node.pathToNodeTranslator(rootDir,"/folderOfHello").addChildren(y)
+print(Node.pathToNodeTranslator(rootDir,"/folderOfHello/hello").getName())
+
+#print(Node.pathToNodeTranslator(x,y.getFullPath()))
+#print(Node.pathToNodeTranslator(x,"/folderOfHello/bla").getFullPath()+"\tfound")
+#print(Node.pathToNodeTranslator(x,"/folderOfHello").getName())
+#print(x.toStandardDict())
+

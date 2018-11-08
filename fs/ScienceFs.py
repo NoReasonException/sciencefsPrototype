@@ -23,9 +23,9 @@ class ScienceFs(LoggingMixIn, Operations):
     def __init__(self):
         self.fd=14        
         self.rootNode=Node.createDirectoryFile(self,None,"/",0o755) #this is the root node
-        testChild=Node.createRegularFile(self,None,"hello",0o755)#debug
+        #testChild=Node.createRegularFile(self,None,"hello",0o755)#debug
 
-        self.rootNode.addChildren(testChild)
+       # self.rootNode.addChildren(testChild)
         
         
 
@@ -40,16 +40,22 @@ class ScienceFs(LoggingMixIn, Operations):
     def create(self, path, mode, fi=None):
         try:
             pathsplit=path.split("/")
-            folder=pathsplit[-2]
             filename=pathsplit[-1]
-            print("on folder "+folder+"create request issued with name"+filename)
+            parent=pathsplit[-2]
             node=Node.createRegularFile(self,None,filename,mode)
-            self.rootNode.addChildren(node)
+            if(parent==""):
+                self.rootNode.addChildren(node)
+            else:
+                Node.pathToNodeTranslator(self.rootNode,self.getParentPath(path)).addChildren(node)
         except Exception as e:
-            print(e+"on creation (path"+path+")")
+            print("Exception thrown : %s on create at path %s parent %s"%(str(e),path,self.getParentPath(path)))
             raise e
 
-        
+    @staticmethod
+    def getParentPath(path):
+        return path[0:path.rfind('/')]
+
+
 
     def destroy(self, path):
         print("destroy "+path)
@@ -94,11 +100,10 @@ class ScienceFs(LoggingMixIn, Operations):
             pathsplit=path.split("/")
             folder=pathsplit[-2]
             filename=pathsplit[-1]
-            print("on folder "+folder+"create request issued with name"+filename)
             node=Node.createDirectoryFile(self,None,filename,mode)
             self.rootNode.addChildren(node)
         except Exception as e:
-            print(e+"on creation (path"+path+")")
+            print(str(e)+"on creation (path"+path+")")
             raise e
  
         except Exception as e:
@@ -191,9 +196,13 @@ import os
 if __name__ == "__main__":
     fuse = FUSE(ScienceFs(), "/home/noreasonexception/Desktop/sciencefs/sciencefsPrototype/tst/mount", foreground=True,allow_other=True)
     x=ScienceFs()
-    print(x.readdir('.',None))
-    print(x.getattr('.',None))
-    print(x.getattr('hello',None))
+   
 
+    x.mkdir("/hello",0o755)
+    print(x.getattr("/hello"))
+    x.create("/hello/hola",0o755)
+    Node.pathToNodeTranslator(x.rootNode,"/hello")
+    print(x.getParentPath("/hello/hola"))
+    print(x.getattr("/hello/hola"))
 
 
