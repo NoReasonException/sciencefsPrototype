@@ -2,7 +2,7 @@ import sys
 import logging
 import json
 import os
-
+from fs.ScienceFs import ScienceFs 
 
 class Parser:
 
@@ -119,7 +119,7 @@ class Parser:
 
 
 def usage():
-    logging.critical("invalid usage")
+    logging.critical("usage -s <source> -q <searchQuery> -m <mountPoint> -n <namespaceStructure>")
 
 def welcomeMessage():
     logging.info("""
