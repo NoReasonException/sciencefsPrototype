@@ -40,13 +40,10 @@ class Parser:
 
         data=self.__applyConditions(conditions,data)
         logging.debug("%d experiments qualify "%len(data))
-
+        return data
         
 
-    def __getStructure(self,paramString):
-        pass
     def __getConditions(self,paramString):
-
         conditions=paramString.split("&")               #split in & in order to take the and's 
         return conditions
     def __applyConditions(self,conditions,data):
@@ -61,7 +58,7 @@ class Parser:
             for i in conditions:
                 tmpData=c
                 equationPair=i.split("=")
-                print(equationPair)
+         #       print(equationPair)
                 equationPairLeftHand=equationPair[0].split(".")
                 equationPairRightHand=equationPair[1]
                 for j in equationPairLeftHand:
@@ -79,26 +76,43 @@ class Parser:
 
             
             
-        
+    def namespaceStructureQueryAnalyzer(self,query,fs):
+        pass
 
+    def verifyMountPoint(self,mountPoint):
+        if( not os.path.isdir(mountPoint)):
+             logging.critical("No such file or directory :%s"%mountPoint)
+             raise IOError()
+        
+    def loadfs(self,pathToMount):
+        return None
 
     def __init__(self,argv):
-
+        self.fs=None
         logging.basicConfig(level=logging.DEBUG,format="%(levelname)s\t|%(msg)s")
         welcomeMessage()
-        n,s,q=0,0,0
+        n,s,q,m=0,0,0,0
         sources=None 
         try:
             s=argv.index("-s") #source of .json file
             q=argv.index("-q") #query
             n=argv.index("-n") #namespace structure
+            m=argv.index("-m") #mount point
         except:
             usage()
             return
-        logging.debug("parse the -s parameter")
+        logging.debug("parse -s parameter")
         sources=self.loadsources(argv[s+1])
-        logging.debug("Parse the -q parameter")
-        self.queryAnalyzer(argv[q+1],sources)
+        logging.debug("Parse -q parameter")
+        qualifyData=self.queryAnalyzer(argv[q+1],sources)
+        logging.debug("Parse -m parameter")
+        self.verifyMountPoint(argv[m+1])
+        logging.debug("create  sciencefs object")
+        self.fs=self.loadfs(argv[m+1])
+        logging.debug("Parse -n parameter")
+        self.namespaceStructureQueryAnalyzer(argv[n+1],self.fs)
+
+
 
     
     
