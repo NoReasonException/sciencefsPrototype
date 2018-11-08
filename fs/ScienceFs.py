@@ -101,7 +101,10 @@ class ScienceFs(LoggingMixIn, Operations):
             folder=pathsplit[-2]
             filename=pathsplit[-1]
             node=Node.createDirectoryFile(self,None,filename,mode)
-            self.rootNode.addChildren(node)
+            if(folder==""):
+                self.rootNode.addChildren(node)
+            else:
+                Node.pathToNodeTranslator(self.rootNode,self.getParentPath(path)).addChildren(node)
         except Exception as e:
             print(str(e)+"on creation (path"+path+")")
             raise e
