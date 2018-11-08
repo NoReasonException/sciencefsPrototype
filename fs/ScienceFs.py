@@ -6,7 +6,7 @@ from time import time
 import inspect
 from fuse import FUSE, FuseOSError, Operations, LoggingMixIn
 from etc.Info import Info as info
-
+from Node.Node import Node
 
 
 
@@ -21,18 +21,7 @@ class ScienceFs(LoggingMixIn, Operations):
        
        """
     def __init__(self):
-        """
-            Initialization 
-
-            *members section*
-
-                self.paths          : list() -> Keeps all the paths 
-                self.pathsToInfo    : dict() -> Translates paths to Info structure (meta-data about file (just like inode))
-                self.fd             : int()  -> counter of file desciptors
-        """
-        self.paths=list()
-        self.pathsToInfo={}
-        self.fd=12
+        pass
 
 
     def chmod(self, path, mode):
@@ -43,18 +32,7 @@ class ScienceFs(LoggingMixIn, Operations):
         print("chown "+path)
 
     def create(self, path, mode, fi=None):
-        """
-            Create new File
-
-                1) Adds the path on the self.paths registy
-                2) Creates and assigns to self.pathToInfo translator a Info structure , with all the needed meta-information about a file
-                
-
-        """
-        self.paths.append(path)
-	self.pathsToInfo[path]=info.createReg(path,0o755)
-        print(".create() request on "+path)
-        print(self.pathsToInfo[path].toStandardDict())
+        pass
 
         
 
@@ -71,38 +49,8 @@ class ScienceFs(LoggingMixIn, Operations):
         print("fsyncdir "+path)
 
     def getattr(self, path, fh=None):
-        """"
-            returns a dictionary of properties of a file
-                st_mode -> or value combined of file type (S_IFREG(Regular file) or S_IFDIR(directory file))
-                st_atime -> last access itme
-                st_mtime -> last modification time
-                st_ctime ->
-                n_link   ->
-                st_size  -> the size of the file
-
-            you can return ENOENT and declare that this file is not exist , in this case the.create method will
-            called , and after a .getattr will be attemted again with the new file created by .create()
-
-
-        """
-        print("getattr request  "+path)
-        
-        """
-            If the len <2 , then the request is about home directory(/) so a S_IFDIR|0o755 is returned 
-        """
-        if len(path)<2:
-            return dict(st_mode=(S_IFDIR | 0o755), st_atime=int(time()), st_mtime=int(time()), st_ctime=int(time()), st_nlink=2)
-        """
-            Check if the path already exists , if yes just return the standard dict() described in the docstring
-        """
-        if(path in self.paths):
-            return (self.pathsToInfo[path].toStandardDict())
-        else:
-            """
-                Declare that the file is not exists , force the vfs to call the .create() method
-            """
-            print("getattr :ENOENT on file " + path)
-            raise FuseOSError(ENOENT)
+#            raise FuseOSError(ENOENT)
+        pass
 
 
     
@@ -155,8 +103,9 @@ class ScienceFs(LoggingMixIn, Operations):
         :return:
         """
 
+
         print("readdir "+path)
-        return [".",".."] + [ x[1:].encode('ascii','ignore') for x in self.paths]
+        return [".",".."] 
 
     def readlink(self, path):
         print("readlink "+path)
@@ -193,11 +142,7 @@ class ScienceFs(LoggingMixIn, Operations):
         print("utimens "+path)
 
     def write(self, path, data, offset, fh):
-        self.pathsToInfo[path].rawData=data
-        self.pathsToInfo[path].st_size=len(data)
-        print("write "+path+"data : "+data)
-        return len(data)
-
+        pass
 if __name__ == "__main__":
     fuse = FUSE(ScienceFs(), "/home/noreasonexception/Desktop/sciencefs/sciencefsPrototype/mnt", foreground=True,allow_other=True)
 
