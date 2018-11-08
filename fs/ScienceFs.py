@@ -21,7 +21,13 @@ class ScienceFs(LoggingMixIn, Operations):
        
        """
     def __init__(self):
-        pass
+        self.fd=14        
+        self.rootNode=Node.createDirectoryFile(self,None,"/",0o755) #this is the root node
+        testChild=Node.createRegularFile(self,None,"hello",0o755)#debug
+
+        self.rootNode.addChildren(testChild)
+        
+        
 
 
     def chmod(self, path, mode):
@@ -32,7 +38,16 @@ class ScienceFs(LoggingMixIn, Operations):
         print("chown "+path)
 
     def create(self, path, mode, fi=None):
-        pass
+        try:
+            pathsplit=path.split("/")
+            folder=pathsplit[-2]
+            filename=pathsplit[-1]
+            print("on folder "+folder+"create request issued with name"+filename)
+            node=Node.createRegularFile(self,None,filename,mode)
+            self.rootNode.addChildren(node)
+        except Exception as e:
+            print(e+"on creation (path"+path+")")
+            raise e
 
         
 
@@ -50,9 +65,14 @@ class ScienceFs(LoggingMixIn, Operations):
 
     def getattr(self, path, fh=None):
 #            raise FuseOSError(ENOENT)
-        pass
-
-
+        try:
+            fileref=Node.pathToNodeTranslator(self.rootNode,path)
+            if(fileref==None):
+                raise FuseOSError(ENOENT)
+            return fileref.toStandardDict()
+        except Exception as e:
+            print(e)
+            raise FuseOSError(ENOENT)
     
     def getxattr(self, path, name, position=0):
         print("getxattr "+path)
@@ -69,7 +89,22 @@ class ScienceFs(LoggingMixIn, Operations):
         print("listxattr "+path)
 
     def mkdir(self, path, mode):
-        print("mkdir "+path)
+        print("mkdir requested on path"+path)
+        try:
+            pathsplit=path.split("/")
+            folder=pathsplit[-2]
+            filename=pathsplit[-1]
+            print("on folder "+folder+"create request issued with name"+filename)
+            node=Node.createDirectoryFile(self,None,filename,mode)
+            self.rootNode.addChildren(node)
+        except Exception as e:
+            print(e+"on creation (path"+path+")")
+            raise e
+ 
+        except Exception as e:
+            print(e)
+            raise e
+
 
     def mknod(self, path, mode, dev):
         print("mknod "+path)
@@ -85,11 +120,12 @@ class ScienceFs(LoggingMixIn, Operations):
         :return: a number , file descriptor , always positive and over 3(stdin=1,stdout=2,stderr=3)
         """
         print("opendir "+path)
-        return 0
+        self.fd+=1
+        return self.fd
 
     def read(self, path, size, offset, fh):
         print("read "+path)
-        return self.pathsToInfo[path].rawData
+        return 0
 
     def readdir(self, path, fh):
         """
@@ -102,10 +138,18 @@ class ScienceFs(LoggingMixIn, Operations):
         :param fh: the
         :return:
         """
+        try:
 
+            print(path+" readdir")
 
-        print("readdir "+path)
-        return [".",".."] 
+        
+            currentNodeChildren = Node.pathToNodeTranslator(self.rootNode,path).getData()
+        
+            #print("readdir "+path +" returned children list is :"+currentNodeChildren)
+            return [".",".."] + [x.getName() for x in currentNodeChildren] 
+        except Exception as e:
+            print(e)
+            return [".",".."]
 
     def readlink(self, path):
         print("readlink "+path)
@@ -143,9 +187,13 @@ class ScienceFs(LoggingMixIn, Operations):
 
     def write(self, path, data, offset, fh):
         pass
+import os
 if __name__ == "__main__":
-    fuse = FUSE(ScienceFs(), "/home/noreasonexception/Desktop/sciencefs/sciencefsPrototype/mnt", foreground=True,allow_other=True)
-
+    fuse = FUSE(ScienceFs(), "/home/noreasonexception/Desktop/sciencefs/sciencefsPrototype/tst/mount", foreground=True,allow_other=True)
+    x=ScienceFs()
+    print(x.readdir('.',None))
+    print(x.getattr('.',None))
+    print(x.getattr('hello',None))
 
 
 

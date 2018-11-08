@@ -28,9 +28,9 @@ class Node:
         self.__parent=parent
         self.__name=name
         self.__size=0
-        self.__atime=atime
-        self.__mtime=mtime
-        self.__ctime=ctime
+        self.__atime=int(atime)
+        self.__mtime=int(mtime)
+        self.__ctime=int(ctime)
         self.__nlink=nlink
         self.__fs=fs
         self.__mode=(mode|typeoffile)
@@ -40,6 +40,8 @@ class Node:
             self.__data=None
     @staticmethod
     def pathToNodeTranslator(rootNode,path):
+        if(rootNode.getName()==path):
+            return rootNode
         nodeNames=path.split('/')
         tmp=rootNode
         for i in range(1,len(nodeNames)):
@@ -101,3 +103,12 @@ class Node:
         child.__parent=self
         return child
 
+
+
+    def toStandardDict(self):
+        return dict(st_mode=self.__mode,
+                    st_atime=self.__atime,
+                    st_mtime=self.__mtime,
+                    st_ctime=self.__ctime,
+                    st_size=self.__size,
+                    st_nlink=2)
