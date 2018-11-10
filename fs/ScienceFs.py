@@ -15,20 +15,21 @@ class ScienceFs(LoggingMixIn, Operations):
     """===========================
         ScienceFs(SF) prototype
        ==========================
-       
-       :sectionauthor : Stefanos Stefanou , University of Reading , stefannstefanou@gmail.com
-       :platform      : Linux 14.x , FreeBSD 11.x
-       
+        
+        This is the main filesystem class of fusepy sciencefs project
+
+
+
+
+        :sectionauthor : Stefanos Stefanou , University of Reading , stefannstefanou@gmail.com
+        :platform      : Linux 14.x , FreeBSD 11.x
+        
+
+
        """
     def __init__(self):
-        self.fd=14        
+        self.fd=14 #Just a random number , we dont care about file desciptors because we know for the prototype that only one user will perform calls 
         self.rootNode=Node.createDirectoryFile(self,None,"/",0o755) #this is the root node
-        #testChild=Node.createRegularFile(self,None,"hello",0o755)#debug
-
-       # self.rootNode.addChildren(testChild)
-        
-        
-
 
     def chmod(self, path, mode):
         print("chmod "+path)

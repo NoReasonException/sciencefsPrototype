@@ -44,6 +44,20 @@ class Node:
         """
         return Node.create(fs,parent,name,mode,S_IFDIR)
     def __init__(self,parent,name,atime,mtime,ctime,nlink,fs,mode,typeoffile):
+        """
+            The constructor of Node Class
+
+            @param parent       the parent of the current Node (always a file)
+            @param name         the name of the Node (filename without '/'s or '\\'s, not the path! the filename!)
+            @param atime        the atime (search for atime attribute somewhere dude)
+            @param mtime        --//--//--//--//--//
+            @param ctime        --//--//--//--//--//
+            @param nlink        --//--//--//--//--//
+            @param fs           the filesystem Object 
+            @param mode         the permissions of the file WITHOUT the type (S_IFDIR/S_IFREG)
+            @param typeoffile   the S_IFDIR/S_IFREG attribute
+
+        """
         self.__parent=parent
         self.__name=name
         self.__size=0
@@ -53,12 +67,31 @@ class Node:
         self.__nlink=nlink
         self.__fs=fs
         self.__mode=(mode|typeoffile)
+        """
+            @Note!
+                When this file is regular file , the self.data will be contain the data of that file
+                When this file is directory file,the self.data will be contain the children of that directory
+        """
         if(typeoffile==S_IFDIR):
             self.__data=list()
         else:
             self.__data=None
     @staticmethod
     def pathToNodeTranslator(rootNode,path):
+        """
+            .pathToNodeTranslator gets a rootNode and a path and tries to return the Node Object representing
+            that particular file
+            
+
+            @param rootNode the node of the root
+            @param path     the string providing a given path
+            @returns a Node object if the path exists , or None otherwise
+
+            @Note
+            Why this is not recursive?
+                because after ~65535 folder will crash , also thing the call overhead. a plain for (for the prototype only of course)
+                will be fine~
+        """
         if(rootNode.getName()==path):
             return rootNode
         nodeNames=path.split('/')
@@ -79,6 +112,14 @@ class Node:
             
     
     def getFullPath (self):
+        """
+            .getFullPath
+            
+            this method returns the full path representing the actual Node 
+            
+            @Todo -> make a utillity method to convert into standard path.
+
+        """
         retval=[self.getName()]
         tmp=self
         
@@ -96,6 +137,11 @@ class Node:
                         replace("'","").\
                         replace(" ","/")[1:]
 
+
+    """
+        This is a bunch of setters/getters
+
+    """
     def getName     (self):return self.__name
     def getParent   (self):return self.__parent
     def getSize     (self):return self.__size
@@ -114,7 +160,7 @@ class Node:
     def getChildren (self):
         if self.isFile():
             raise Exception('Regular files cant have children')
-        return tuple(self.getData())
+        return tuple(self.getData()) #return as turple in order to be non-volatible
     def addChildren(self,child):
         if self.isFile():
             raise Exception('Regular files cant have children')
@@ -125,6 +171,11 @@ class Node:
 
 
     def toStandardDict(self):
+        """
+            Converts the attributes of this node into a standard dict() , whitch we can return it 
+            from a direct call on .getattr() in fusepy level
+
+        """
         return dict(st_mode=self.__mode,
                     st_atime=self.__atime,
                     st_mtime=self.__mtime,
