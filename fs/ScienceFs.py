@@ -46,13 +46,13 @@ class ScienceFs(LoggingMixIn, Operations):
             if(parent==""):
                 self.rootNode.addChildren(node)
             else:
-                Node.pathToNodeTranslator(self.rootNode,self.getParentPath(path)).addChildren(node)
+                Node.pathToNodeTranslator(self.rootNode,self.__getParentPath(path)).addChildren(node)
         except Exception as e:
-            print("Exception thrown : %s on create at path %s parent %s"%(str(e),path,self.getParentPath(path)))
+            print("Exception thrown : %s on create at path %s parent %s"%(str(e),path,self.__getParentPath(path)))
             raise e
 
     @staticmethod
-    def getParentPath(path):
+    def __getParentPath(path):
         return path[0:path.rfind('/')]
 
 
@@ -104,7 +104,7 @@ class ScienceFs(LoggingMixIn, Operations):
             if(folder==""):
                 self.rootNode.addChildren(node)
             else:
-                Node.pathToNodeTranslator(self.rootNode,self.getParentPath(path)).addChildren(node)
+                Node.pathToNodeTranslator(self.rootNode,self.__getParentPath(path)).addChildren(node)
         except Exception as e:
             print(str(e)+"on creation (path"+path+")")
             raise e
@@ -132,7 +132,7 @@ class ScienceFs(LoggingMixIn, Operations):
         return self.fd
 
     def read(self, path, size, offset, fh):
-        print("read "+path)
+        
         return 0
 
     def readdir(self, path, fh):
@@ -198,14 +198,5 @@ class ScienceFs(LoggingMixIn, Operations):
 import os
 if __name__ == "__main__":
     fuse = FUSE(ScienceFs(), "/home/noreasonexception/Desktop/sciencefs/sciencefsPrototype/tst/mount", foreground=True,allow_other=True)
-    x=ScienceFs()
-   
-
-    x.mkdir("/hello",0o755)
-    print(x.getattr("/hello"))
-    x.create("/hello/hola",0o755)
-    Node.pathToNodeTranslator(x.rootNode,"/hello")
-    print(x.getParentPath("/hello/hola"))
-    print(x.getattr("/hello/hola"))
 
 

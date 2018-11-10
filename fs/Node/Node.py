@@ -16,13 +16,32 @@ class Node:
     """
     @staticmethod
     def create(fs,parent,name,mode,typeoffile):
+        """create a plain Node object
+        @param fs                   the object to filesystem
+        @param paremt               the object to parent Node(None for root)
+        @param name                 the name of the file(or directory)
+        @param mode                 the permissions WITH NOT THE FILE TYPE (just the octal representing the permissions)
+        @param typeoffile           the type of file (S_IFREG for file or S_IFDIR for directory)
+        @return a brand-new Node Object
+        """
         now=time()
         return Node(parent,name,now,now,now,2,fs,mode,typeoffile)
     @staticmethod
     def createRegularFile(fs,parent,name,mode):
+        """
+        a wrapper over .create() method providing the S_IFREG as @param typeoffile 
+        @return a brand-new Node representing a file
+
+        @Note
+            When a Node object is created using .createRegularFile() , then the self.__data field is the actual data of that file
+
+        """
         return Node.create(fs,parent,name,mode,S_IFREG)
     @staticmethod
     def createDirectoryFile(fs,parent,name,mode):
+        """
+        a wrapper over .create mehod providing the S_IFDIR as @param typeoffile 
+        """
         return Node.create(fs,parent,name,mode,S_IFDIR)
     def __init__(self,parent,name,atime,mtime,ctime,nlink,fs,mode,typeoffile):
         self.__parent=parent
