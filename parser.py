@@ -3,10 +3,13 @@ import logging
 import json
 import os
 from fs.ScienceFs import ScienceFs 
+from fuse import FUSE,FuseOSError,Operations,LoggingMixIn
+
 
 class Parser:
 
 
+    
     def loadsources(self,pathstring):
         """
         loadsources 
@@ -76,18 +79,80 @@ class Parser:
 
             
             
-    def namespaceStructureQueryAnalyzer(self,query,fs):
-        pass
+    def namespaceStructureQueryAnalyzer(self,query,data,mountpoint,fs):
+        """
+        namespaceStructureQueryAnalyzer
+
+        creates the given namespace structure and fill it with query data returned by queryAnalyzer
+        @param query        the user input query
+        @param fs           the FUSE Filesystem Object
+        @param data         the experiments who qualify
+        @param mountpoint   the mountpoint of FUSE Filesystem 
+        @return True on Success
+        @throws Exception on any error (see message) TODO : make more specific exceptions
+        """
+        parsePath=query.split("/")
+        tmpJsonObject=None
+        """
+        The actual code where creates the namespace as the user specified follows...
+        """
+         
+        for experiment in data:
+            for x in parsePath:
+                tmpJsonObject=Parser.parseJsonQuery(experiment,x)
+                print("data[query] :"+str(tmpJsonObject)+" | found ")
+                os.mkdir(str(mountpoint)+"/"+str(tmpJsonObject))
+
+    @staticmethod
+    def parseJsonQuery(jsonRoot,query):
+        """
+        takes a query as second parameter of type 'element1.element2.element3.*' and returns the final JsonObject 
+        @param jsonRoot     the root json object
+        @param query        the query 
+        @returns            a list() containing the json elements at the final layer(element3.*)
+        """
+        if("." not in query):
+            return jsonRoot[query]
+        else:
+            tmpJsonObject=jsonRoot
+            parsePathToJsonElement = query.split(".")
+            for arrayFinder in parsePathToJsonElement:
+                tmpJsonObject=tmpJsonObject[arrayFinder]
+        return tmpJsonObject
+            
+
 
     def verifyMountPoint(self,mountPoint):
+        """
+            a simple check to denode if the mountpoint exists and is a valid directory entry
+            in case of error throws a OSError , and the main programm terminates
+        
+        """
         if( not os.path.isdir(mountPoint)):
              logging.critical("No such file or directory :%s"%mountPoint)
              raise IOError()
+         logging.debug("Mountpoint Good")
         
     def loadfs(self,pathToMount):
-        return None
+        """
+            loadfs method create a ScienceFS Operations Object and initializes the FUSE subsystem 
+            throws FUSEOSError in any case of error
 
+
+
+        """
+        ScienceFsObject = ScienceFs()
+        logging.debug("ScienceFs object created")
+	fuseObject=FUSE(ScienceFsObject,pathToMount, foreground=False,allow_other=True)
+        logging.debug("FUSE object created")
+        logging.debug("mount completed at "+str(mountpoint))
+        return ScienceFsObject
     def __init__(self,argv):
+        """
+            Costructor of Parser Class
+            just call the helper methods to initialize the ScienceFs Prototype
+
+        """
         self.fs=None
         logging.basicConfig(level=logging.DEBUG,format="%(levelname)s\t|%(msg)s")
         welcomeMessage()
@@ -101,17 +166,18 @@ class Parser:
         except:
             usage()
             return
-        logging.debug("parse -s parameter")
+        logging.info("parse -s parameter")
         sources=self.loadsources(argv[s+1])
-        logging.debug("Parse -q parameter")
+        logging.info("Parse -q parameter")
         qualifyData=self.queryAnalyzer(argv[q+1],sources)
-        logging.debug("Parse -m parameter")
+        logging.info("Parse -m parameter")
         self.verifyMountPoint(argv[m+1])
-        logging.debug("create  sciencefs object")
-        self.fs=self.loadfs(argv[m+1])
-        logging.debug("Parse -n parameter")
-        self.namespaceStructureQueryAnalyzer(argv[n+1],self.fs)
-
+        logging.info("Mount Completed")
+        #self.fs=self.loadfs(argv[m+1])
+        self.fs=None
+        logging.info("Parse -n parameter")
+        self.namespaceStructureQueryAnalyzer(argv[n+1],qualifyData,argv[m+1],self.fs)
+        
 
 
     
@@ -119,9 +185,18 @@ class Parser:
 
 
 def usage():
+    """
+    A simple function return a message if some parameter is not given
+
+
+    """
     logging.critical("usage -s <source> -q <searchQuery> -m <mountPoint> -n <namespaceStructure>")
 
 def welcomeMessage():
+    """
+    A simple function returning a welcome message after denoting the integrity of the parameters
+
+    """
     logging.info("""
         \tWelcome to sciencefs (prototype version)
         \tVersion 0

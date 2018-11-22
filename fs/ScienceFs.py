@@ -196,8 +196,8 @@ class ScienceFs(LoggingMixIn, Operations):
 
     def write(self, path, data, offset, fh):
         pass
-import os
+"""import os
 if __name__ == "__main__":
     fuse = FUSE(ScienceFs(), "/home/noreasonexception/Desktop/sciencefs/sciencefsPrototype/tst/mount", foreground=True,allow_other=True)
-
+"""
 
