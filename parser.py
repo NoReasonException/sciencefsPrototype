@@ -96,12 +96,13 @@ class Parser:
         """
         The actual code where creates the namespace as the user specified follows...
         """
-         
+        tmpPath=mountpoint 
         for experiment in data:
-            for x in parsePath:
+            for x in parsePath:         
                 tmpJsonObject=Parser.parseJsonQuery(experiment,x)
-                print("data[query] :"+str(tmpJsonObject)+" | found ")
-                os.mkdir(str(mountpoint)+"/"+str(tmpJsonObject))
+                #print("data[query] :"+str(tmpJsonObject)+" | found ")
+                os.mkdir(str(tmpPath)+"/"+str(tmpJsonObject))
+                tmpPath+="/"+tmpJsonObject
 
     @staticmethod
     def parseJsonQuery(jsonRoot,query):
@@ -131,7 +132,7 @@ class Parser:
         if( not os.path.isdir(mountPoint)):
              logging.critical("No such file or directory :%s"%mountPoint)
              raise IOError()
-         logging.debug("Mountpoint Good")
+        logging.debug("Mountpoint Good")
         
     def loadfs(self,pathToMount):
         """
