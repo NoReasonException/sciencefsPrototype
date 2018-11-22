@@ -101,8 +101,13 @@ class Parser:
             for x in parsePath:         
                 tmpJsonObject=Parser.parseJsonQuery(experiment,x)
                 #print("data[query] :"+str(tmpJsonObject)+" | found ")
-                os.mkdir(str(tmpPath)+"/"+str(tmpJsonObject))
+                try:
+                    os.mkdir(str(tmpPath)+"/"+str(tmpJsonObject))
+                except Exception as e:
+                    pass
                 tmpPath+="/"+tmpJsonObject
+            tmpPath=mountpoint
+            
 
     @staticmethod
     def parseJsonQuery(jsonRoot,query):
