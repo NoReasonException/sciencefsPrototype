@@ -4,7 +4,7 @@ import json
 import os
 from fs.ScienceFs import ScienceFs 
 from fuse import FUSE,FuseOSError,Operations,LoggingMixIn
-
+from mediator.fpmediator import ParserToFsMediator
 
 class Parser:
 
@@ -152,6 +152,7 @@ class Parser:
 	fuseObject=FUSE(ScienceFsObject,pathToMount, foreground=False,allow_other=True)
         logging.debug("FUSE object created")
         logging.debug("mount completed at "+str(mountpoint))
+#        fpmediator=ParserToFsMediator(ScienceFsObject)
         return ScienceFsObject
     def __init__(self,argv):
         """

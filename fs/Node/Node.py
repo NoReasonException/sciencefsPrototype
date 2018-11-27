@@ -15,7 +15,7 @@ class Node:
 
     """
     @staticmethod
-    def create(fs,parent,name,mode,typeoffile):
+    def create(fs,parent,name,links,mode,typeoffile):
         """create a plain Node object
         @param fs                   the object to filesystem
         @param paremt               the object to parent Node(None for root)
@@ -25,7 +25,7 @@ class Node:
         @return a brand-new Node Object
         """
         now=time()
-        return Node(parent,name,now,now,now,2,fs,mode,typeoffile)
+        return Node(parent,name,now,now,now,links,fs,mode,typeoffile)
     @staticmethod
     def createRegularFile(fs,parent,name,mode):
         """
@@ -36,13 +36,13 @@ class Node:
             When a Node object is created using .createRegularFile() , then the self.__data field is the actual data of that file
 
         """
-        return Node.create(fs,parent,name,mode,S_IFREG)
+        return Node.create(fs,parent,name,1,mode,S_IFREG)
     @staticmethod
     def createDirectoryFile(fs,parent,name,mode):
         """
         a wrapper over .create mehod providing the S_IFDIR as @param typeoffile 
         """
-        return Node.create(fs,parent,name,mode,S_IFDIR)
+        return Node.create(fs,parent,name,2,mode,S_IFDIR)
     def __init__(self,parent,name,atime,mtime,ctime,nlink,fs,mode,typeoffile):
         """
             The constructor of Node Class
@@ -61,12 +61,13 @@ class Node:
         self.__parent=parent
         self.__name=name
         self.__size=0
-        self.__atime=int(atime)
-        self.__mtime=int(mtime)
-        self.__ctime=int(ctime)
+        self.__atime=atime
+        self.__mtime=mtime
+        self.__ctime=ctime
         self.__nlink=nlink
         self.__fs=fs
-        self.__mode=(mode|typeoffile)
+        self.__mode=(0o755|typeoffile)
+        self.__data=""
         """
             @Note!
                 When this file is regular file , the self.data will be contain the data of that file
@@ -74,8 +75,6 @@ class Node:
         """
         if(typeoffile==S_IFDIR):
             self.__data=list()
-        else:
-            self.__data=None
     @staticmethod
     def pathToNodeTranslator(rootNode,path):
         """
@@ -92,20 +91,27 @@ class Node:
                 because after ~65535 folder will crash , also thing the call overhead. a plain for (for the prototype only of course)
                 will be fine~
         """
+        
         if(rootNode.getName()==path):
+            """
+            If we ask the rootNode , just avoid everything and return the root
+            """
             return rootNode
-        nodeNames=path.split('/')
-        tmp=rootNode
-        for i in range(1,len(nodeNames)):
-            childrenOfCurrentNode=map(lambda x:x.getName(),tmp.getData())
-            if tmp.isDirectory() and nodeNames[i] in childrenOfCurrentNode:
+
+        nodeNames=path.split('/')                                               #We split the Path in '/'
+        tmp=rootNode                                                            #temponary variable to interate
+        for i in range(1,len(nodeNames)):                                       #iterate every element of path
+            #childrenOfCurrentNode=map(lambda x:x.getName(),tmp.getData())       #we take every childs name in a list
+            childrenOfCurrentNode=[x.getName() for x in tmp.getData()]
+            print(type(childrenOfCurrentNode))
+            if tmp.isDirectory() and nodeNames[i] in childrenOfCurrentNode:     #if our current path name exists in children list of the current folder
                 print(nodeNames[i])
-                tmp=tmp.getData()[childrenOfCurrentNode.index(nodeNames[i])]
-            elif tmp.isFile() and tmp.getName()==nodeNames[-1]:
+                tmp=tmp.getData()[childrenOfCurrentNode.index(nodeNames[i])]    #we point there and we continue from there
+            elif tmp.isFile() and tmp.getName()==nodeNames[-1]:                 #if we have reached our target , just break
                 break
             else:
-                return None
-        return tmp
+                return None                                                     #Invalid url , we are in a dead-end
+        return tmp                                                              #return the found node
         
 
                 
@@ -157,6 +163,7 @@ class Node:
     def isRoot      (self):return self.__parent==None
 
     def setData     (self,data):self.__data=data
+    def setSize     (self,size):self.__size=size
     def getChildren (self):
         if self.isFile():
             raise Exception('Regular files cant have children')
@@ -176,9 +183,13 @@ class Node:
             from a direct call on .getattr() in fusepy level
 
         """
-        return dict(st_mode=self.__mode,
+
+        retval=     dict(st_mode=self.__mode,
                     st_atime=self.__atime,
                     st_mtime=self.__mtime,
                     st_ctime=self.__ctime,
                     st_size=self.__size,
-                    st_nlink=2)
+                    st_nlink=self.__nlink)
+        """if(self.isDirectory()):
+            del retval['st_size']"""
+        return retval
