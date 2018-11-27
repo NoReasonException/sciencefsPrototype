@@ -1,0 +1,2 @@
+sudo python parser.py -s testdata/ -q date="25-4-1641" -m tst/mnt11 -n variable/model/experiment.name:experiment.period
+
