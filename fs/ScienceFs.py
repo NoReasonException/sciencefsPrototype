@@ -8,7 +8,7 @@ from fuse import FUSE, FuseOSError, Operations, LoggingMixIn
 from etc.Info import Info as info
 from Node.Node import Node
 import logging
-
+import threading
 
 
 class ScienceFs(Operations):
@@ -153,7 +153,18 @@ class ScienceFs(Operations):
             print(str(e))
         return len(data)
 
-import os
+
+class ScienceFsThread(threading.Thread):
+    def __init__(self,fs,mountpoint):
+        threading.Thread.__init__(self)
+        self.__fs=fs
+        self.__mnt=mountpoint
+    def getFs(self):return self.__fs
+    def run(self):
+        fuse = FUSE(self.__fs,self.__mnt, foreground=True,allow_other=True)
+
+
+"""import os
 import sys
 if __name__ == "__main__":
     
@@ -165,4 +176,4 @@ if __name__ == "__main__":
     x.write("/hello","hello",0,None)
     print(x.read("/hello",0,0,0)+" returned from /hello")
 
-
+"""

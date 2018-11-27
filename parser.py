@@ -2,10 +2,10 @@ import sys
 import logging
 import json
 import os
-from fs.ScienceFs import ScienceFs 
+from fs.ScienceFs import ScienceFs,ScienceFsThread
 from fuse import FUSE,FuseOSError,Operations,LoggingMixIn
 from mediator.fpmediator import ParserToFsMediator
-
+import time
 class Parser:
 
 
@@ -103,6 +103,7 @@ class Parser:
                 #print("data[query] :"+str(tmpJsonObject)+" | found ")
                 try:
                     os.mkdir(str(tmpPath)+"/"+str(tmpJsonObject))
+                    logging.debug("Creating Folder "+str(tmpPath)+"/"+str(tmpJsonObject))
                 except Exception as e:
                     pass
                 tmpPath+="/"+tmpJsonObject
@@ -147,13 +148,20 @@ class Parser:
 
 
         """
-        ScienceFsObject = ScienceFs()
-        logging.debug("ScienceFs object created")
-	fuseObject=FUSE(ScienceFsObject,pathToMount, foreground=False,allow_other=True)
-        logging.debug("FUSE object created")
-        logging.debug("mount completed at "+str(mountpoint))
-#        fpmediator=ParserToFsMediator(ScienceFsObject)
-        return ScienceFsObject
+        try:
+
+            scienceFsObject = ScienceFs()
+            logging.debug("ScienceFs object created")
+	    scienceFsMainThread=ScienceFsThread(scienceFsObject,pathToMount)
+            logging.debug("FUSE object created on thread")
+            scienceFsMainThread.start()
+            logging.debug("main thread started : mount completed at "+str(pathToMount))
+            fpMediator=ParserToFsMediator(scienceFsObject,None)  #The mediator object will handle all the communication between Parser and Fusepy Filesystem(ScienceFs)
+            logging.debug("Mediator Object Created")
+            return fpMediator
+        except Exception as e:
+            logging.critical("on .loadfs(p) exception : "+str(e))
+            raise e
     def __init__(self,argv):
         """
             Costructor of Parser Class
@@ -180,9 +188,11 @@ class Parser:
         logging.info("Parse -m parameter")
         self.verifyMountPoint(argv[m+1])
         logging.info("Mount Completed")
-        #self.fs=self.loadfs(argv[m+1])
-        self.fs=None
+        self.fpMediator=self.loadfs(argv[m+1])
+        self.fs=self.fpMediator.getFs()
         logging.info("Parse -n parameter")
+        #self.fs=None
+        time.sleep(1)
         self.namespaceStructureQueryAnalyzer(argv[n+1],qualifyData,argv[m+1],self.fs)
         
 
