@@ -97,16 +97,26 @@ class Parser:
         The actual code where creates the namespace as the user specified follows...
         """
         tmpPath=mountpoint 
+        stringbuilder=""
         for experiment in data:
-            for x in parsePath:         
+            for x in parsePath[:-1]:         
                 tmpJsonObject=Parser.parseJsonQuery(experiment,x)
                 #print("data[query] :"+str(tmpJsonObject)+" | found ")
                 try:
-                    os.mkdir(str(tmpPath)+"/"+str(tmpJsonObject))
+                    self.fpMediator.mkdir(str(tmpPath)+"/"+str(tmpJsonObject))
                     logging.debug("Creating Folder "+str(tmpPath)+"/"+str(tmpJsonObject))
                 except Exception as e:
                     pass
                 tmpPath+="/"+tmpJsonObject
+
+            for x in parsePath[-1].split(':'):
+                print(str(experiment) + "is the experiment ")
+                stringbuilder+=(Parser.parseJsonQuery(experiment,x)+":")
+
+            x=open(tmpPath+"/results","a+")
+            x.write(stringbuilder)
+            x.close()
+            stringbuilder=""
             tmpPath=mountpoint
             
 

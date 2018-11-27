@@ -24,7 +24,8 @@ class ScienceFs(Operations):
         :sectionauthor : Stefanos Stefanou , University of Reading , stefannstefanou@gmail.com
         :platform      : Linux 14.x , FreeBSD 11.x
         
-
+        TODO's 
+            1) implement stat-fs to avoid read-only fs error
 
        """
     def __init__(self):
@@ -145,8 +146,8 @@ class ScienceFs(Operations):
         try:
             print("write op on "+str(path)+" the data "+data)
             node=Node.pathToNodeTranslator(self.rootNode,path)    
-            node.setSize(len(data)-1)
-            node.setData(data[:-1])
+            node.setSize(len(data))
+            node.setData(data)
             print("node "+node.getName() +" updated with data "+node.getData())
         except Exception as e:
             print("ERR ON WRITE")
