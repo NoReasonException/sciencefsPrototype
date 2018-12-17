@@ -7,71 +7,6 @@ from fuse import FUSE,FuseOSError,Operations,LoggingMixIn
 from mediator.fpmediator import ParserToFsMediator
 import time
 class Parser:
-    """
-    This is the main Parser class
-                                0)Initialize itself-ScienceFs 
-    Main Responsibillities :    1)parse the user-defined queries 
-                                2)search for the qualifing data inside .json's
-                                3)create the actual namespace with that proper data('Taik to ScienceFs')
-                                4)Keeps waiting untill ScienceFs terminates
-        
-    Structural TODO's           0) consider making a kind of factory class , the initialization is heavily coupled with other code
-
-    """
-
-    def queryAnalyzer(self,paramString,data):
-        """
-            parse the -o (organise parameter)  and returns the qualifing data
-        """
-        conditions=self.__getConditions(paramString)        #returns a list of conditions of type <something>=<value> (only equals supported)
-        logging.debug("Search Query is : %s"%conditions)
-
-        data=self.__applyConditions(conditions,data)        #apply the conditions to the given data
-        logging.debug("%d experiments qualify "%len(data))
-        return data                                         #return the data who qualify
-        
-
-    def __getConditions(self,paramString):
-        """
-            Just a cute utillity to 'break' the conditions to simple <something>=<value> equations
-        """
-        conditions=paramString.split("&")               #split in & in order to take the and's 
-        return conditions
-
-
-    def __applyConditions(self,conditions,data):
-        """
-            gets a list of conditions and apply them to a particular set of data
-            returns the data who qualify
-        """
-        tempPointer=None
-        equationPairSplitLeftHand=None
-        tmpData=data
-        returnlist=list()
-        flag=False
-        for c in data:
-            tmpData=c
-            for i in conditions:
-                tmpData=c
-                equationPair=i.split("=")
-         #       print(equationPair)
-                equationPairLeftHand=equationPair[0].split(".")
-                equationPairRightHand=equationPair[1]
-                for j in equationPairLeftHand:
-                    tmpData=tmpData[j]
-                if tmpData!=equationPairRightHand:
-                    #print("%s != %s  %d.json"%(tmpData,equationPair[1],data.index(c)))
-                    flag=True
-                    break
-            if(flag):
-                flag=False
-                continue
-            returnlist.append(c)
-                    
-        return returnlist
-
-            
-            
     def namespaceStructureQueryAnalyzer(self,query,data,mountpoint,fs):
         """
         namespaceStructureQueryAnalyzer
@@ -177,7 +112,7 @@ class Parser:
         n,s,q,m=0,0,0,0
         sources=None 
         try:
-            q=argv.index("-q") #query
+            q=argv.index("-q") #mongoDB query
             n=argv.index("-n") #namespace structure
             m=argv.index("-m") #mount point
         except:
@@ -186,6 +121,9 @@ class Parser:
         
         logging.info("Parse -q parameter")
         qualifyData=self.queryAnalyzer(argv[q+1],sources)
+       
+       
+        #qualifyData need to have the final data needed to form the mount point
         logging.info("Parse -m parameter")
         self.verifyMountPoint(argv[m+1])
         logging.info("Mount Completed")
