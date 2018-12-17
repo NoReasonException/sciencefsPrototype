@@ -31,17 +31,22 @@ class Parser:
     def parseMongoDBQuery(self,query,clientObject):
         """
         parseMongoDBQuery 
-        just passes the query to mongoDB and returns the qualify data
+        this method parses the user given query into a standard MongoDB API call
+
+        the given query structure is explained below
+
+                    databaseName|collectionName|{queryInStandardJson}
+
+        The first two parameters is straightforward , the third one is the json who will passed into the .find() method
+        in this version , due to deprecation of .eval() (and because is a crappy prototype) we do not support direct
+        javascript calls (such as db.bla.blablabla({...})) .
+
 
         """
         query=query.split("|")
-        print(str(query))
-        retval=list()
+        return [x for x in (clientObject[query[0]][query[1]].find(json.loads(query[2])))]  #i know is terrible , but i love theese pythonic ways of writing...
 
-        for x in clientObject[query[0]][query[1]].find(json.loads(query[2])):
-            retval.append(x)
 
-        return retval 
 
     def namespaceStructureQueryAnalyzer(self,query,data,mountpoint,fs):
         """
@@ -168,7 +173,7 @@ class Parser:
        
        
         print(str(qualifyData))
-        """
+        
         #qualifyData need to have the final data needed to form the mount point
         logging.info("Parse -m parameter")
         self.verifyMountPoint(argv[m+1])
@@ -180,7 +185,6 @@ class Parser:
         time.sleep(1)
         self.namespaceStructureQueryAnalyzer(argv[n+1],qualifyData,argv[m+1],self.fs)
         
-        """
 
     
     
