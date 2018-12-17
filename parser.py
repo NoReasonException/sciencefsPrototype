@@ -6,7 +6,19 @@ from fs.ScienceFs import ScienceFs,ScienceFsThread
 from fuse import FUSE,FuseOSError,Operations,LoggingMixIn
 from mediator.fpmediator import ParserToFsMediator
 import time
+import pymongo
 class Parser:
+
+    def initializeDB(self,url):
+        clientObject=pymongo.MongoClient(url);
+        try:
+            self.client.admin.command("ismaster")
+        except ConnectionFailure as e:
+            logging.critical("MongoDB Connection failed : "+str(e));
+            raise e
+        return clientObject
+
+
     def namespaceStructureQueryAnalyzer(self,query,data,mountpoint,fs):
         """
         namespaceStructureQueryAnalyzer
@@ -112,6 +124,7 @@ class Parser:
         n,s,q,m=0,0,0,0
         sources=None 
         try:
+            u=argv.index("-u") #mongoDB url
             q=argv.index("-q") #mongoDB query
             n=argv.index("-n") #namespace structure
             m=argv.index("-m") #mount point
@@ -119,6 +132,13 @@ class Parser:
             usage()
             return
         
+        logging.info("Parse -u parameter")
+        self.clientObject=initializeDB(argv[u+1])  
+        logging.info("Connected to "+str(argv[u+1]))
+
+
+        
+
         logging.info("Parse -q parameter")
         qualifyData=self.queryAnalyzer(argv[q+1],sources)
        
@@ -146,7 +166,7 @@ def usage():
 
 
     """
-    logging.critical("usage -s <source> -q <searchQuery> -m <mountPoint> -n <namespaceStructure>")
+    logging.critical("usage -u <mongoDB url> -q <mongoDB search query> -m <mountPoint> -n <namespaceStructure>")
 
 def welcomeMessage():
     """
