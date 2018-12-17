@@ -7,50 +7,43 @@ from fuse import FUSE,FuseOSError,Operations,LoggingMixIn
 from mediator.fpmediator import ParserToFsMediator
 import time
 class Parser:
-
-
-    
-    def loadsources(self,pathstring):
-        """
-        loadsources 
-            loads the list of .json files and returns a list of json strings to the caller
+    """
+    This is the main Parser class
+                                0)Initialize itself-ScienceFs 
+    Main Responsibillities :    1)parse the user-defined queries 
+                                2)search for the qualifing data inside .json's
+                                3)create the actual namespace with that proper data('Taik to ScienceFs')
+                                4)Keeps waiting untill ScienceFs terminates
         
-            @param pathstring : the directory of the files
-            @Note
-                every file in the given directort will be parsed as json
-                so consider remove irrelevant files
-        """
-    
-        dictionaryList=list()
-        tempPath=None
-        try:
-            for i in os.listdir(pathstring):
-                tempPath=(pathstring+i)
-                with open(tempPath,"r") as filefd:
-                    logging.debug("attemt to load %s"%tempPath)
-                    dictionaryList.append(json.loads(filefd.read()))
-        except Exception as e:
-            logging.error('Exception caught : %s'%e)
-            raise e
-        return dictionaryList
+    Structural TODO's           0) consider making a kind of factory class , the initialization is heavily coupled with other code
+
+    """
 
     def queryAnalyzer(self,paramString,data):
         """
-            parse the -o (organise parameter) and returns the queried data
+            parse the -o (organise parameter)  and returns the qualifing data
         """
-        conditions=self.__getConditions(paramString)
+        conditions=self.__getConditions(paramString)        #returns a list of conditions of type <something>=<value> (only equals supported)
         logging.debug("Search Query is : %s"%conditions)
 
-        data=self.__applyConditions(conditions,data)
+        data=self.__applyConditions(conditions,data)        #apply the conditions to the given data
         logging.debug("%d experiments qualify "%len(data))
-        return data
+        return data                                         #return the data who qualify
         
 
     def __getConditions(self,paramString):
+        """
+            Just a cute utillity to 'break' the conditions to simple <something>=<value> equations
+        """
         conditions=paramString.split("&")               #split in & in order to take the and's 
         return conditions
+
+
     def __applyConditions(self,conditions,data):
-#        print(data)
+        """
+            gets a list of conditions and apply them to a particular set of data
+            returns the data who qualify
+        """
         tempPointer=None
         equationPairSplitLeftHand=None
         tmpData=data
@@ -184,15 +177,13 @@ class Parser:
         n,s,q,m=0,0,0,0
         sources=None 
         try:
-            s=argv.index("-s") #source of .json file
             q=argv.index("-q") #query
             n=argv.index("-n") #namespace structure
             m=argv.index("-m") #mount point
         except:
             usage()
             return
-        logging.info("parse -s parameter")
-        sources=self.loadsources(argv[s+1])
+        
         logging.info("Parse -q parameter")
         qualifyData=self.queryAnalyzer(argv[q+1],sources)
         logging.info("Parse -m parameter")
