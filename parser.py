@@ -7,23 +7,47 @@ from fuse import FUSE,FuseOSError,Operations,LoggingMixIn
 from mediator.fpmediator import ParserToFsMediator
 import time
 import pymongo
+from pymongo.errors import ConnectionFailure
 class Parser:
 
     def initializeDB(self,url):
-        clientObject=pymongo.MongoClient(url);
+        """
+            initializeDB
+
+            initializes the Database Connection and verifies that the url passed is correct()
+
+            Note : Because after MongoDB 3.0 , the connection is always performed on background , without any formal way to
+            verify that the url is ok , i perform a <<ismaster>> command imidiatelly , in order to force the API to throw ConnectionFailure
+            in cause of error.(This is actually the doc suggestion)
+        """
+        clientObject=pymongo.MongoClient();
         try:
-            self.client.admin.command("ismaster")
+            clientObject.admin.command("ismaster")
+            pass
         except ConnectionFailure as e:
             logging.critical("MongoDB Connection failed : "+str(e));
             raise e
         return clientObject
+    def parseMongoDBQuery(self,query,clientObject):
+        """
+        parseMongoDBQuery 
+        just passes the query to mongoDB and returns the qualify data
 
+        """
+        query=query.split("|")
+        print(str(query))
+        retval=list()
+
+        for x in clientObject[query[0]][query[1]].find(json.loads(query[2])):
+            retval.append(x)
+
+        return retval 
 
     def namespaceStructureQueryAnalyzer(self,query,data,mountpoint,fs):
         """
         namespaceStructureQueryAnalyzer
 
-        creates the given namespace structure and fill it with query data returned by queryAnalyzer
+        creates the given namespace structure anhd fill it with query data returned by queryAnalyzer
         @param query        the user input query
         @param fs           the FUSE Filesystem Object
         @param data         the experiments who qualify
@@ -133,16 +157,18 @@ class Parser:
             return
         
         logging.info("Parse -u parameter")
-        self.clientObject=initializeDB(argv[u+1])  
-        logging.info("Connected to "+str(argv[u+1]))
-
+        clientObject=self.initializeDB(argv[u+1])  
+        logging.info("Connection Estabilished : "+str(argv[u+1]))
+        
 
         
 
         logging.info("Parse -q parameter")
-        qualifyData=self.queryAnalyzer(argv[q+1],sources)
+        qualifyData=self.parseMongoDBQuery(argv[q+1],clientObject)
        
        
+        print(str(qualifyData))
+        """
         #qualifyData need to have the final data needed to form the mount point
         logging.info("Parse -m parameter")
         self.verifyMountPoint(argv[m+1])
@@ -154,7 +180,7 @@ class Parser:
         time.sleep(1)
         self.namespaceStructureQueryAnalyzer(argv[n+1],qualifyData,argv[m+1],self.fs)
         
-
+        """
 
     
     
