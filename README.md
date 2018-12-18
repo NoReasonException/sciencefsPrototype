@@ -1,14 +1,10 @@
-This is the MongoDB version of ScienceFS prototype
+# This is the MongoDB version of ScienceFS prototype
 
+*If you want to play directly with it without reading all the boring notes skip the first page*
 
-if you want to play directly with it without reading all the boring notes skip the first page
+*The main file is parser.py*
 
-
-
-
-the main file is parser.py
-
-it takes 4 parameters
+It takes 4 parameters
 
 ### (-u) the url link of mongodb 
 ```
@@ -58,10 +54,10 @@ This will pass 3 plain samples on your db
 ```
 3) play ...
 
-	1 try different queries on -q parameter 
-	2 play with namespace structure parameter (-n)
-	3 always kill with -9 before re-run , otherwise you may need restart to restore the proper state on the test folder (its a prototype <3 ) 
-	4 enjoy!
+	1. try different queries on -q parameter 
+	2. play with namespace structure parameter (-n)
+	3. always kill with -9 before re-run , otherwise you may need restart to restore the proper state on the test folder (its a prototype <3 ) 
+	4. enjoy!
 
 
 Lets play with it (in the cluster) 
