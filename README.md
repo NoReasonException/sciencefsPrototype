@@ -39,11 +39,11 @@ it takes 4 parameters
 
 Lets play with it (Local computer)
 
-1) run the configure script , passing the url of the mongo db as -u parameter
+1) run the configure script , passing the url of the mongo db as first  parameter
 
-	./configure mongodb://<bla>:<blabla>
+	./configure.sh mongodb://<bla>:<blabla>
 
-	This will pass 3 plain samples on your db
+	This will install the nessesary modules (fusepy,pymongo and others...) and will insert 3 plain samples on your db
 
 2) run ...
 	sudo python parser.py -u mongodb://localhost:27017 -q "sciencefs|files|{}" -m tst/mnt -n variable/model/experiment.name:experiment.period
