@@ -1,2 +1,1 @@
-sudo python parser.py -s testdata/ -q date="25-4-1641" -m tst/mnt11 -n variable/model/experiment.name:experiment.period
-
+sudo python parser.py -u mongodb://localhost:27017 -q "sciencefs|files|{}" -m tst/mnt -n variable/model/experiment.name:experiment.period
