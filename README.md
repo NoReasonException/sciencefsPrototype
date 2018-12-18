@@ -43,14 +43,15 @@ and every file inside to have the experiment period , then the following -n para
 # Lets play with it (Local computer)
 
 1) run the configure script , passing the url of the mongo db as first  parameter
-
+```
 	./configure.sh mongodb://<bla>:<blabla>
+```
 
-	This will install the nessesary modules (fusepy,pymongo and others...) and will insert 3 plain samples on your db
+This will install the nessesary modules (fusepy,pymongo and others...) and will insert 3 plain samples on your db
 
 2) run ...
 ```
-	sudo python parser.py -u mongodb://localhost:27017 -q "sciencefs|files|{}" -m tst/mnt -n variable/model/experiment.name:experiment.period
+sudo python parser.py -u mongodb://localhost:27017 -q "sciencefs|files|{}" -m tst/mnt -n variable/model/experiment.name:experiment.period
 ```
 3) play ...
 
