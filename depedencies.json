@@ -1,0 +1,5 @@
+{	
+	"pymongo"	:"python -m pip install pymongo",
+	"fuse"		:"pip install fusepy"
+
+}

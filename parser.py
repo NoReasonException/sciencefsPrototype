@@ -20,7 +20,7 @@ class Parser:
             verify that the url is ok , i perform a <<ismaster>> command imidiatelly , in order to force the API to throw ConnectionFailure
             in cause of error.(This is actually the doc suggestion)
         """
-        clientObject=pymongo.MongoClient();
+        clientObject=pymongo.MongoClient(url)
         try:
             clientObject.admin.command("ismaster")
             pass
