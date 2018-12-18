@@ -40,7 +40,7 @@ and every file inside to have the experiment period , then the following -n para
 *@TODO : this feature will removed in the next version!
 
 
-Lets play with it (Local computer)
+# Lets play with it (Local computer)
 
 1) run the configure script , passing the url of the mongo db as -u parameter
 ```
@@ -60,7 +60,7 @@ This will pass 3 plain samples on your db
 	4. enjoy!
 
 
-Lets play with it (in the cluster) 
+## Lets play with it (in the cluster) 
 
 same as above , but you will need to run ./configureBIG 
 *@TODO : well.. basically write the ./configureBIG *
