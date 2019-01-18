@@ -6,9 +6,29 @@ from fs.ScienceFs import ScienceFs,ScienceFsThread
 from fuse import FUSE,FuseOSError,Operations,LoggingMixIn
 from mediator.fpmediator import ParserToFsMediator
 import time
+from elasticsearch import Elasticsearch
 class Parser:
      
-            
+           
+
+    def verifyConnection(self,url):
+        elasticObject=Elasticsearch([url])
+        elasticClusterObject=ClusterClient(elasticObject)
+        elasticClusterObject.get_settings() #force the elasticObject to start a suncronous connection
+        print("ElasticSearch Node at "+url+":Connection established")
+        return elasticObject
+
+    def queryAnalyzer(self,elasticObject,query):
+        retval=list()
+        index_json_split=query.split("|")
+        res=elasticObject.search(index=index_json_split[0],body=json.loads(index_json_split[1]))
+        for hit in res['hits']['hits']:
+            retval.append(hit["_source"])
+        return retval
+
+
+
+
     def namespaceStructureQueryAnalyzer(self,query,data,mountpoint,fs):
         """
         namespaceStructureQueryAnalyzer
@@ -122,8 +142,7 @@ class Parser:
             return
 
 
-        logging.info("parse -s parameter")
-        sources=self.loadsources(argv[s+1])
+        
         logging.info("Parse -q parameter")
         qualifyData=self.queryAnalyzer(argv[q+1],sources)
         
