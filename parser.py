@@ -7,6 +7,7 @@ from fuse import FUSE,FuseOSError,Operations,LoggingMixIn
 from mediator.fpmediator import ParserToFsMediator
 import time
 from elasticsearch import Elasticsearch
+from elasticsearch.client import ClusterClient
 class Parser:
      
            
@@ -131,11 +132,11 @@ class Parser:
         self.fs=None
         logging.basicConfig(level=logging.DEBUG,format="%(levelname)s\t|%(msg)s")
         welcomeMessage()
-        n,s,q,m=0,0,0,0
+        n,u,q,m=0,0,0,0
         sources=None 
         try:
             q=argv.index("-q") #elasticSearch URI Query 
-            s=argv.index("-s") #elasticSearch Node URL 
+            u=argv.index("-u") #elasticSearch Node URL 
             n=argv.index("-n") #namespace structure
             m=argv.index("-m") #mount point
         except:
@@ -145,12 +146,12 @@ class Parser:
 
         
         
-        logging.info("Parse -s parameter")
-        self.elasticComObject=self.verifyConnection(argv[s+1])
+        logging.info("Parse -u parameter")
+        self.elasticComObject=self.verifyConnection(argv[u+1])
 
 
         logging.info("Parse -q parameter")
-        qualifyData=self.queryAnalyzer(elasticComObject,argv[q+1])
+        qualifyData=self.queryAnalyzer(self.elasticComObject,argv[q+1])
         
 
         #qualifyData need to have a JSON list of the final data
