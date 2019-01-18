@@ -134,7 +134,8 @@ class Parser:
         n,s,q,m=0,0,0,0
         sources=None 
         try:
-            s=argv.index("-q") #elasticSearch URL Query 
+            q=argv.index("-q") #elasticSearch URI Query 
+            s=argv.index("-s") #elasticSearch Node URL 
             n=argv.index("-n") #namespace structure
             m=argv.index("-m") #mount point
         except:
@@ -143,8 +144,13 @@ class Parser:
 
 
         
+        
+        logging.info("Parse -s parameter")
+        self.elasticComObject=self.verifyConnection(argv[s+1])
+
+
         logging.info("Parse -q parameter")
-        qualifyData=self.queryAnalyzer(argv[q+1],sources)
+        qualifyData=self.queryAnalyzer(elasticComObject,argv[q+1])
         
 
         #qualifyData need to have a JSON list of the final data
