@@ -1,0 +1,13 @@
+{
+  "experiment":{
+    "name":"Galileo Galilei telescope experiment",
+    "period":"1600-1700",
+    "domain":"italy",
+    "lon":"41.890251",
+    "lat":"12.492373"
+    },
+  
+  "date":"25-4-1641",
+  "model":"unknown",
+  "variable":"temperature"
+}
