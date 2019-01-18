@@ -7,77 +7,7 @@ from fuse import FUSE,FuseOSError,Operations,LoggingMixIn
 from mediator.fpmediator import ParserToFsMediator
 import time
 class Parser:
-
-
-    
-    def loadsources(self,pathstring):
-        """
-        loadsources 
-            loads the list of .json files and returns a list of json strings to the caller
-        
-            @param pathstring : the directory of the files
-            @Note
-                every file in the given directort will be parsed as json
-                so consider remove irrelevant files
-        """
-    
-        dictionaryList=list()
-        tempPath=None
-        try:
-            for i in os.listdir(pathstring):
-                tempPath=(pathstring+i)
-                with open(tempPath,"r") as filefd:
-                    logging.debug("attemt to load %s"%tempPath)
-                    dictionaryList.append(json.loads(filefd.read()))
-        except Exception as e:
-            logging.error('Exception caught : %s'%e)
-            raise e
-        return dictionaryList
-
-    def queryAnalyzer(self,paramString,data):
-        """
-            parse the -o (organise parameter) and returns the queried data
-        """
-        conditions=self.__getConditions(paramString)
-        logging.debug("Search Query is : %s"%conditions)
-
-        data=self.__applyConditions(conditions,data)
-        logging.debug("%d experiments qualify "%len(data))
-        return data
-        
-
-    def __getConditions(self,paramString):
-        conditions=paramString.split("&")               #split in & in order to take the and's 
-        return conditions
-    def __applyConditions(self,conditions,data):
-#        print(data)
-        tempPointer=None
-        equationPairSplitLeftHand=None
-        tmpData=data
-        returnlist=list()
-        flag=False
-        for c in data:
-            tmpData=c
-            for i in conditions:
-                tmpData=c
-                equationPair=i.split("=")
-         #       print(equationPair)
-                equationPairLeftHand=equationPair[0].split(".")
-                equationPairRightHand=equationPair[1]
-                for j in equationPairLeftHand:
-                    tmpData=tmpData[j]
-                if tmpData!=equationPairRightHand:
-                    #print("%s != %s  %d.json"%(tmpData,equationPair[1],data.index(c)))
-                    flag=True
-                    break
-            if(flag):
-                flag=False
-                continue
-            returnlist.append(c)
-                    
-        return returnlist
-
-            
+     
             
     def namespaceStructureQueryAnalyzer(self,query,data,mountpoint,fs):
         """
@@ -184,17 +114,22 @@ class Parser:
         n,s,q,m=0,0,0,0
         sources=None 
         try:
-            s=argv.index("-s") #source of .json file
-            q=argv.index("-q") #query
+            s=argv.index("-q") #elasticSearch URL Query 
             n=argv.index("-n") #namespace structure
             m=argv.index("-m") #mount point
         except:
             usage()
             return
+
+
         logging.info("parse -s parameter")
         sources=self.loadsources(argv[s+1])
         logging.info("Parse -q parameter")
         qualifyData=self.queryAnalyzer(argv[q+1],sources)
+        
+
+        #qualifyData need to have a JSON list of the final data
+        
         logging.info("Parse -m parameter")
         self.verifyMountPoint(argv[m+1])
         logging.info("Mount Completed")
