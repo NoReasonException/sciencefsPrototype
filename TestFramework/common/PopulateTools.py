@@ -15,6 +15,6 @@ class remove:
         cli=MongoClient()
         for dbName in cli.list_database_names():
             if(dbName not in remove.initialDbs):
-                #cli[dbName].dropDatabase()
+                cli.drop_database(dbName)
                 print(dbName+" will deleted")
 
