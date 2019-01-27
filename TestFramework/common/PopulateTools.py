@@ -6,7 +6,7 @@ class load:
     def loadCategories(filename:str) -> list:
         with open(filename,"r") as tempFileObject:
             context=tempFileObject.read()
-        return [x for x,y in json.loads(context).items]
+        return [x for x,y in json.loads(context).items()]
 
 class remove:
     initialDbs=['admin', 'config', 'local']
