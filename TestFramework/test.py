@@ -1,8 +1,8 @@
 
-from specification.documentSpecification import DateRangeBuilder,Utills,DateRangeRetriever
+from specification.DateTimeUtills import DateRangeBuilder,Utills,DateRangeRetriever
 import sys
-list_unix=DateRangeBuilder.simpleBuilder(int(sys.argv[1]),1483232461,1488330061)
-list_8601=Utills._to8601_array(list_unix)
+list_unix=list(DateRangeBuilder.simpleBuilderLambda(int(sys.argv[1]),1483232461,1488330061))
+list_8601=list(Utills._to8601_array(list_unix))
 
 
 percentile=float(sys.argv[2])

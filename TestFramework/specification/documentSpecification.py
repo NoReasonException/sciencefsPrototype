@@ -1,4 +1,4 @@
-from DateTimeUtills import DateRangeBuilder,Utills
+from specification.DateTimeUtills import DateRangeBuilder,Utills
 import json
 import random
 
@@ -27,9 +27,9 @@ class Document:
         jsonObject=json.loads(rawjson)
         
         jsonObject["exp_meta"]["name"]=str(name)
-        jsonObject["exp_meta"]["period"][0]=int(timestamp_unix)
-        jsonObject["exp_meta"]["period"][1]=int(duration_secs)
-        jsonObject["exp_meta"]["period"][2]=int(timeslot)
+        jsonObject["exp_meta"]["period"]["timestamp_start"]=int(timestamp_unix)
+        jsonObject["exp_meta"]["period"]["duration"]=int(duration_secs)
+        jsonObject["exp_meta"]["period"]["timeslot"]=int(timeslot)
         jsonObject["exp_data_main"]["model"]=str(model)
         jsonObject["exp_data_main"]["variables"]=str(variables)
         jsonObject["exp_data_main"]["results"]=str(results)
@@ -56,8 +56,3 @@ class Document:
             yield self.simpleBuilder(unixDateTimeGenerator,category)
 
       
-
-a=Document("attemt1.json")
-n=a.massBuilder(DateRangeBuilder.simpleBuilderLambda(200,1483232461,1488330061))
-for i in range(200):
-    print(next(n))
