@@ -24,17 +24,21 @@ class DateRangeBuilder:
     def _build_raw(numberOfObjects:int,mean:int,stddev:int):
         retval=list()
         for i in range(numberOfObjects):
-            retval.append(  datetime.utcfromtimestamp(normal(mean,stddev)).strftime('%Y-%m-%d %H:%M:%S'))
+            retval.append(normal(mean,stddev))
         return retval
     
         
 class DateRangeRetriever:
+
     @staticmethod
-    def getMaxOfGivenPercent(minUnixDate:int,maxUnixDate:int,percent:int)->int:
+    def getMaxOfGivenPercent(percent:float,minUnixDate:int,maxUnixDate:int)->int:
+        return DateRangeRetriever._getRawMaxOfGivenPercent(percent,(minUnixDate+maxUnixDate)/2,2592000)
+
+    @staticmethod
+    def _getRawMaxOfGivenPercent(percent:float,mean:int,stddev:int)->int:
         assert percent>0 and percent<1
-        m=(minUnixDate+maxUnixDate)/2
-        s=2592000
-        return norm.ppf(percent,m,s)
+        return norm.ppf(percent,mean,stddev)
+
 
 class Utills:
     
@@ -44,4 +48,4 @@ class Utills:
     
     @staticmethod
     def _to8601_array(unixTimestampArray:list)->list:
-        return filter(lambda x :Utills._to8601(x),unixTimestampArray)
+        return list(map(lambda x :Utills._to8601(x),unixTimestampArray))
