@@ -9,7 +9,17 @@ from time import time
 import random
 import pprint
 
+
+
+def usage():
+    print("USAGE:       python3 po_query.py <p(x)> <s>")
+    print("@PARAM p(x)  the maximum fetched probabillity")
+    print("@PARAM s     the step (smaller step more queries :P)")
 def main():
+
+    if len(sys.argv) <3:
+        usage()
+        exit(-1)
     cli=MongoClient()
     scienceBranches=load.loadCategories("resources/bos.json")
     sb=chooseScienceBranch(scienceBranches)

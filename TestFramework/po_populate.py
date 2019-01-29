@@ -6,23 +6,37 @@ from specification.documentSpecification import Document
 from specification.DateTimeUtills import DateRangeBuilder
 import sys
 from time import time
+
+
+
+def usage():
+    print("USAGE : python3 po_populate.py <n> ")
+    print("@param n : number of documents per category")
+
 a=Document("specification/attemt1.json")
 
-#create the db obj
-cli=MongoClient()
-#erase previous schemas
-remove.nullDatabase("")
-#load the science branches 
-scienceBranches=load.loadCategories("resources/bos.json")
-for i in scienceBranches:
-    n=a.massBuilder(DateRangeBuilder.simpleBuilderLambda(int(sys.argv[1]),1483232461,1488330061))
-    t1=time()
-    tmp=str()
-    for j in range(200):
-        tmp=next(n)
-        cli['Experiments'][i].insert(json.loads(tmp))
-        print(tmp)
-    t2=time()
-    print(str(int(int(sys.argv[1])/(t2-t1)))+"req/sec")
+
+def main():
+    if len(sys.argv)<2 :
+        usage()
+        exit(-1)
+    #create the db obj
+    cli=MongoClient()
+    #erase previous schemas
+    remove.nullDatabase("")
+    #load the science branches 
+    scienceBranches=load.loadCategories("resources/bos.json")
+    for i in scienceBranches:
+        n=a.massBuilder(DateRangeBuilder.simpleBuilderLambda(int(sys.argv[1]),1483232461,1488330061))
+        t1=time()
+        tmp=str()
+        for j in range(int(sys.argv[1])):
+            tmp=next(n)
+            cli['Experiments'][i].insert(json.loads(tmp))
+            print(tmp)
+        t2=time()
+        print(str(int(int(sys.argv[1])/(t2-t1)))+"req/sec")
+
+main()
         
 

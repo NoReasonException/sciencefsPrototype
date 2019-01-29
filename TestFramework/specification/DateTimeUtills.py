@@ -4,7 +4,15 @@ from datetime import datetime
 from numpy.random import normal
 from scipy.stats import norm
 class DateRangeBuilder:
+    """
+    This class contains the tools to create a bunch of dummy timestamps following a normal distribution
+    The normal distribution is used to grab easily the x% of the data 
     
+    The only usable method here , this the simpleBuilderLambda -> this returns a generator , generating this timestamps
+    
+    The default behaviour is that the X ~ N((minUnix+maxUnix)/2 , 2592000) whitch is roughly translates to mean in the haf distance 
+    from the start timestamp and the end timestamp , with variation +- 1 month()
+    """
     simpleBuilderLambda=lambda numberOfObjects,minUnix,maxUnix:DateRangeBuilder._build_raw(numberOfObjects,(minUnix+maxUnix)/2,2592000)
 
 
@@ -15,7 +23,7 @@ class DateRangeBuilder:
     
         
 class DateRangeRetriever:
-
+    
     @staticmethod
     def getMaxOfGivenPercent(percent:float,minUnixDate:int,maxUnixDate:int)->int:
         return DateRangeRetriever._getRawMaxOfGivenPercent(percent,(minUnixDate+maxUnixDate)/2,2592000)

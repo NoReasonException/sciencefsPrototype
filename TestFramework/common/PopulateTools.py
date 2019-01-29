@@ -11,10 +11,14 @@ class load:
 class remove:
     initialDbs=['admin', 'config', 'local']
     @staticmethod
-    def nullDatabase(url):
-        cli=MongoClient()
-        for dbName in cli.list_database_names():
-            if(dbName not in remove.initialDbs):
-                cli.drop_database(dbName)
-                print(dbName+" will deleted")
+    def nullDatabase(url=None):
+        if url:
+            return _nullDatabase(MongoClient(url))
+        return remove._nullDatabase(MongoClient())
 
+    @staticmethod    
+    def _nullDatabase(databaseClientObject:object):
+        for dbName in databaseClientObject.list_database_names():
+            if(dbName not in remove.initialDbs):
+                databaseClientObject.drop_database(dbName)
+                print(dbName+" will deleted")
