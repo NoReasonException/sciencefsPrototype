@@ -22,8 +22,6 @@ def main():
         exit(-1)
     #create the db obj
     cli=MongoClient()
-    #erase previous schemas
-    remove.nullDatabase("")
     #load the science branches 
     scienceBranches=load.loadCategories("resources/bos.json")
     for i in scienceBranches:
@@ -33,7 +31,6 @@ def main():
         for j in range(int(sys.argv[1])):
             tmp=next(n)
             cli['Experiments'][i].insert(json.loads(tmp))
-            print(tmp)
         t2=time()
         print(str(int(int(sys.argv[1])/(t2-t1)))+"req/sec")
 
