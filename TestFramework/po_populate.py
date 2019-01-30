@@ -1,5 +1,5 @@
 from common.PopulateTools import remove,load
-from pymongo import MongoClient
+from elasticsearch import Elasticsearch
 import logging
 import json
 from specification.documentSpecification import Document
@@ -21,7 +21,11 @@ def main():
         usage()
         exit(-1)
     #create the db obj
-    cli=MongoClient()
+    cli=Elasticsearch() #TODO : make second parameter for the url
+
+#    cli.indices.create(index='experiments')
+    print("Experiment index created")
+    
     #load the science branches 
     scienceBranches=load.loadCategories("resources/bos.json")
     for i in scienceBranches:
@@ -30,10 +34,9 @@ def main():
         tmp=str()
         for j in range(int(sys.argv[1])):
             tmp=next(n)
-            cli['Experiments'][i].insert(json.loads(tmp))
+            cli.index(index='experiments',doc_type=str(i),body=json.loads(tmp))
         t2=time()
         print(str(int(int(sys.argv[1])/(t2-t1)))+"req/sec")
-
 main()
         
 

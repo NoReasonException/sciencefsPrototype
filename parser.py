@@ -14,8 +14,13 @@ class Parser:
 
     def verifyConnection(self,url):
         elasticObject=Elasticsearch([url])
+        #we create an ClusterClient , to enforce the API to create a connection (via the .get_settings() call),
+        
+        if the url is invalid ,we will learn it now
         elasticClusterObject=ClusterClient(elasticObject)
-        elasticClusterObject.get_settings() #force the elasticObject to start a suncronous connection
+        
+        elasticClusterObject.get_settings()
+        
         print("ElasticSearch Node at "+url+":Connection established")
         return elasticObject
 

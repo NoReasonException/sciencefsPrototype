@@ -5,7 +5,7 @@ def getArgv(index:int)->str:
         return None
     return sys.argv[index]
 
-print("MongoDB null tool v0.1")
+print("ElasticSearch null tool v0.1")
 url=getArgv(1)
 print("@param url:  -> "+str(url))
 remove.nullDatabase(url)

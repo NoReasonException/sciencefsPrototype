@@ -1,5 +1,5 @@
 import json
-from pymongo import MongoClient
+from elasticsearch import Elasticsearch
 
 class load:
     @staticmethod
@@ -9,16 +9,13 @@ class load:
         return [x for x,y in json.loads(context).items()]
 
 class remove:
-    initialDbs=['admin', 'config', 'local']
     @staticmethod
     def nullDatabase(url=None):
         if url:
-            return _nullDatabase(MongoClient(url))
-        return remove._nullDatabase(MongoClient())
+            return remove._nullDatabase(Elasticsearch([url]))
+        return remove._nullDatabase(Elasticsearch())
 
     @staticmethod    
     def _nullDatabase(databaseClientObject:object):
-        for dbName in databaseClientObject.list_database_names():
-            if(dbName not in remove.initialDbs):
-                databaseClientObject.drop_database(dbName)
-                print(dbName+" will deleted")
+        res=databaseClientObject.indices.delete(index="_all")
+        print(res)
