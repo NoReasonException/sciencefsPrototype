@@ -1,0 +1,22 @@
+{
+	"exp_meta":{
+		"id":"187u0emiwdw0d9w8m1AAX",
+		"name":"Climate : 1-15/AUG/2017",
+		"period":{
+			"timestamp_start":"2017-08-01T10:40:00+0000",
+			"duration":1200,
+			"timeslot":73647893
+		}
+	},
+	"exp_data_main":{
+		"model" : "4675044932",
+		"variables":"average_temperature",
+		"results":"24.6c"
+	},
+	"exp_data_pc":{
+		"none":1
+	},
+	"exp_data_pe":{
+		"none":1
+	}
+}
