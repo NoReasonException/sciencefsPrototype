@@ -13,7 +13,7 @@ class remove:
     @staticmethod
     def nullDatabase(url=None):
         if url:
-            return _nullDatabase(MongoClient(url))
+            return remove._nullDatabase(MongoClient(url))
         return remove._nullDatabase(MongoClient())
 
     @staticmethod    
