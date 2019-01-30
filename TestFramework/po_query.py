@@ -1,5 +1,5 @@
 from common.PopulateTools import remove,load
-from pymongo import MongoClient
+from elasticsearch import Elasticsearch
 import logging
 import json
 from specification.documentSpecification import Document
@@ -20,7 +20,7 @@ def main():
     if len(sys.argv) <3:
         usage()
         exit(-1)
-    cli=MongoClient()
+    cli=Elasticsearch(["localhost:9200"])
     scienceBranches=load.loadCategories("resources/bos.json")
     sb=chooseScienceBranch(scienceBranches)
     print("Random Science Branch :"+sb)
@@ -31,14 +31,14 @@ def main():
 
     print("Starting from zero with step "+sys.argv[2])
 
-    db=cli['Experiments'][sb]
+    #db=cli['Experiments'][sb]
     
     i=0.01
     while(i<float(sys.argv[1])):
         t1=time()
         b=DateRangeRetriever.getMaxOfGivenPercent(i,1483232461,1488330061)
-        query=db.find({"exp_meta.period.timestamp_start":{"$lt":b}})
-        print("percentile "+str(i)+" by performing "+str(int(1/(time()-t1)))+ " que/sec ")
+        query=cli.search(index='experiments',doc_type=sb,body={"query":{"range":{"exp_meta.period.timestamp_start":{"lt":b}}}})
+        print("percentile "+str(i)+" by performing \t"+str(int(1/(time()-t1)))+ " que/sec ")
         i+=float(sys.argv[2])
 
 

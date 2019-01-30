@@ -21,7 +21,7 @@ def main():
         usage()
         exit(-1)
     #create the db obj
-    cli=Elasticsearch() #TODO : make second parameter for the url
+    cli=Elasticsearch("localhost:9200") #TODO : make second parameter for the url
 
 #    cli.indices.create(index='experiments')
     print("Experiment index created")
