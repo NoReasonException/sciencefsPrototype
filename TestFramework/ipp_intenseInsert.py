@@ -17,27 +17,31 @@ def usage():
 def getTimeSlot(period:int,timestamp:int)->int:
     return period*(ceil((timestamp-period)/period))
 
-def populate(mongoDBClient:object,\
-        initialTimestamp:int,\
+def nMonthsUnixOffset(months:int)->int:
+    return(30*24*60*60)*months
+
+
+def currentTimestampGenerator(numberOfTimestamps:int)->object:
+    for i in range(numberOfTimestamps):
+        yield int(time())
+
+
+def intenseInsertTest(mongoDBClient:object,\
         period:int,\
-        endTimestamp:int,\
         documentNumber:int,\
         scienceBranches:list,\
         documentBuilder:object)->None:
 
     for branch in scienceBranches:
-        n=documentBuilder.massBuilder(\
-                    DateRangeBuilder.\
-                    simpleBuilderLambda(documentNumber,initialTimestamp,endTimestamp))
+        n=documentBuilder.massBuilder(currentTimestampGenerator(documentNumber))
+
 
         t1=time()
         for j in n:
-            td1=time()
             jsondict=json.loads(j)
             newTimestamp=jsondict["exp_meta"]["period"]["timestamp_start"]
             mongoDBClient[str(getTimeSlot(period,newTimestamp))][branch].insert(jsondict)
-            td2=time()
-            print("que speed\t"+str(1/(td2-td1)))
+            
         t2=time()
         print("query speed\t"+str(int(documentNumber/(t2-t1))))
 
@@ -53,12 +57,10 @@ def main():
     documentBuilder=Document("specification/attemt1.json")
     #create the db obj
     cli=MongoClient()
-    #erase previous schemas
-    remove.nullDatabase()
     #load the science branches to a generator
     scienceBranches=load.loadCategories("resources/bos.json")
     
-    populate(cli,1483232461,int(sys.argv[2]),1488330061,int(sys.argv[1]),scienceBranches,documentBuilder)
+    intenseInsertTest(cli,int(sys.argv[2]),int(sys.argv[1]),scienceBranches,documentBuilder)
 
 
 main()
