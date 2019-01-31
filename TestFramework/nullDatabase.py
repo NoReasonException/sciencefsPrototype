@@ -7,7 +7,7 @@ def getArgv(index:int)->str:
 
 print("ElasticSearch null tool v0.1")
 url=getArgv(1)
-print("@param url:  -> "+str(url))
+print("@param url: (WARNING : ITS MANDATORY) -> "+str(url))
 remove.nullDatabase(url)
 print("Bye")
 
