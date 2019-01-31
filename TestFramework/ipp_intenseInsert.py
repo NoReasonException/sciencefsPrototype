@@ -26,7 +26,7 @@ def currentTimestampGenerator(numberOfTimestamps:int)->object:
         yield int(time())
 
 
-def intenseInsertTest(mongoDBClient:object,\
+def intenseInsertTest(elasticSearchClient:object,\
         period:int,\
         documentNumber:int,\
         scienceBranches:list,\
@@ -40,7 +40,7 @@ def intenseInsertTest(mongoDBClient:object,\
         for j in n:
             jsondict=json.loads(j)
             newTimestamp=jsondict["exp_meta"]["period"]["timestamp_start"]
-            mongoDBClient[str(getTimeSlot(period,newTimestamp))][branch].insert(jsondict)
+            elasticSearchClient.index(index=(str(getTimeSlot(period,newTimestamp))),doc_type=(branch),body=jsondict)
             
         t2=time()
         print("query speed\t"+str(int(documentNumber/(t2-t1))))
@@ -56,7 +56,7 @@ def main():
 
     documentBuilder=Document("specification/attemt1.json")
     #create the db obj
-    cli=Elasticsearch
+    cli=Elasticsearch(['localhost:9200'])
     #load the science branches to a generator
     scienceBranches=load.loadCategories("resources/bos.json")
     
