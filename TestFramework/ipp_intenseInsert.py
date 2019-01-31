@@ -1,6 +1,6 @@
 
 from common.PopulateTools import remove,load
-from pymongo import MongoClient
+from elasticsearch import Elasticsearch
 import logging
 import json
 from specification.documentSpecification import Document
@@ -56,7 +56,7 @@ def main():
 
     documentBuilder=Document("specification/attemt1.json")
     #create the db obj
-    cli=MongoClient()
+    cli=Elasticsearch
     #load the science branches to a generator
     scienceBranches=load.loadCategories("resources/bos.json")
     

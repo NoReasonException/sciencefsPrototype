@@ -1,6 +1,6 @@
 
 from common.PopulateTools import remove,load
-from pymongo import MongoClient
+from elasticsearch import Elasticsearch
 import logging
 import json
 from specification.documentSpecification import Document
@@ -17,7 +17,7 @@ def usage():
 def getTimeSlot(period:int,timestamp:int)->int:
     return period*(ceil((timestamp-period)/period))
 
-def populate(mongoDBClient:object,\
+def populate(elasticSearchClient:object,\
         initialTimestamp:int,\
         period:int,\
         endTimestamp:int,\
@@ -35,7 +35,7 @@ def populate(mongoDBClient:object,\
             td1=time()
             jsondict=json.loads(j)
             newTimestamp=jsondict["exp_meta"]["period"]["timestamp_start"]
-            mongoDBClient[str(getTimeSlot(period,newTimestamp))][branch].insert(jsondict)
+            elasticSearchClient.index(index=(str(getTimeSlot(period,newTimestamp))),doc_type=branch,body=jsondict)
             td2=time()
             print("que speed\t"+str(1/(td2-td1)))
         t2=time()
@@ -52,7 +52,7 @@ def main():
 
     documentBuilder=Document("specification/attemt1.json")
     #create the db obj
-    cli=MongoClient()
+    cli=Elasticsearch(['localhost:9200'])
     #erase previous schemas
     remove.nullDatabase()
     #load the science branches to a generator
