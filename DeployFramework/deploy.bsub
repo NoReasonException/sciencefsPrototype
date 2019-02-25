@@ -1,0 +1,70 @@
+#!/bin/bash
+#BSUB -q short-serial
+#BSUB -o %deploy.out
+#BSUB -e %deploy.err
+#BSUB -W 00:10
+
+
+
+#Part 1 : Setupscene
+#Project will be named ESDMiddleware 
+#Will use group_workspaces/jasmin4 because it uses PFS but no-paraller-capable for output, exactly what we want
+#Will use /work/scratch-nompiio for tmp (we do not need shared-file writes)
+#Compiled version of mongodb will exist on group_workspace
+
+
+
+echo "Creating permanent data storange location"
+mkdir /group_workspaces/jasmin4/esd_middleware
+cd /group_workspaces/jasmin4/esd_middleware
+
+echo "Creating tmp folder"
+mkdir /work/scratch-nompiio/esd_middleware_tmp
+
+#working from permanent data storange location
+
+#------------------------------------------------------------------------Ensuring Valid State
+echo "Checking for a valid state"
+
+if [ ! -f "/group_workspaces/jasmin4/esd_middleware" ]; then
+	echo "Permanent data storange location not found(Permissions issue maybe?)"
+	exit;
+
+elif if [ ! -f "/work/scratch-nompiio/esd_middleware_tmp" ]; then
+	echo "Temp location not found(Permissions issue maybe?)"
+	exit;
+
+fi
+
+echo "Valid state ensured"
+#-----------------------------------------------------------------------Checking Depedencies
+echo "Checking Depedencies"
+
+if [ ! -f "/usr/bin/python2.7" ]; then
+    	echo "Python2.7 not found"
+    	exit;
+
+elif [ ! -f "/usr/include/curl" ]; then
+	echo "libcurl not found , please request this module and try again"
+	exit;
+fi
+#----------------------------------------------------------------------Building Nessecary Libraries
+echo ""
+
+
+echo "Fetch MongoDb source code"
+git clone https://github.com/mongodb/mongo.git
+
+echo "Request Depedency libcurl-devel"
+
+
+
+
+#submitjob
+
+#cleanscene
+rm -rf /group_workspaces/jasmin4/esd_middleware_tmp 
+rm -rf /work/scratch-nompiio/esd_middleware_tmp
+
+
+
