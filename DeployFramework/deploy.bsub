@@ -48,8 +48,13 @@ elif [ ! -f "/usr/include/curl" ]; then
 	echo "libcurl not found , please request this module and try again"
 	exit;
 fi
-#----------------------------------------------------------------------Building Nessecary Libraries
-echo ""
+#----------------------------------------------------------------------Install requirements.txt
+echo "Transfering Depedencies into working folder"
+mkdir mongoDbModules
+cp -r ~/mongoDbModules ./mongoDbModules
+
+
+
 
 
 echo "Fetch MongoDb source code"
