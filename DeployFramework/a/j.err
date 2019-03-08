@@ -1,0 +1,17 @@
+==> Warning: No Spack mirrors are currently configured
+==> Warning: No Spack mirrors are currently configured
+==> Warning: No Spack mirrors are currently configured
+==> Warning: No Spack mirrors are currently configured
+==> Warning: No Spack mirrors are currently configured
+==> Warning: No Spack mirrors are currently configured
+==> Warning: No Spack mirrors are currently configured
+==> Warning: No Spack mirrors are currently configured
+==> Warning: No Spack mirrors are currently configured
+==> Warning: No Spack mirrors are currently configured
+==> Error: Exception occurred in writer daemon!
+Traceback (most recent call last):
+  File "/home/users/stefstef/package_manager/spack/lib/spack/llnl/util/tty/log.py", line 432, in _writer_daemon
+    rlist, _, _ = select.select(istreams, [], [])
+KeyboardInterrupt
+
+==> Error: Keyboard interrupt.

@@ -1,0 +1,205 @@
+Sender: LSF System <lsfadmin@host426.jc.rl.ac.uk>
+Subject: Job 9605909: <#!/bin/bash ;#BSUB -q short-serial;#BSUB -W 01:00;#BSUB -o j.out;#BSUB -e j.err; cd /home/users/stefstef/; #cloning ;#echo "install gcc";/home/users/stefstef/package_manager/spack/bin/spack install scons@3.0.1;#echo "install python";#/home/users/stefstef/package_manager/spack/bin/spack install python;echo "OK"> in cluster <lotus> Exited
+
+Job <#!/bin/bash ;#BSUB -q short-serial;#BSUB -W 01:00;#BSUB -o j.out;#BSUB -e j.err; cd /home/users/stefstef/; #cloning ;#echo "install gcc";/home/users/stefstef/package_manager/spack/bin/spack install scons@3.0.1;#echo "install python";#/home/users/stefstef/package_manager/spack/bin/spack install python;echo "OK"> was submitted from host <jasmin-sci1-panfs.ceda.ac.uk> by user <stefstef> in cluster <lotus> at Fri Mar  8 01:56:29 2019.
+Job was executed on host(s) <host426.jc.rl.ac.uk>, in queue <short-serial>, as user <stefstef> in cluster <lotus> at Fri Mar  8 01:56:31 2019.
+</home/users/stefstef> was used as the home directory.
+</home/users/stefstef> was used as the working directory.
+Started at Fri Mar  8 01:56:31 2019.
+Terminated at Fri Mar  8 02:53:02 2019.
+Results reported at Fri Mar  8 02:53:02 2019.
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/bin/bash 
+#BSUB -q short-serial
+#BSUB -W 01:00
+#BSUB -o j.out
+#BSUB -e j.err
+
+cd /home/users/stefstef/
+
+#cloning 
+#echo "install gcc"
+/home/users/stefstef/package_manager/spack/bin/spack install scons@3.0.1
+#echo "install python"
+#/home/users/stefstef/package_manager/spack/bin/spack install python
+echo "OK"
+
+------------------------------------------------------------
+
+TERM_OWNER: job killed by owner.
+Exited with signal termination: 14.
+
+Resource usage summary:
+
+    CPU time :                                   6241.64 sec.
+    Max Memory :                                 97 MB
+    Average Memory :                             52.62 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Swap :                                   1219 MB
+    Max Processes :                              41
+    Max Threads :                                42
+    Run time :                                   3391 sec.
+    Turnaround time :                            3393 sec.
+
+The output (if any) follows:
+
+==> Installing diffutils
+==> Searching for binary cache of diffutils
+==> No binary for diffutils found: installing from source
+==> Using cached archive: /home/users/stefstef/package_manager/spack/var/spack/cache/diffutils/diffutils-3.7.tar.xz
+==> Staging archive: /home/users/stefstef/package_manager/spack/var/spack/stage/diffutils-3.7-mzrbjuest2hnn7ja7wflajmyue3bcnlc/diffutils-3.7.tar.xz
+==> Created stage in /home/users/stefstef/package_manager/spack/var/spack/stage/diffutils-3.7-mzrbjuest2hnn7ja7wflajmyue3bcnlc
+==> No patches needed for diffutils
+==> Building diffutils [AutotoolsPackage]
+==> Executing phase: 'autoreconf'
+==> Executing phase: 'configure'
+==> Executing phase: 'build'
+==> Executing phase: 'install'
+==> Successfully installed diffutils
+  Fetch: 0.01s.  Build: 9m 26.17s.  Total: 9m 26.18s.
+[+] /home/users/stefstef/package_manager/spack/opt/spack/linux-rhel6-x86_64/gcc-8.3.0/diffutils-3.7-mzrbjuest2hnn7ja7wflajmyue3bcnlc
+==> Installing bzip2
+==> Searching for binary cache of bzip2
+==> No binary for bzip2 found: installing from source
+==> Using cached archive: /home/users/stefstef/package_manager/spack/var/spack/cache/bzip2/bzip2-1.0.6.tar.gz
+==> Staging archive: /home/users/stefstef/package_manager/spack/var/spack/stage/bzip2-1.0.6-hcerpb76v6vpwizhfvd6hhx46wbymbx2/bzip2-1.0.6.tar.gz
+==> Created stage in /home/users/stefstef/package_manager/spack/var/spack/stage/bzip2-1.0.6-hcerpb76v6vpwizhfvd6hhx46wbymbx2
+==> Ran patch() for bzip2
+==> Building bzip2 [Package]
+==> Executing phase: 'install'
+==> Successfully installed bzip2
+  Fetch: 0.02s.  Build: 11.18s.  Total: 11.20s.
+[+] /home/users/stefstef/package_manager/spack/opt/spack/linux-rhel6-x86_64/gcc-8.3.0/bzip2-1.0.6-hcerpb76v6vpwizhfvd6hhx46wbymbx2
+==> Installing libbsd
+==> Searching for binary cache of libbsd
+==> No binary for libbsd found: installing from source
+==> Using cached archive: /home/users/stefstef/package_manager/spack/var/spack/cache/libbsd/libbsd-0.9.1.tar.xz
+==> Staging archive: /home/users/stefstef/package_manager/spack/var/spack/stage/libbsd-0.9.1-pugfr7v77dwfchqwbk5akwommdazh24b/libbsd-0.9.1.tar.xz
+==> Created stage in /home/users/stefstef/package_manager/spack/var/spack/stage/libbsd-0.9.1-pugfr7v77dwfchqwbk5akwommdazh24b
+==> No patches needed for libbsd
+==> Building libbsd [AutotoolsPackage]
+==> Executing phase: 'autoreconf'
+==> Executing phase: 'configure'
+==> Executing phase: 'build'
+==> Executing phase: 'install'
+==> Successfully installed libbsd
+  Fetch: 0.01s.  Build: 2m 35.77s.  Total: 2m 35.78s.
+[+] /home/users/stefstef/package_manager/spack/opt/spack/linux-rhel6-x86_64/gcc-8.3.0/libbsd-0.9.1-pugfr7v77dwfchqwbk5akwommdazh24b
+==> Installing expat
+==> Searching for binary cache of expat
+==> No binary for expat found: installing from source
+==> Using cached archive: /home/users/stefstef/package_manager/spack/var/spack/cache/expat/expat-2.2.5.tar.bz2
+==> Staging archive: /home/users/stefstef/package_manager/spack/var/spack/stage/expat-2.2.5-ybhfdaugxdygm75b7kwvcjo7gqwxxbu2/expat-2.2.5.tar.bz2
+==> Created stage in /home/users/stefstef/package_manager/spack/var/spack/stage/expat-2.2.5-ybhfdaugxdygm75b7kwvcjo7gqwxxbu2
+==> No patches needed for expat
+==> Building expat [AutotoolsPackage]
+==> Executing phase: 'autoreconf'
+==> Executing phase: 'configure'
+==> Executing phase: 'build'
+==> Executing phase: 'install'
+==> Successfully installed expat
+  Fetch: 0.01s.  Build: 2m 37.71s.  Total: 2m 37.72s.
+[+] /home/users/stefstef/package_manager/spack/opt/spack/linux-rhel6-x86_64/gcc-8.3.0/expat-2.2.5-ybhfdaugxdygm75b7kwvcjo7gqwxxbu2
+==> Installing pkgconf
+==> Searching for binary cache of pkgconf
+==> No binary for pkgconf found: installing from source
+==> Using cached archive: /home/users/stefstef/package_manager/spack/var/spack/cache/pkgconf/pkgconf-1.5.4.tar.xz
+==> Staging archive: /home/users/stefstef/package_manager/spack/var/spack/stage/pkgconf-1.5.4-q3zn4sr4fa2hehafuq3kbp2qpwss3zm4/pkgconf-1.5.4.tar.xz
+==> Created stage in /home/users/stefstef/package_manager/spack/var/spack/stage/pkgconf-1.5.4-q3zn4sr4fa2hehafuq3kbp2qpwss3zm4
+==> No patches needed for pkgconf
+==> Building pkgconf [AutotoolsPackage]
+==> Executing phase: 'autoreconf'
+==> Executing phase: 'configure'
+==> Executing phase: 'build'
+==> Executing phase: 'install'
+==> Successfully installed pkgconf
+  Fetch: 0.01s.  Build: 1m 46.02s.  Total: 1m 46.03s.
+[+] /home/users/stefstef/package_manager/spack/opt/spack/linux-rhel6-x86_64/gcc-8.3.0/pkgconf-1.5.4-q3zn4sr4fa2hehafuq3kbp2qpwss3zm4
+==> Installing ncurses
+==> Searching for binary cache of ncurses
+==> No binary for ncurses found: installing from source
+==> Using cached archive: /home/users/stefstef/package_manager/spack/var/spack/cache/ncurses/ncurses-6.1.tar.gz
+==> Staging archive: /home/users/stefstef/package_manager/spack/var/spack/stage/ncurses-6.1-pd5v2zabdmim3zfqmx2hqnqzlarkhyud/ncurses-6.1.tar.gz
+==> Created stage in /home/users/stefstef/package_manager/spack/var/spack/stage/ncurses-6.1-pd5v2zabdmim3zfqmx2hqnqzlarkhyud
+==> No patches needed for ncurses
+==> Building ncurses [AutotoolsPackage]
+==> Executing phase: 'autoreconf'
+==> Executing phase: 'configure'
+==> Executing phase: 'build'
+==> Executing phase: 'install'
+==> Successfully installed ncurses
+  Fetch: 0.03s.  Build: 13m 19.91s.  Total: 13m 19.94s.
+[+] /home/users/stefstef/package_manager/spack/opt/spack/linux-rhel6-x86_64/gcc-8.3.0/ncurses-6.1-pd5v2zabdmim3zfqmx2hqnqzlarkhyud
+==> Installing readline
+==> Searching for binary cache of readline
+==> No binary for readline found: installing from source
+==> Using cached archive: /home/users/stefstef/package_manager/spack/var/spack/cache/readline/readline-7.0.tar.gz
+==> Staging archive: /home/users/stefstef/package_manager/spack/var/spack/stage/readline-7.0-ujqgqbfmykbgrglx5t2q4tzfbovhrmyc/readline-7.0.tar.gz
+==> Created stage in /home/users/stefstef/package_manager/spack/var/spack/stage/readline-7.0-ujqgqbfmykbgrglx5t2q4tzfbovhrmyc
+==> No patches needed for readline
+==> Building readline [AutotoolsPackage]
+==> Executing phase: 'autoreconf'
+==> Executing phase: 'configure'
+==> Executing phase: 'build'
+==> Executing phase: 'install'
+==> Successfully installed readline
+  Fetch: 0.03s.  Build: 3m 31.98s.  Total: 3m 32.01s.
+[+] /home/users/stefstef/package_manager/spack/opt/spack/linux-rhel6-x86_64/gcc-8.3.0/readline-7.0-ujqgqbfmykbgrglx5t2q4tzfbovhrmyc
+==> Installing gdbm
+==> Searching for binary cache of gdbm
+==> No binary for gdbm found: installing from source
+==> Using cached archive: /home/users/stefstef/package_manager/spack/var/spack/cache/gdbm/gdbm-1.18.1.tar.gz
+==> Staging archive: /home/users/stefstef/package_manager/spack/var/spack/stage/gdbm-1.18.1-jsskpleyps4jcwwdjl2zorvu5lres3ks/gdbm-1.18.1.tar.gz
+==> Created stage in /home/users/stefstef/package_manager/spack/var/spack/stage/gdbm-1.18.1-jsskpleyps4jcwwdjl2zorvu5lres3ks
+==> No patches needed for gdbm
+==> Building gdbm [AutotoolsPackage]
+==> Executing phase: 'autoreconf'
+==> Executing phase: 'configure'
+==> Executing phase: 'build'
+==> Executing phase: 'install'
+==> Successfully installed gdbm
+  Fetch: 0.01s.  Build: 2m 35.76s.  Total: 2m 35.77s.
+[+] /home/users/stefstef/package_manager/spack/opt/spack/linux-rhel6-x86_64/gcc-8.3.0/gdbm-1.18.1-jsskpleyps4jcwwdjl2zorvu5lres3ks
+==> Installing libffi
+==> Searching for binary cache of libffi
+==> No binary for libffi found: installing from source
+==> Using cached archive: /home/users/stefstef/package_manager/spack/var/spack/cache/libffi/libffi-3.2.1.tar.gz
+==> Staging archive: /home/users/stefstef/package_manager/spack/var/spack/stage/libffi-3.2.1-zikh7gsqolukdiqutsahxrql74eijjp6/libffi-3.2.1.tar.gz
+==> Created stage in /home/users/stefstef/package_manager/spack/var/spack/stage/libffi-3.2.1-zikh7gsqolukdiqutsahxrql74eijjp6
+==> No patches needed for libffi
+==> Building libffi [AutotoolsPackage]
+==> Executing phase: 'autoreconf'
+==> Executing phase: 'configure'
+==> Executing phase: 'build'
+==> Executing phase: 'install'
+==> Successfully installed libffi
+  Fetch: 0.01s.  Build: 2m 52.87s.  Total: 2m 52.88s.
+[+] /home/users/stefstef/package_manager/spack/opt/spack/linux-rhel6-x86_64/gcc-8.3.0/libffi-3.2.1-zikh7gsqolukdiqutsahxrql74eijjp6
+==> Installing perl
+==> Searching for binary cache of perl
+==> No binary for perl found: installing from source
+==> Using cached archive: /home/users/stefstef/package_manager/spack/var/spack/cache/perl/perl-5.26.2.tar.gz
+==> Using cached archive: /home/users/stefstef/package_manager/spack/var/spack/cache/perl/cpanm-5.26.2.tar.gz
+==> Using cached archive: /home/users/stefstef/package_manager/spack/var/spack/cache/perl/perl-5.26.1-guard_old_libcrypt_fix.patch
+==> Staging archive: /home/users/stefstef/package_manager/spack/var/spack/stage/perl-5.26.2-s7kbmxmooxtzq4pxay3yfm2em3wnnh2l/perl-5.26.2.tar.gz
+==> Created stage in /home/users/stefstef/package_manager/spack/var/spack/stage/perl-5.26.2-s7kbmxmooxtzq4pxay3yfm2em3wnnh2l
+==> Staging archive: /home/users/stefstef/package_manager/spack/var/spack/stage/resource-cpanm-s7kbmxmooxtzq4pxay3yfm2em3wnnh2l/App-cpanminus-1.7042.tar.gz
+==> Created stage in /home/users/stefstef/package_manager/spack/var/spack/stage/resource-cpanm-s7kbmxmooxtzq4pxay3yfm2em3wnnh2l
+==> Moving resource stage
+	source : /home/users/stefstef/package_manager/spack/var/spack/stage/resource-cpanm-s7kbmxmooxtzq4pxay3yfm2em3wnnh2l/App-cpanminus-1.7042/
+	destination : /home/users/stefstef/package_manager/spack/var/spack/stage/perl-5.26.2-s7kbmxmooxtzq4pxay3yfm2em3wnnh2l/perl-5.26.2/cpanm/cpanm
+==> Applied patch https://src.fedoraproject.org/rpms/perl/raw/004cea3a67df42e92ffdf4e9ac36d47a3c6a05a4/f/perl-5.26.1-guard_old_libcrypt_fix.patch
+==> Building perl [Package]
+==> Executing phase: 'configure'
+OK
+
+
+PS:
+
+Read file <j.err> for stderr output of this job.
+
