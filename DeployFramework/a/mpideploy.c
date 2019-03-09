@@ -13,16 +13,35 @@
 #define SERVER_TAG	10
 #define CLIENT_TAG	11
 #define REPLICA_NAME_MAX 100
+
+#define COMMAND_SUICIDE	1
 struct argv;
 typedef struct argv argvinfo;
 
+void inspectStr(char*str){
+	for(int i=0;i<strlen(str)+1;i++){
+		printf("%d/%d : char = %c  isEnd = %d : isNewLine = %d \n",i,strlen(str),str[i],str[i]=='\0',str[i]=='\n');
+	
+	}	
+	
+}
+char*addNull(char*str){
+	str[strlen(str)-1]='\0';
+	return str;
+}
+char *concat(char*first,char*second){
+	char*retval=(char*)malloc(sizeof(char)*(strlen(first)+strlen(second)+1));
+	memcpy(retval,first,strlen(first));
+	memcpy(retval+strlen(first),second,strlen(second)+1);
 
-/***
- * Command Line arguments
- */
+	return retval;
+	
+
+}
 struct argv{
 	unsigned short server_nodes;
 	unsigned short client_nodes;
+	unsigned short replicas_per_shard;
 
 };
 argvinfo*alloc_argv(){
@@ -32,15 +51,24 @@ argvinfo*free_argv(argvinfo*ptr){
 	free(ptr);
 	return NULL;
 }
+argvinfo*default_construct(argvinfo*param,int procsize){
+	param->server_nodes=(int)procsize/2;
+	param->client_nodes=(int)procsize/2;
+	param->replicas_per_shard=3;
+	return param;
+}
 
-struct argv*parseargv(int argc,char*argv[]){
-	argvinfo*retval=alloc_argv();
+struct argv*parseargv(int argc,char*argv[],int procsize){
+	argvinfo*retval=default_construct(alloc_argv(),procsize);	
 	for(int i=0;i<argc;i++){
 		if(!strcmp("-s",argv[i])){
 			retval->server_nodes=strtol(argv[i+1],NULL,10);
 		}
 		else if(!strcmp("-c",argv[i])){
 			retval->client_nodes=strtol(argv[i+1],NULL,10);
+		}
+		else if(!strcmp("-rps",argv[i])){
+			retval->replicas_per_shard=strtol(argv[i+1],NULL,10);
 		}
 	}
 	return retval;
@@ -73,13 +101,12 @@ char **receiveHostnames(int procsize){
 	char **hosts=(char**)alloc2D(procsize,HOSTNAME_MAXSIZE,sizeof(char));
 	for(source=1;source<procsize;source++){
 		MPI_Recv(hosts[source],HOSTNAME_MAXSIZE,MPI_CHAR,source,tag,MPI_COMM_WORLD,&status);
-		
         }
 	return hosts;
 
 }
 int getRandomPort(){
-        rand();
+        return abs(rand()%20000)+20000;
 }
 
 
@@ -108,20 +135,48 @@ int nodeAsServer(int rank){
 int nodeAsClient(int rank){
 	return nodeAs(rank,PURPOSE_CLIENT);
 }
-char *clearNullChar(char*any){
-	any[strlen(any)-1]='\\';
-	return any;
+char* setupPath(char*hostname,int port){
+	char postfix[100];
+	char suffix[100];
+
+	char *tmp;
+	char *command;
+
+	sprintf(suffix, "mkdir -p ");
+	sprintf(postfix,"/instance_%d \0 ",port);
+	tmp=concat(hostname,postfix);
+	command=concat(suffix,tmp);
+	
+
+	system(command);
+	free(command);
+	return tmp;
+
 }
-void setupPath(char*hostname,int port){
+
+void startReplicaServer(char*hostname,int port,char*replicaName,char*dbpath){
 	char command[1000];
-	hostname=clearNullChar(hostname);
-	sprintf(command,"mkdir -p %s/instance%d",hostname,port);
+	sprintf(command,"mongod --shardsvr --replSet %s --port %d --bind_ip %s --dbpath %s >> log_%d & \n",replicaName,port,hostname,dbpath,port);
+	printf("%s",command);
+	system(command);
+
+	
+}
+char* deletePath(char*dbpath){
+	char command[100];
+	sprintf(command,"rm -rf %s\n",dbpath);
+	system(command);
+	//free(dbpath);
+	return NULL;
+}
+void killReplicaServer(int processid){
+	char command[100];
+	sprintf(command,"kill %d \n",processid);
 	system(command);
 	return;
 
-}
-void startReplicaServer(char*hostname,int port,char*replicaName){
-	printf("%s\n",replicaName);
+
+
 }
 char*getReplicaName(){
 	MPI_Status status;
@@ -131,14 +186,34 @@ char*getReplicaName(){
 
 }
 void server_start(char*hostname,int port){
-	setupPath(hostname,port);	
-	char*replicaName=getReplicaName();	
-	startReplicaServer(hostname,port,replicaName);
+	int forkretval;
+	MPI_Status status;
+        int receiveCommand;
+	char *dbpath=setupPath(hostname,port);
+	int isDead=0;
 	
+	char*replicaName=getReplicaName();
+	startReplicaServer(hostname,port,replicaName,dbpath);
+        
+	while(1){
+		if(isDead)break;
+		printf("SERVER AWAIT %s:%d\n",hostname,port);
+		MPI_Recv(&receiveCommand,sizeof(int),MPI_INT,MAIN_SERVER_RANK,SERVER_TAG,MPI_COMM_WORLD,&status);
+                switch(receiveCommand){
+                	case COMMAND_SUICIDE:{
+				printf("THREAD %d receive : SUICIDE\n",port);
+				deletePath(dbpath);
+				killReplicaServer(forkretval);
+				isDead=1;
+				break;
+			}
+                }
+        }
+        
 }
 
 void client_start(char*hostname,int port){
-    
+//	printf("CLIENT RUN %d\n",port);
 }
 
 void applyPurpose(int purpose,char*hostname,int port){
@@ -155,31 +230,32 @@ char*getHostname(){
         while (fgets(path, sizeof(path)-1, fp) != NULL) {
        		sprintf(hostname,"%s", path);
        	}
-
-	return hostname;
+	return addNull(hostname);
 
 }
-int*assignPurposes(int procsize){
+int*assignPurposes(argvinfo*user_params,int procsize){
 	int*purposes=(int*)malloc(sizeof(int)*procsize);
 	purposes[0]=nodeAsMain(0);
 	for(int i=1;i<procsize;i++){
-		if(i%2)purposes[i]=nodeAsClient(i);
-                else purposes[i]=nodeAsServer(i);
+		if(i<user_params->server_nodes)purposes[i]=nodeAsServer(i);
+                else purposes[i]=nodeAsClient(i);
         }
 	return purposes;
 
 }
-void sentReplicaNames(int procsize,int replicas_per_shard){
-	char replicaPrefix[3]="rs";
-	char replicaBuffer[REPLICA_NAME_MAX];
-	for(int i=1;i+replicas_per_shard<procsize;i+=replicas_per_shard){
-		sprintf(replicaBuffer,"%s_%d\0",replicaPrefix,i);
-		printf("%s\n",replicaBuffer);
-		for(int j=0;j<replicas_per_shard;j++){
+void sentReplicaNames(argvinfo*user_args){
+	char replicaPrefix[4]="rs_";
+	char tmp_buffer[100];
+	char *replicaBuffer;
+	for(int i=1,cnt=0;i<user_args->server_nodes;i+=user_args->replicas_per_shard,cnt+=1){
+		sprintf(tmp_buffer,"%d_M",cnt);
+		replicaBuffer=concat(replicaPrefix,tmp_buffer);
+		printf("HERE -> %s\n",replicaBuffer);
+		for(int j=0;j<user_args->replicas_per_shard&&j+i<user_args->server_nodes;j++){
 			MPI_Send(replicaBuffer,strlen(replicaBuffer),MPI_CHAR,i+j,SERVER_TAG,MPI_COMM_WORLD);
-			printf("%d\t",i+j);	
-		}	
-		printf("\n");
+			//free(replicaBuffer); MPI_Send takes ownership of the buffer
+		}
+		
 	}
 
 }
@@ -191,17 +267,25 @@ void setupMongos(){
 
 }
 
-void setup(int procsize,char** hosts,int*ports,int*purposes,int replicas_per_shard){
+void setup(argvinfo *user_args,int procsize,char** hosts,int*ports,int*purposes){
 	
-	sentReplicaNames(procsize,replicas_per_shard);
-	//setupConfigServer();
-	//setupMongos();
+	sentReplicaNames(user_args);
+	setupConfigServer();
+	setupMongos();
 	
 	
 
 
 }
-void run(){/*while(1);*/}
+void run(int my_rank,int p,int *ports){
+	system("sleep 10");
+	int command=COMMAND_SUICIDE;
+	for(int i=1;i<=p;i++){
+		MPI_Send(&command,1,MPI_INT,i,SERVER_TAG,MPI_COMM_WORLD);
+		printf("SERVER %d SENT KILL ON %d(%d)\n",my_rank,i,ports[i]);
+	}
+
+}
 int main(int argc,char*argv[]){
 
 	int my_rank;
@@ -244,8 +328,10 @@ int main(int argc,char*argv[]){
 		MPI_Recv(&purpose,1,MPI_INT,mainServer,tag,MPI_COMM_WORLD,&status);			//receive purpose
 
 		applyPurpose(purpose,hostname,port);
-		
+		printf("THREAD %d TERMINATES\n",port);
+	
 		free(hostname);
+
 	}
 	/**
 	 * The main processor
@@ -258,22 +344,19 @@ int main(int argc,char*argv[]){
 		int*ports;
 		int*purposes;
 		printf("Size of cluster %d\n",p);
-		argvinfo*user_params=parseargv(argc,argv);	
+		argvinfo*user_params=parseargv(argc,argv,p);	
 		hosts=receiveHostnames(p);
-		for(int i=1;i<p;i++){
-			//printf("node %d hostname %s\n",i,hosts[i]);
-		}
 		ports=generatePorts(p);
-		purposes=assignPurposes(p);
+		purposes=assignPurposes(user_params,p);
 		
 
-		setup(p,
+		setup(user_params,
+			p,
 			hosts,
 			ports,
-			purposes,
-			5); //TODO : make it taking from command line
+			purposes);
 			
-		run();
+		run(my_rank,user_params->server_nodes,ports);
 
 
 		free2D(hosts,p);
