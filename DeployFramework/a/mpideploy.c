@@ -3,8 +3,10 @@
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include "cJSON/cJSON.h"
-#define HOSTNAME_MAXSIZE 100
+#include "cjson/cJSON.h"
+#define HOSTNAME_MAXSIZE 255
+#define RICH_STRING_MAX_PAYLOAD 255
+#define RICH_STRING_METADATA_OFFSET 1
 #define every(x, i) (int i=0;i<x;i++)
 #define PURPOSE_SERVER 	0
 #define PURPOSE_CLIENT 	1
@@ -18,10 +20,47 @@
 #define COMMAND_SUICIDE	1
 
 #define INT_MAX_STRING 10
+cJSON* _rs_initiate_buildJson(char*replicaName,char**hosts,int*ports,int startOffset,int numberOfServers);
+
+
+
+
+
 struct argv;
 typedef struct argv argvinfo;
 
 
+union richmsg{
+	char size;
+	char payload[RICH_STRING_MAX_PAYLOAD];
+};
+/*****
+*Rich String constructor
+*
+*
+*/
+char*richmsg_compose(char*str){
+	union richmsg*retval=(union richmsg*)malloc(sizeof(union richmsg));
+	retval->size=strlen(str);
+	memcpy(retval->payload+RICH_STRING_METADATA_OFFSET,str,retval->size);
+	return (char*)retval;
+
+}
+
+char*richmsg_decompose(char*msg){
+	char*retval=(char*)malloc(sizeof(char)*RICH_STRING_MAX_PAYLOAD);
+	union richmsg *decompose=(union richmsg*)msg;
+	memcpy(retval,decompose->payload+RICH_STRING_METADATA_OFFSET,decompose->size);
+	retval[decompose->size]='\0';
+	return retval;
+
+}
+char*richmsg_cmp(char*msg){
+	return richmsg_compose(((union richmsg *)msg)->payload+RICH_STRING_METADATA_OFFSET);
+}
+int richmsg_size(char*msg){
+	return ((union richmsg*)msg)->size+RICH_STRING_METADATA_OFFSET;
+}
 
 
 /***
@@ -36,12 +75,21 @@ void inspectStr(char*str){
 }
 /****
  *	...Because...C
+ 	popen(hostname) returns something of the form <hostname>\n\0 and this produces errors
  *
  */
-char*addNull(char*str){
-	str[strlen(str)-1]='\0';
+char*replaceNewLineWithNull(char*str){
+	for (int i = 0; i < strlen(str); ++i)
+	{
+		if(str[i]=='\n'){
+			str[i]='\0';
+			break;
+		}
+		else if(str[i]=='\0')break;
+	}
 	return str;
 }
+
 
 /****
  *	Concat of 2 buffers
@@ -165,7 +213,9 @@ char **receiveHostnames(int procsize){
 	char **hosts=(char**)alloc2D(procsize,HOSTNAME_MAXSIZE,sizeof(char));
 	for(source=1;source<procsize;source++){
 		MPI_Recv(hosts[source],HOSTNAME_MAXSIZE,MPI_CHAR,source,tag,MPI_COMM_WORLD,&status);
-        }
+		hosts[source]=richmsg_decompose(hosts[source]);
+    	//printf("RECEIVED %s\n",richmsg_decompose(hosts[source]));
+    }
 	return hosts;
 
 }
@@ -259,7 +309,7 @@ char* setupPath(char*hostname,int port){
 void startReplicaServer(char*hostname,int port,char*replicaName,char*dbpath){
 	char command[1000];
 	sprintf(command,"mongod --shardsvr --replSet %s --port %d --bind_ip %s --dbpath %s >> log_%d & \n",replicaName,port,hostname,dbpath,port);
-	printf("%s",command);
+	//printf("%s",command);
 	system(command);
 
 	
@@ -314,7 +364,7 @@ char*getReplicaName(){
 void server_start(char*hostname,int port){
 	int forkretval;
 	MPI_Status status;
-        int receiveCommand;
+    int receiveCommand;
 	char *dbpath=setupPath(hostname,port);
 	int isDead=0;
 	
@@ -326,7 +376,7 @@ void server_start(char*hostname,int port){
 		MPI_Recv(&receiveCommand,sizeof(int),MPI_INT,MAIN_SERVER_RANK,SERVER_TAG,MPI_COMM_WORLD,&status);
                 switch(receiveCommand){
                 	case COMMAND_SUICIDE:{
-				printf("THREAD %d receive : SUICIDE\n",port);
+				//printf("THREAD %d receive : SUICIDE\n",port);
 				deletePath(dbpath);
 				killReplicaServer(forkretval);
 				isDead=1;
@@ -355,6 +405,10 @@ void applyPurpose(int purpose,char*hostname,int port){
 	
 	}
 }
+
+
+
+
 /****
  *This called by each slave , returning their actual hostnames
  *
@@ -362,11 +416,17 @@ void applyPurpose(int purpose,char*hostname,int port){
 char*getHostname(){
 	char *hostname=(char*)malloc(sizeof(char)*HOSTNAME_MAXSIZE);
 	char path[HOSTNAME_MAXSIZE];
-        FILE *fp=popen("/bin/hostname","r");
-        while (fgets(path, sizeof(path)-1, fp) != NULL) {
-       		sprintf(hostname,"%s", path);
-       	}
-	return addNull(hostname);
+    char *rich_message;
+    FILE *fp=popen("/bin/hostname","r");
+
+
+    while (fgets(path, sizeof(path)-1, fp) != NULL) {
+    	sprintf(hostname,"%s", path);
+    }
+
+    rich_message=richmsg_compose(replaceNewLineWithNull(hostname));
+    free(hostname);
+	return rich_message;
 
 }
 /***
@@ -417,7 +477,9 @@ void ack_instances(argvinfo*user_params,char**hostnames,int*ports,int*purposes,c
 		if(strcmp(curr_replica,replicaNames[i])){
 			memcpy(curr_replica,replicaNames[i],strlen(replicaNames[i]));
 			curr_port=ports[i];
-			printf("%s is %d\n",curr_replica,curr_port);			
+			printf("%s is %d at index %d\n",curr_replica,curr_port,i);	
+			cJSON_Print(_rs_initiate_buildJson(replicaNames[i],hostnames,ports,i,user_params->replicas_per_shard));
+		
 		}
 	}	
 }
@@ -429,7 +491,7 @@ void run(int my_rank,int p,int *ports){
 	int command=COMMAND_SUICIDE;
 	for(int i=1;i<=p;i++){
 		MPI_Send(&command,1,MPI_INT,i,SERVER_TAG,MPI_COMM_WORLD);
-		printf("SERVER %d SENT KILL ON %d(%d)\n",my_rank,i,ports[i]);
+		//printf("SERVER %d SENT KILL ON %d(%d)\n",my_rank,i,ports[i]);
 	}
 
 }
@@ -454,29 +516,60 @@ char *itoa_buff(char*buff,int n){
 	return buff;
 }
 /***
- *
+ *Creates a JSON in order to acknowledge every replica set where it belongs
+ *	It returns a cJSON object representing the following json format 
+ *	 	{
+ *		    _id : <replicaSetName>,
+ *		    members: [
+ *		      { _id : 0, host : "host-0:host-0-port" },
+ *		      { _id : 1, host : "host-1:host-1-port" },
+ *		      { _id : 2, host : "host-2:host-2-port" },
+ *		    ]
+ *		}
  *
  *
  */
-char* _rs_initiate_build(char*replicaName,char**hosts,int*ports,int n){
-	cJSON *rs_initiate=cJSON_CreateObject();
-	cJSON *_id_value=cJSON_CreateString(replicaName);
-	cJSON *iter_object;
-	cJSON *id_iter_object;
-	
+cJSON* _rs_initiate_buildJson(char*replicaName,char**hosts,int*ports,int startOffset,int numberOfServers){
+	cJSON *rs_initiate=					cJSON_CreateObject();
+	cJSON *members_array=				cJSON_CreateArray();
+	cJSON *_id_value=					cJSON_CreateString(replicaName);
+	cJSON *member_iter_obj				=NULL;
+	cJSON *member_iter_id				=NULL;
+	cJSON *member_iter_hoststring		=NULL;
+	char  *member_id_construct_buff		=itoa(0);
+	char  *member_host_construct_buff	=(char*)malloc(sizeof(char)*(INT_MAX_STRING+HOSTNAME_MAXSIZE));
+	char  *member_port_construct_buff	=itoa(0);
+
+
+
+
 	cJSON_AddItemToObject(rs_initiate,"_id",_id_value);
-	char*_member_id_buff=(char*)malloc(sizeof(char)*INT_MAX_STRING);
-	
-	//printf("%s",cJSON_Print(rs_initiate));
-	
+	cJSON_AddItemToObject(rs_initiate,"members",members_array);
 
-	for(int i=0;i<n;i++){
-		iter_object=cJSON_CreateObject();
-		_member_id_buff=itoa_buff(_member_id_buff,i);
+	for (int i = startOffset; i < numberOfServers; ++i)
+	{
 
-	
-	
+		member_iter_obj=cJSON_CreateObject();
+		
+		member_id_construct_buff=itoa_buff(member_id_construct_buff,i);			//create the id
+		member_iter_id=cJSON_CreateString(member_id_construct_buff);				//convert it to cJSON_String
+		cJSON_AddItemToObject(member_iter_obj,"_id",member_iter_id);				//pass it into main object
+
+		//create the hostname:port string
+		sprintf(member_host_construct_buff,"%s:%s",hosts[i],itoa_buff(member_port_construct_buff,ports[i]));
+		member_iter_hoststring=cJSON_CreateString(member_host_construct_buff);
+		cJSON_AddItemToObject(member_iter_obj,"host",member_iter_hoststring);
+
+
+		cJSON_AddItemToArray(members_array,member_iter_obj);
+
+
+
 	}
+	printf("%s",cJSON_Print(rs_initiate));
+
+
+	
 
 	return NULL;
 
@@ -514,18 +607,21 @@ int main(int argc,char*argv[]){
 	 */
 	if(my_rank!=0){
 
-		char sentbuffer[HOSTNAME_MAXSIZE];
+		char*sentbuffer;
 		char*replicaName[REPLICA_NAME_MAX];
 
 		hostname=getHostname();
-		strncpy(sentbuffer,hostname,strlen(hostname));						//copy the hostname because MPI destroys the buffer
-		MPI_Send(sentbuffer,strlen(sentbuffer)+1,MPI_CHAR,dest,tag,MPI_COMM_WORLD); 		//sent my hostname to main
+		sentbuffer=richmsg_cmp(hostname);						//copy the hostname because MPI destroys the buffer
+
+
+
+		MPI_Send(sentbuffer,richmsg_size(sentbuffer),MPI_CHAR,dest,tag,MPI_COMM_WORLD); 		//sent my hostname to main
 		MPI_Recv(&port,1,MPI_INT,mainServer,tag,MPI_COMM_WORLD,&status);			//receive my port number to main
 		MPI_Recv(&purpose,1,MPI_INT,mainServer,tag,MPI_COMM_WORLD,&status);			//receive purpose
 
 		applyPurpose(purpose,hostname,port);
-		printf("THREAD %d TERMINATES\n",port);
 	
+
 		free(hostname);
 
 	}
@@ -542,21 +638,30 @@ int main(int argc,char*argv[]){
 		int*purposes;
 		printf("Size of cluster %d\n",p);
 		argvinfo*user_params=parseargv(argc,argv,p);			//parse user arguments 
-		hosts=receiveHostnames(p);					//receive hostnames from slaves
-		ports=generatePorts(p);						//generate ports and sent the into the servers
-		purposes=assignPurposes(user_params,p);				//sent in every server their purpise
+		hosts=receiveHostnames(p);								//receive hostnames from slaves
+		ports=generatePorts(p);									//generate ports and sent the into the servers
+		purposes=assignPurposes(user_params,p);					//sent in every server their purpise
 		
 
-		replicaNames=sentReplicaNames(user_params);			//sent in each server their replica name
+		replicaNames=sentReplicaNames(user_params);				//sent in each server their replica name
 		
+
+
+		for (int i = 1; i < user_params->replicas_per_shard; ++i)
+		{
+			printf("AAA %s AAA", replicaNames[i]);
+			printf("\n");
+		}
 		
-		ack_instances(user_params,					//acknowledge instances 
+		/*ack_instances(user_params,					//acknowledge instances 
 				hosts,
 				ports,
 				purposes,
 				replicaNames);
-		_rs_initiate_build("rs0_M",hosts,ports,3);
- 
+
+
+		//_rs_initiate_buildJson("rs0_M",hosts,ports,3);
+ */
 		run(my_rank,user_params->server_nodes,ports);
 
 		
