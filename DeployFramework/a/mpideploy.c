@@ -6,6 +6,7 @@
 #include "cjson/cJSON.h"
 #define HOSTNAME_MAXSIZE 255
 #define RICH_STRING_MAX_PAYLOAD 255
+#define ACK_REPLICAS_COMMAND_MAXSIZE 1000
 #define RICH_STRING_METADATA_OFFSET 1
 #define every(x, i) (int i=0;i<x;i++)
 #define PURPOSE_SERVER 	0
@@ -20,7 +21,7 @@
 #define COMMAND_SUICIDE	1
 
 #define INT_MAX_STRING 10
-cJSON* _rs_initiate_buildJson(char*replicaName,char**hosts,int*ports,int startOffset,int numberOfServers);
+cJSON* _rs_replica_initiate_buildJson(char*replicaName,char**hosts,int*ports,int startOffset,int numberOfServers);
 
 
 
@@ -321,8 +322,9 @@ char* setupPath(char*hostname,int port){
 void startReplicaServer(char*hostname,int port,char*replicaName,char*dbpath){
 	char command[1000];
 	sprintf(command,"mongod --shardsvr --replSet %s --port %d --bind_ip %s --dbpath %s >> log_%d & \n",replicaName,port,hostname,dbpath,port);
-	//printf("%s",command);
+	printf("%s",command);
 	system(command);
+
 
 	
 }
@@ -393,8 +395,8 @@ void server_start(char*hostname,int port){
 				killReplicaServer(forkretval);
 				isDead=1;
 				break;
-			}
-                }
+				}
+            }
         }
         
 }
@@ -493,16 +495,23 @@ void ack_instances(argvinfo*user_params,char**hostnames,int*ports,int*purposes,c
 			memcpy(curr_replica,replicaNames[i],strlen(replicaNames[i]));
 			curr_port=ports[i];
 			printf("%s is %d at index %d with replicas %d\n",curr_replica,curr_port,i,user_params->replicas_per_shard);	
-			printf("%s",cJSON_Print(_rs_initiate_buildJson(replicaNames[i],hostnames,ports,i,user_params->replicas_per_shard)));
+			evaluate_rs_initiate(hostnames[i],ports[i],cJSON_Print(_rs_replica_initiate_buildJson(replicaNames[i],hostnames,ports,i,user_params->replicas_per_shard)));
+			//printf("%s",cJSON_Print(_rs_replica_initiate_buildJson(replicaNames[i],hostnames,ports,i,user_params->replicas_per_shard)));
 		
 		}
 	}	
+}
+void evaluate_rs_initiate(char*primary_hostname,int port,char*rs_initiate_json){
+	char buff[5000];
+	sprintf(buff,"mongo --host %s --port %d --eval 'rs.initiate(%s)' \0",primary_hostname,port,rs_initiate_json);
+	printf("%s",buff);
+	system(buff);
 }
 /***
  * Called by the main server , keeps the clock . after 10 seconds commands every slave to SUICIDE
  */
 void run(int my_rank,int p,int *ports){
-	system("sleep 10");
+	system("sleep 100");
 	int command=COMMAND_SUICIDE;
 	for(int i=1;i<=p;i++){
 		MPI_Send(&command,1,MPI_INT,i,SERVER_TAG,MPI_COMM_WORLD);
@@ -544,14 +553,13 @@ char *itoa_buff(char*buff,int n){
  *
  *
  */
-cJSON* _rs_initiate_buildJson(char*replicaName,char**hosts,int*ports,int startOffset,int numberOfServers){
+cJSON* _rs_replicas_initiate_buildJson(char*replicaName,char**hosts,int*ports,int startOffset,int numberOfServers){
 	cJSON *rs_initiate=					cJSON_CreateObject();
 	cJSON *members_array=				cJSON_CreateArray();
 	cJSON *_id_value=					cJSON_CreateString(replicaName);
 	cJSON *member_iter_obj				=NULL;
 	cJSON *member_iter_id				=NULL;
 	cJSON *member_iter_hoststring		=NULL;
-	char  *member_id_construct_buff		=itoa(0);
 	char  *member_host_construct_buff	=(char*)malloc(sizeof(char)*(INT_MAX_STRING+HOSTNAME_MAXSIZE));
 	char  *member_port_construct_buff	=itoa(0);
 
@@ -565,9 +573,7 @@ cJSON* _rs_initiate_buildJson(char*replicaName,char**hosts,int*ports,int startOf
 	{
 
 		member_iter_obj=cJSON_CreateObject();
-		
-		member_id_construct_buff=itoa_buff(member_id_construct_buff,i);			//create the id
-		member_iter_id=cJSON_CreateString(member_id_construct_buff);				//convert it to cJSON_String
+		member_iter_id=cJSON_CreateNumber(i);				//convert it to cJSON_String
 		cJSON_AddItemToObject(member_iter_obj,"_id",member_iter_id);				//pass it into main object
 
 		//create the hostname:port string
@@ -582,11 +588,13 @@ cJSON* _rs_initiate_buildJson(char*replicaName,char**hosts,int*ports,int startOf
 
 	}
 
-
-	
-
 	return rs_initiate;
-
+}
+cJSON* _rs_configsvr_initiate_buildJson(char*replicaName,char**hosts,int*ports,int startOffset,int numberOfServers){
+	cJSON* retval=_rs_replicas_initiate_buildJson(replicaName,hosts,startOffset,numberOfServers);
+	cJSON* confsvr_option=cJSON_CreateTrue();
+	cJSON_AddItemToObject(retval,"configsvr",confsvr_option);
+	return retval;
 
 }
 int main(int argc,char*argv[]){
@@ -667,6 +675,8 @@ int main(int argc,char*argv[]){
 			printf("\n");
 		}
 		
+
+		system("sleep 10");
 		ack_instances(user_params,					//acknowledge instances 
 				hosts,
 				ports,
@@ -674,7 +684,7 @@ int main(int argc,char*argv[]){
 				replicaNames);
 
 
-		//_rs_initiate_buildJson("rs0_M",hosts,ports,3);
+		//_rs_replica_initiate_buildJson("rs0_M",hosts,ports,3);
  
 		run(my_rank,user_params->server_nodes,ports);
 
