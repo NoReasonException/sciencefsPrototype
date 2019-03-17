@@ -57,27 +57,58 @@ char *concat(char*first,char*second){
 	
 
 }
+/***
+ *	The user arguments struct
+ *	
+ *	the .parseargv routine takes the argc/argv from the main routine returns this nice and clean struct
+ *
+ */
 struct argv{
-	unsigned short server_nodes;
-	unsigned short client_nodes;
-	unsigned short replicas_per_shard;
+	unsigned short server_nodes;				//the amount of server nodes
+	unsigned short client_nodes;				//the amount of client nodes
+	unsigned short replicas_per_shard;			//replicas per shards(obviously)
 
 };
-argvinfo*alloc_argv(){
+
+/***
+ * alloc_argv(void)
+ *Allocates a struct argv*
+ *@Note you must free this pointer using free_argv	
+ *
+ */
+argvinfo*alloc_argv(void){
 	return malloc(sizeof(struct argv));
 }
+/***
+ *free_argv(struct argv*)
+ *Please use it as follows...
+ *	ptr=free_argv(ptr)
+ *
+ *in order to properly set ptr=NULL after freeing
+ *
+ */
 argvinfo*free_argv(argvinfo*ptr){
 	free(ptr);
 	return NULL;
 }
+/****
+ *In case the user gives a number of params , defaults must exist
+ *This routine returns a properly constructed struct argv* with all the defaults
+ *
+ *
+ */
 argvinfo*default_construct(argvinfo*param,int procsize){
 	param->server_nodes=(int)procsize/2;
 	param->client_nodes=(int)procsize/2;
 	param->replicas_per_shard=3;
 	return param;
 }
-
-struct argv*parseargv(int argc,char*argv[],int procsize){
+/***
+ *Parses all the user params , returns a struct argv*
+ *
+ *
+ */
+argvinfo*parseargv(int argc,char*argv[],int procsize){
 	argvinfo*retval=default_construct(alloc_argv(),procsize);	
 	for(int i=0;i<argc;i++){
 		if(!strcmp("-s",argv[i])){
@@ -93,9 +124,11 @@ struct argv*parseargv(int argc,char*argv[],int procsize){
 	return retval;
 
 }
-
-
-
+/***
+ *Allocs a generic 2D array
+ *Its mandatory to free using free2D , otherwise you will have n*m*typesize leaked bytes in each call
+ *
+ */
 void **alloc2D(int n,int m,ssize_t typesize){
 	int i=0;
 	void **retval=malloc(n*sizeof(char*));
@@ -108,10 +141,22 @@ void **alloc2D(int n,int m,ssize_t typesize){
 	return retval;
 	
 }
+/***
+ *Properly deconstruct a 2D array initialized using alloc2D
+ *Please use as follows
+ *		ptr=free2D(ptr)
+ *
+ *
+ */
 void** free2D(void**ptr,int n){
 	for(int i=0;i<n;i++)free(ptr[i]);
 	return NULL;
 }
+/***
+ *blocs untill all slaves return their hostnames
+ *returns a 2D array allocated with alloc2D(please @See alloc2D and free2D in order to avoid leaks)
+ *
+ */
 char **receiveHostnames(int procsize){
 	int source=0;
 	int tag=0;
@@ -124,11 +169,17 @@ char **receiveHostnames(int procsize){
 	return hosts;
 
 }
+/***
+ *Returns a proper 20000<p<40000 port
+ *
+ */
 int getRandomPort(){
         return abs(rand()%20000)+20000;
 }
 
-
+/****
+ *Sends in all slaves the ports that they will use
+ */
 int *generatePorts(int procsize){
 	int source=0;
 	int tag=0;
@@ -141,19 +192,48 @@ int *generatePorts(int procsize){
 	return ports;
 	
 }
+/***
+ * Sents a purpose into the x-th slave (x=rack)
+ * The purposes may be...
+ * 
+ * ->	PURPOSE_SERVER  0		//participate into the mongod cluster
+ * ->	PURPOSE_CLIENT  1		//runs the benchmark tester
+ * ->	PURPOSE_MAIN    2		//the main server (only assigned on rack 0)
+ *
+ */
 int nodeAs(int rank,int purpose){
 	MPI_Send(&purpose,1,MPI_INT,rank,0,MPI_COMM_WORLD);
 	return purpose;	
 }
+/***
+ *A simple wrapper over nodeAs(rack,purpose) routine who assigns in x-th server(x=rank)
+ * The PURPOSE_MAIN(2) 
+ *
+ */
 int nodeAsMain(int rank){
 	return PURPOSE_MAIN;
 }
+/***
+ *A simple wrapper over nodeAs(rack,puprose) routine who assigns in x-th server(x=rank)
+ * The PURPOSE_SERVER (0)
+ *
+ */
 int nodeAsServer(int rank){
 	return nodeAs(rank,PURPOSE_SERVER);
 }
+/***
+ *A simple wrapper over nodeAs(rack,purpose) routine who assigns in x-th server(x=rank)
+ *The PURPOSE_CLIENT(1)
+ *
+ */
 int nodeAsClient(int rank){
 	return nodeAs(rank,PURPOSE_CLIENT);
 }
+/***
+ *Setups a path in given host and port
+ *	Expected Behaviour
+ *
+ */
 char* setupPath(char*hostname,int port){
 	char postfix[100];
 	char suffix[100];
@@ -172,7 +252,10 @@ char* setupPath(char*hostname,int port){
 	return tmp;
 
 }
-
+/***
+ *Given the hostname , port , replica name and dbPath , this routine starts the mongod instances 
+ *
+ */
 void startReplicaServer(char*hostname,int port,char*replicaName,char*dbpath){
 	char command[1000];
 	sprintf(command,"mongod --shardsvr --replSet %s --port %d --bind_ip %s --dbpath %s >> log_%d & \n",replicaName,port,hostname,dbpath,port);
@@ -181,6 +264,10 @@ void startReplicaServer(char*hostname,int port,char*replicaName,char*dbpath){
 
 	
 }
+/*
+ *Clears the instances data
+ *
+ * */
 char* deletePath(char*dbpath){
 	char command[100];
 	sprintf(command,"rm -rf %s\n",dbpath);
@@ -188,6 +275,12 @@ char* deletePath(char*dbpath){
 	free(dbpath);
 	return NULL;
 }
+/***
+ * kill a specific instance
+ *
+ *
+ *
+ */
 void killReplicaServer(int processid){
 	char command[100];
 	sprintf(command,"kill %d \n",processid);
@@ -197,6 +290,11 @@ void killReplicaServer(int processid){
 
 
 }
+/***
+ *Used by server slaves to retieve their assosiate replica name
+ *
+ *
+ */
 char*getReplicaName(){
 	MPI_Status status;
 	char*replicaName=(char*)malloc(sizeof(char)*REPLICA_NAME_MAX);
@@ -204,6 +302,15 @@ char*getReplicaName(){
 	return replicaName;
 
 }
+/***
+ *This is every servers mainloop
+ *starts the replica server , and then waits for further commands
+ *	
+ *The commands untill now are...
+ *
+ *(1->)	COMMAND_SUICIDE on tag SERVER_TAG
+ *	This command deletes the dbPath data , causing the mongodb instance to crash(and eventually stop(#TheEasyWay))
+ */
 void server_start(char*hostname,int port){
 	int forkretval;
 	MPI_Status status;
@@ -229,11 +336,18 @@ void server_start(char*hostname,int port){
         }
         
 }
-
+/***
+ *This is every client slave mainloop
+ * @NotImplemented
+ *
+ */
 void client_start(char*hostname,int port){
 //	printf("CLIENT RUN %d\n",port);
 }
-
+/***
+ *Triggered by every slave .Here happenes the main split between client and server slaves by slave side
+ *
+ */
 void applyPurpose(int purpose,char*hostname,int port){
 	switch(purpose){
 		case PURPOSE_SERVER:server_start(hostname,port);break;
@@ -241,6 +355,10 @@ void applyPurpose(int purpose,char*hostname,int port){
 	
 	}
 }
+/****
+ *This called by each slave , returning their actual hostnames
+ *
+ */
 char*getHostname(){
 	char *hostname=(char*)malloc(sizeof(char)*HOSTNAME_MAXSIZE);
 	char path[HOSTNAME_MAXSIZE];
@@ -251,6 +369,10 @@ char*getHostname(){
 	return addNull(hostname);
 
 }
+/***
+ *The initial split between clients and server slaves by server side
+ *
+ */
 int*assignPurposes(argvinfo*user_params,int procsize){
 	int*purposes=(int*)malloc(sizeof(int)*procsize);
 	purposes[0]=nodeAsMain(0);
@@ -261,6 +383,9 @@ int*assignPurposes(argvinfo*user_params,int procsize){
 	return purposes;
 
 }
+/***
+ *This called in order to generate the list of ascosiations between servers and replicaNames
+ */
 char** sentReplicaNames(argvinfo*user_args){
 	char replicaPrefix[4]="rs_";
 	char tmp_buffer[100];
@@ -280,8 +405,11 @@ char** sentReplicaNames(argvinfo*user_args){
 	return replicaNames;
 
 }
-
-
+/***
+ *Acknowledge Instances ?
+ *
+ *
+ */
 void ack_instances(argvinfo*user_params,char**hostnames,int*ports,int*purposes,char**replicaNames){
 	char curr_replica[REPLICA_NAME_MAX] = "NONE";
 	int curr_port;
@@ -293,6 +421,9 @@ void ack_instances(argvinfo*user_params,char**hostnames,int*ports,int*purposes,c
 		}
 	}	
 }
+/***
+ * Called by the main server , keeps the clock . after 10 seconds commands every slave to SUICIDE
+ */
 void run(int my_rank,int p,int *ports){
 	system("sleep 10");
 	int command=COMMAND_SUICIDE;
@@ -302,16 +433,31 @@ void run(int my_rank,int p,int *ports){
 	}
 
 }
+/*
+ *classic itoa implementation
+ * accepts a number , returns it as string in buffer
+ * @Note the caller has the responsibillity to free this buffer
+ */
 char*itoa(int n){
 	char*str=(char*)malloc(sizeof(char)*INT_MAX_STRING);
 	sprintf(str,"%d",n);
 	return str;
 
 }
+/***
+ *classic itoa with reuseable buffers
+ *@Note if the buffer is smaller that needed , SEGFAULT may be generated
+ *@Note use the safe itoa instead
+ */
 char *itoa_buff(char*buff,int n){
 	sprintf(buff,"%d",n);
 	return buff;
 }
+/***
+ *
+ *
+ *
+ */
 char* _rs_initiate_build(char*replicaName,char**hosts,int*ports,int n){
 	cJSON *rs_initiate=cJSON_CreateObject();
 	cJSON *_id_value=cJSON_CreateString(replicaName);
@@ -395,22 +541,22 @@ int main(int argc,char*argv[]){
 		int*ports;
 		int*purposes;
 		printf("Size of cluster %d\n",p);
-		argvinfo*user_params=parseargv(argc,argv,p);	
-		hosts=receiveHostnames(p);
-		ports=generatePorts(p);
-		purposes=assignPurposes(user_params,p);
+		argvinfo*user_params=parseargv(argc,argv,p);			//parse user arguments 
+		hosts=receiveHostnames(p);					//receive hostnames from slaves
+		ports=generatePorts(p);						//generate ports and sent the into the servers
+		purposes=assignPurposes(user_params,p);				//sent in every server their purpise
 		
 
-		replicaNames=sentReplicaNames(user_params);
+		replicaNames=sentReplicaNames(user_params);			//sent in each server their replica name
 		
 		
-		ack_instances(user_params,
+		ack_instances(user_params,					//acknowledge instances 
 				hosts,
 				ports,
 				purposes,
 				replicaNames);
 		_rs_initiate_build("rs0_M",hosts,ports,3);
-
+ 
 		run(my_rank,user_params->server_nodes,ports);
 
 		
