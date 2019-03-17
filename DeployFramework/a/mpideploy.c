@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include "cJSON/cJSON.h"
 #define HOSTNAME_MAXSIZE 100
 #define every(x, i) (int i=0;i<x;i++)
 #define PURPOSE_SERVER 	0
@@ -15,9 +16,17 @@
 #define REPLICA_NAME_MAX 100
 
 #define COMMAND_SUICIDE	1
+
+#define INT_MAX_STRING 10
 struct argv;
 typedef struct argv argvinfo;
 
+
+
+
+/***
+ *	inspectStr -> for debbugging purposes
+ */
 void inspectStr(char*str){
 	for(int i=0;i<strlen(str)+1;i++){
 		printf("%d/%d : char = %c  isEnd = %d : isNewLine = %d \n",i,strlen(str),str[i],str[i]=='\0',str[i]=='\n');
@@ -25,10 +34,20 @@ void inspectStr(char*str){
 	}	
 	
 }
+/****
+ *	...Because...C
+ *
+ */
 char*addNull(char*str){
 	str[strlen(str)-1]='\0';
 	return str;
 }
+
+/****
+ *	Concat of 2 buffers
+ *	@WARN -> the responsibillity of freeing the buffer is on caller
+ *
+ */
 char *concat(char*first,char*second){
 	char*retval=(char*)malloc(sizeof(char)*(strlen(first)+strlen(second)+1));
 	memcpy(retval,first,strlen(first));
@@ -166,7 +185,7 @@ char* deletePath(char*dbpath){
 	char command[100];
 	sprintf(command,"rm -rf %s\n",dbpath);
 	system(command);
-	//free(dbpath);
+	free(dbpath);
 	return NULL;
 }
 void killReplicaServer(int processid){
@@ -197,7 +216,6 @@ void server_start(char*hostname,int port){
         
 	while(1){
 		if(isDead)break;
-		printf("SERVER AWAIT %s:%d\n",hostname,port);
 		MPI_Recv(&receiveCommand,sizeof(int),MPI_INT,MAIN_SERVER_RANK,SERVER_TAG,MPI_COMM_WORLD,&status);
                 switch(receiveCommand){
                 	case COMMAND_SUICIDE:{
@@ -243,39 +261,37 @@ int*assignPurposes(argvinfo*user_params,int procsize){
 	return purposes;
 
 }
-void sentReplicaNames(argvinfo*user_args){
+char** sentReplicaNames(argvinfo*user_args){
 	char replicaPrefix[4]="rs_";
 	char tmp_buffer[100];
 	char *replicaBuffer;
+	char **replicaNames=alloc2D(user_args->server_nodes,REPLICA_NAME_MAX,sizeof(char));
 	for(int i=1,cnt=0;i<user_args->server_nodes;i+=user_args->replicas_per_shard,cnt+=1){
 		sprintf(tmp_buffer,"%d_M",cnt);
 		replicaBuffer=concat(replicaPrefix,tmp_buffer);
-		printf("HERE -> %s\n",replicaBuffer);
 		for(int j=0;j<user_args->replicas_per_shard&&j+i<user_args->server_nodes;j++){
+			memcpy(replicaNames[i+j],replicaBuffer,strlen(replicaBuffer));
 			MPI_Send(replicaBuffer,strlen(replicaBuffer),MPI_CHAR,i+j,SERVER_TAG,MPI_COMM_WORLD);
 			//free(replicaBuffer); MPI_Send takes ownership of the buffer
+
 		}
 		
 	}
-
-}
-void setupConfigServer(){
-
-}
-void setupMongos(){
-
+	return replicaNames;
 
 }
 
-void setup(argvinfo *user_args,int procsize,char** hosts,int*ports,int*purposes){
-	
-	sentReplicaNames(user_args);
-	setupConfigServer();
-	setupMongos();
-	
-	
 
-
+void ack_instances(argvinfo*user_params,char**hostnames,int*ports,int*purposes,char**replicaNames){
+	char curr_replica[REPLICA_NAME_MAX] = "NONE";
+	int curr_port;
+	for(int i=0;i<user_params->server_nodes;i++){
+		if(strcmp(curr_replica,replicaNames[i])){
+			memcpy(curr_replica,replicaNames[i],strlen(replicaNames[i]));
+			curr_port=ports[i];
+			printf("%s is %d\n",curr_replica,curr_port);			
+		}
+	}	
 }
 void run(int my_rank,int p,int *ports){
 	system("sleep 10");
@@ -284,6 +300,40 @@ void run(int my_rank,int p,int *ports){
 		MPI_Send(&command,1,MPI_INT,i,SERVER_TAG,MPI_COMM_WORLD);
 		printf("SERVER %d SENT KILL ON %d(%d)\n",my_rank,i,ports[i]);
 	}
+
+}
+char*itoa(int n){
+	char*str=(char*)malloc(sizeof(char)*INT_MAX_STRING);
+	sprintf(str,"%d",n);
+	return str;
+
+}
+char *itoa_buff(char*buff,int n){
+	sprintf(buff,"%d",n);
+	return buff;
+}
+char* _rs_initiate_build(char*replicaName,char**hosts,int*ports,int n){
+	cJSON *rs_initiate=cJSON_CreateObject();
+	cJSON *_id_value=cJSON_CreateString(replicaName);
+	cJSON *iter_object;
+	cJSON *id_iter_object;
+	
+	cJSON_AddItemToObject(rs_initiate,"_id",_id_value);
+	char*_member_id_buff=(char*)malloc(sizeof(char)*INT_MAX_STRING);
+	
+	//printf("%s",cJSON_Print(rs_initiate));
+	
+
+	for(int i=0;i<n;i++){
+		iter_object=cJSON_CreateObject();
+		_member_id_buff=itoa_buff(_member_id_buff,i);
+
+	
+	
+	}
+
+	return NULL;
+
 
 }
 int main(int argc,char*argv[]){
@@ -341,6 +391,7 @@ int main(int argc,char*argv[]){
 		MPI_Status status;
 		int tmp;
 		char**hosts;
+		char**replicaNames;
 		int*ports;
 		int*purposes;
 		printf("Size of cluster %d\n",p);
@@ -350,16 +401,21 @@ int main(int argc,char*argv[]){
 		purposes=assignPurposes(user_params,p);
 		
 
-		setup(user_params,
-			p,
-			hosts,
-			ports,
-			purposes);
-			
+		replicaNames=sentReplicaNames(user_params);
+		
+		
+		ack_instances(user_params,
+				hosts,
+				ports,
+				purposes,
+				replicaNames);
+		_rs_initiate_build("rs0_M",hosts,ports,3);
+
 		run(my_rank,user_params->server_nodes,ports);
 
-
+		
 		free2D(hosts,p);
+		free2D(replicaNames,user_params->server_nodes);
 		free(ports);
 		free(purposes);
 	}

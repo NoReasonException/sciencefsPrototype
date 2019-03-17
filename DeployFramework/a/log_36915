@@ -1,59 +1,373 @@
-2019-03-09T03:09:30.842+0000 I CONTROL  [initandlisten] MongoDB starting : pid=32131 port=36915 dbpath=stefan-ThinkPad-X230/instance_36915 64-bit host=stefan-ThinkPad-X230
-2019-03-09T03:09:30.842+0000 I CONTROL  [initandlisten] db version v3.6.3
-2019-03-09T03:09:30.842+0000 I CONTROL  [initandlisten] git version: 9586e557d54ef70f9ca4b43c26892cd55257e1a5
-2019-03-09T03:09:30.842+0000 I CONTROL  [initandlisten] OpenSSL version: OpenSSL 1.1.0g  2 Nov 2017
-2019-03-09T03:09:30.842+0000 I CONTROL  [initandlisten] allocator: tcmalloc
-2019-03-09T03:09:30.842+0000 I CONTROL  [initandlisten] modules: none
-2019-03-09T03:09:30.842+0000 I CONTROL  [initandlisten] build environment:
-2019-03-09T03:09:30.842+0000 I CONTROL  [initandlisten]     distarch: x86_64
-2019-03-09T03:09:30.842+0000 I CONTROL  [initandlisten]     target_arch: x86_64
-2019-03-09T03:09:30.842+0000 I CONTROL  [initandlisten] options: { net: { bindIp: "stefan-ThinkPad-X230", port: 36915 }, replication: { replSet: "rs_0_M" }, sharding: { clusterRole: "shardsvr" }, storage: { dbPath: "stefan-ThinkPad-X230/instance_36915" } }
-2019-03-09T03:09:30.843+0000 I STORAGE  [initandlisten] 
-2019-03-09T03:09:30.843+0000 I STORAGE  [initandlisten] ** WARNING: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine
-2019-03-09T03:09:30.843+0000 I STORAGE  [initandlisten] **          See http://dochub.mongodb.org/core/prodnotes-filesystem
-2019-03-09T03:09:30.843+0000 I STORAGE  [initandlisten] wiredtiger_open config: create,cache_size=7417M,session_max=20000,eviction=(threads_min=4,threads_max=4),config_base=false,statistics=(fast),log=(enabled=true,archive=true,path=journal,compressor=snappy),file_manager=(close_idle_time=100000),statistics_log=(wait=0),verbose=(recovery_progress),
-2019-03-09T03:09:32.799+0000 I CONTROL  [initandlisten] 
-2019-03-09T03:09:32.799+0000 I CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.
-2019-03-09T03:09:32.799+0000 I CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.
-2019-03-09T03:09:32.799+0000 I CONTROL  [initandlisten] 
-2019-03-09T03:09:32.804+0000 W SHARDING [initandlisten] Started with --shardsvr, but no shardIdentity document was found on disk in admin.system.version. This most likely means this server has not yet been added to a sharded cluster.
-2019-03-09T03:09:32.804+0000 I STORAGE  [initandlisten] createCollection: local.startup_log with no UUID.
-2019-03-09T03:09:32.821+0000 I FTDC     [initandlisten] Initializing full-time diagnostic data capture with directory 'stefan-ThinkPad-X230/instance_36915/diagnostic.data'
-2019-03-09T03:09:32.821+0000 I STORAGE  [initandlisten] createCollection: local.me with no UUID.
-2019-03-09T03:09:32.839+0000 I STORAGE  [initandlisten] createCollection: local.replset.minvalid with no UUID.
-2019-03-09T03:09:32.856+0000 I REPL     [initandlisten] Did not find local voted for document at startup.
-2019-03-09T03:09:32.856+0000 I REPL     [initandlisten] Did not find local Rollback ID document at startup. Creating one.
-2019-03-09T03:09:32.856+0000 I STORAGE  [initandlisten] createCollection: local.system.rollback.id with no UUID.
-2019-03-09T03:09:32.893+0000 I REPL     [initandlisten] Initialized the rollback ID to 1
-2019-03-09T03:09:32.893+0000 I REPL     [initandlisten] Did not find local replica set configuration document at startup;  NoMatchingDocument: Did not find replica set configuration document in local.system.replset
-2019-03-09T03:09:32.893+0000 I NETWORK  [initandlisten] waiting for connections on port 36915
-2019-03-09T03:09:41.698+0000 E STORAGE  [thread1] WiredTiger error (2) [1552100981:698880][32131:0x7f9360dc8700], log-server: stefan-ThinkPad-X230/instance_36915/journal: directory-list: opendir: No such file or directory
-2019-03-09T03:09:41.699+0000 E STORAGE  [thread1] WiredTiger error (2) [1552100981:699026][32131:0x7f9360dc8700], log-server: log pre-alloc server error: No such file or directory
-2019-03-09T03:09:41.699+0000 E STORAGE  [thread1] WiredTiger error (2) [1552100981:699060][32131:0x7f9360dc8700], log-server: log server error: No such file or directory
-2019-03-09T03:09:41.699+0000 E STORAGE  [thread1] WiredTiger error (-31804) [1552100981:699110][32131:0x7f9360dc8700], log-server: the process must exit and restart: WT_PANIC: WiredTiger library panic
-2019-03-09T03:09:41.699+0000 F -        [thread1] Fatal Assertion 28558 at src/mongo/db/storage/wiredtiger/wiredtiger_util.cpp 361
-2019-03-09T03:09:41.699+0000 F -        [thread1] 
+2019-03-09T05:50:35.153+0000 I CONTROL  [initandlisten] MongoDB starting : pid=1535 port=36915 dbpath=stefan-ThinkPad-X230/instance_36915 64-bit host=stefan-ThinkPad-X230
+2019-03-09T05:50:35.153+0000 I CONTROL  [initandlisten] db version v3.6.3
+2019-03-09T05:50:35.153+0000 I CONTROL  [initandlisten] git version: 9586e557d54ef70f9ca4b43c26892cd55257e1a5
+2019-03-09T05:50:35.153+0000 I CONTROL  [initandlisten] OpenSSL version: OpenSSL 1.1.0g  2 Nov 2017
+2019-03-09T05:50:35.153+0000 I CONTROL  [initandlisten] allocator: tcmalloc
+2019-03-09T05:50:35.153+0000 I CONTROL  [initandlisten] modules: none
+2019-03-09T05:50:35.153+0000 I CONTROL  [initandlisten] build environment:
+2019-03-09T05:50:35.153+0000 I CONTROL  [initandlisten]     distarch: x86_64
+2019-03-09T05:50:35.153+0000 I CONTROL  [initandlisten]     target_arch: x86_64
+2019-03-09T05:50:35.153+0000 I CONTROL  [initandlisten] options: { net: { bindIp: "stefan-ThinkPad-X230", port: 36915 }, replication: { replSet: "rs_0_M" }, sharding: { clusterRole: "shardsvr" }, storage: { dbPath: "stefan-ThinkPad-X230/instance_36915" } }
+2019-03-09T05:50:35.153+0000 I STORAGE  [initandlisten] 
+2019-03-09T05:50:35.153+0000 I STORAGE  [initandlisten] ** WARNING: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine
+2019-03-09T05:50:35.153+0000 I STORAGE  [initandlisten] **          See http://dochub.mongodb.org/core/prodnotes-filesystem
+2019-03-09T05:50:35.153+0000 I STORAGE  [initandlisten] wiredtiger_open config: create,cache_size=7417M,session_max=20000,eviction=(threads_min=4,threads_max=4),config_base=false,statistics=(fast),log=(enabled=true,archive=true,path=journal,compressor=snappy),file_manager=(close_idle_time=100000),statistics_log=(wait=0),verbose=(recovery_progress),
+2019-03-09T05:50:36.499+0000 I CONTROL  [initandlisten] 
+2019-03-09T05:50:36.499+0000 I CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.
+2019-03-09T05:50:36.499+0000 I CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.
+2019-03-09T05:50:36.499+0000 I CONTROL  [initandlisten] 
+2019-03-09T05:50:36.503+0000 W SHARDING [initandlisten] Started with --shardsvr, but no shardIdentity document was found on disk in admin.system.version. This most likely means this server has not yet been added to a sharded cluster.
+2019-03-09T05:50:36.503+0000 I STORAGE  [initandlisten] createCollection: local.startup_log with no UUID.
+2019-03-09T05:50:36.529+0000 I FTDC     [initandlisten] Initializing full-time diagnostic data capture with directory 'stefan-ThinkPad-X230/instance_36915/diagnostic.data'
+2019-03-09T05:50:36.529+0000 I STORAGE  [initandlisten] createCollection: local.me with no UUID.
+2019-03-09T05:50:36.561+0000 I STORAGE  [initandlisten] createCollection: local.replset.minvalid with no UUID.
+2019-03-09T05:50:36.587+0000 I REPL     [initandlisten] Did not find local voted for document at startup.
+2019-03-09T05:50:36.587+0000 I REPL     [initandlisten] Did not find local Rollback ID document at startup. Creating one.
+2019-03-09T05:50:36.587+0000 I STORAGE  [initandlisten] createCollection: local.system.rollback.id with no UUID.
+2019-03-09T05:50:36.617+0000 I REPL     [initandlisten] Initialized the rollback ID to 1
+2019-03-09T05:50:36.619+0000 I REPL     [initandlisten] Did not find local replica set configuration document at startup;  NoMatchingDocument: Did not find replica set configuration document in local.system.replset
+2019-03-09T05:50:36.619+0000 I NETWORK  [initandlisten] waiting for connections on port 36915
+2019-03-09T05:50:45.193+0000 E STORAGE  [thread1] WiredTiger error (2) [1552110645:193565][1535:0x7f5286f76700], log-server: stefan-ThinkPad-X230/instance_36915/journal: directory-list: opendir: No such file or directory
+2019-03-09T05:50:45.193+0000 E STORAGE  [thread1] WiredTiger error (2) [1552110645:193716][1535:0x7f5286f76700], log-server: log pre-alloc server error: No such file or directory
+2019-03-09T05:50:45.193+0000 E STORAGE  [thread1] WiredTiger error (2) [1552110645:193750][1535:0x7f5286f76700], log-server: log server error: No such file or directory
+2019-03-09T05:50:45.193+0000 E STORAGE  [thread1] WiredTiger error (-31804) [1552110645:193797][1535:0x7f5286f76700], log-server: the process must exit and restart: WT_PANIC: WiredTiger library panic
+2019-03-09T05:50:45.193+0000 F -        [thread1] Fatal Assertion 28558 at src/mongo/db/storage/wiredtiger/wiredtiger_util.cpp 361
+2019-03-09T05:50:45.193+0000 F -        [thread1] 
 
 ***aborting after fassert() failure
 
 
-2019-03-09T03:09:41.711+0000 F -        [thread1] Got signal: 6 (Aborted).
+2019-03-09T05:50:45.204+0000 F -        [thread1] Got signal: 6 (Aborted).
 
- 0x56413bee701a 0x56413bee62de 0x56413bee67b2 0x7f9363a95890 0x7f93636d0e97 0x7f93636d2801 0x56413a6e7421 0x56413a7b4456 0x56413a820da7 0x56413a695457 0x56413a69578a 0x56413a888995 0x7f9363a8a6db 0x7f93637b388f
+ 0x55952e09f01a 0x55952e09e2de 0x55952e09e7b2 0x7f5289c43890 0x7f528987ee97 0x7f5289880801 0x55952c89f421 0x55952c96c456 0x55952c9d8da7 0x55952c84d457 0x55952c84d78a 0x55952ca40995 0x7f5289c386db 0x7f528996188f
 ----- BEGIN BACKTRACE -----
-{"backtrace":[{"b":"564139EAC000","o":"203B01A","s":"_ZN5mongo15printStackTraceERSo"},{"b":"564139EAC000","o":"203A2DE"},{"b":"564139EAC000","o":"203A7B2"},{"b":"7F9363A83000","o":"12890"},{"b":"7F9363692000","o":"3EE97","s":"gsignal"},{"b":"7F9363692000","o":"40801","s":"abort"},{"b":"564139EAC000","o":"83B421","s":"_ZN5mongo32fassertFailedNoTraceWithLocationEiPKcj"},{"b":"564139EAC000","o":"908456"},{"b":"564139EAC000","o":"974DA7"},{"b":"564139EAC000","o":"7E9457","s":"__wt_err"},{"b":"564139EAC000","o":"7E978A","s":"__wt_panic"},{"b":"564139EAC000","o":"9DC995"},{"b":"7F9363A83000","o":"76DB"},{"b":"7F9363692000","o":"12188F","s":"clone"}],"processInfo":{ "mongodbVersion" : "3.6.3", "gitVersion" : "9586e557d54ef70f9ca4b43c26892cd55257e1a5", "compiledModules" : [], "uname" : { "sysname" : "Linux", "release" : "4.18.0-15-generic", "version" : "#16~18.04.1-Ubuntu SMP Thu Feb 7 14:06:04 UTC 2019", "machine" : "x86_64" }, "somap" : [ { "b" : "564139EAC000", "elfType" : 3, "buildId" : "3BC7EC1BD697E0383D04402C13372B9D5B7C4993" }, { "b" : "7FFC223AB000", "path" : "linux-vdso.so.1", "elfType" : 3, "buildId" : "A30AFCDB6A1E54E7A4208A0343235DE4091E17BA" }, { "b" : "7F93664A2000", "path" : "/usr/lib/x86_64-linux-gnu/libstemmer.so.0d", "elfType" : 3, "buildId" : "278CA72E21C11FF2E15A86B0B2C13A8922951702" }, { "b" : "7F9366285000", "path" : "/lib/x86_64-linux-gnu/libz.so.1", "elfType" : 3, "buildId" : "EF3E006DFE3132A41D4D4DC0E407D6EA658E11C4" }, { "b" : "7F936607D000", "path" : "/usr/lib/x86_64-linux-gnu/libsnappy.so.1", "elfType" : 3, "buildId" : "55765D88D03CC928130D788F1C7E4BF8415AC7E3" }, { "b" : "7F9365E03000", "path" : "/usr/lib/x86_64-linux-gnu/libyaml-cpp.so.0.5", "elfType" : 3, "buildId" : "BF65D47C8CD968E616F7D179F84A80CA71DB8249" }, { "b" : "7F9365BFA000", "path" : "/usr/lib/x86_64-linux-gnu/libpcrecpp.so.0", "elfType" : 3, "buildId" : "089B8438CC1394E978E56C556C9CAE768BD2F18C" }, { "b" : "7F9365979000", "path" : "/usr/lib/x86_64-linux-gnu/libboost_program_options.so.1.65.1", "elfType" : 3, "buildId" : "9F69F11220BB1FAAB0B73A2B6F4B0E81D9B901CE" }, { "b" : "7F936575F000", "path" : "/usr/lib/x86_64-linux-gnu/libboost_filesystem.so.1.65.1", "elfType" : 3, "buildId" : "32B8421A0643426D9FB008005F5A86688065008B" }, { "b" : "7F936555A000", "path" : "/usr/lib/x86_64-linux-gnu/libboost_system.so.1.65.1", "elfType" : 3, "buildId" : "4BA851D242F2DB710CB1817DE860CF97AE2F9714" }, { "b" : "7F93652EA000", "path" : "/usr/lib/x86_64-linux-gnu/libtcmalloc.so.4", "elfType" : 3, "buildId" : "572D5C17FBDA6B678DF653411F676819DE18CA6B" }, { "b" : "7F93650CF000", "path" : "/lib/x86_64-linux-gnu/libresolv.so.2", "elfType" : 3, "buildId" : "390E9CC4C215314B6D8ADE6D6E28F8518418039C" }, { "b" : "7F9364E65000", "path" : "/usr/lib/x86_64-linux-gnu/libssl.so.1.1", "elfType" : 3, "buildId" : "9787FF1FFFE8D82268D89F6BFA3AF07B3E9D140F" }, { "b" : "7F93649ED000", "path" : "/usr/lib/x86_64-linux-gnu/libcrypto.so.1.1", "elfType" : 3, "buildId" : "A409BCD92DCDD3298E92C359876AC800FDD499AC" }, { "b" : "7F93647E5000", "path" : "/lib/x86_64-linux-gnu/librt.so.1", "elfType" : 3, "buildId" : "9826FBDF57ED7D6965131074CB3C08B1009C1CD8" }, { "b" : "7F93645E1000", "path" : "/lib/x86_64-linux-gnu/libdl.so.2", "elfType" : 3, "buildId" : "25AD56E902E23B490A9CCDB08A9744D89CB95BCC" }, { "b" : "7F9364258000", "path" : "/usr/lib/x86_64-linux-gnu/libstdc++.so.6", "elfType" : 3, "buildId" : "CBCD95969196C3B0B7C538E13E996F62EA17B9D2" }, { "b" : "7F9363EBA000", "path" : "/lib/x86_64-linux-gnu/libm.so.6", "elfType" : 3, "buildId" : "A33761AB8FB485311B3C85BF4253099D7CABE653" }, { "b" : "7F9363CA2000", "path" : "/lib/x86_64-linux-gnu/libgcc_s.so.1", "elfType" : 3, "buildId" : "92E0BE1929D28508CF9C6D5754C7EB48C12255B3" }, { "b" : "7F9363A83000", "path" : "/lib/x86_64-linux-gnu/libpthread.so.0", "elfType" : 3, "buildId" : "28C6AADE70B2D40D1F0F3D0A1A0CAD1AB816448F" }, { "b" : "7F9363692000", "path" : "/lib/x86_64-linux-gnu/libc.so.6", "elfType" : 3, "buildId" : "B417C0BA7CC5CF06D1D1BED6652CEDB9253C60D0" }, { "b" : "7F9363420000", "path" : "/lib/x86_64-linux-gnu/libpcre.so.3", "elfType" : 3, "buildId" : "5B3416BB188EAF3FA4B7530AAE6C1890B38B0372" }, { "b" : "7F9363205000", "path" : "/usr/lib/x86_64-linux-gnu/libunwind.so.8", "elfType" : 3, "buildId" : "7995F03B59E1D6EB7968EEA5B8534910D4E8E8D6" }, { "b" : "7F93666F3000", "path" : "/lib64/ld-linux-x86-64.so.2", "elfType" : 3, "buildId" : "64DF1B961228382FE18684249ED800AB1DCEAAD4" }, { "b" : "7F9362FDF000", "path" : "/lib/x86_64-linux-gnu/liblzma.so.5", "elfType" : 3, "buildId" : "8FBCCA354D964860B9E6EB3736E9B7BC6177B417" } ] }}
- mongod(_ZN5mongo15printStackTraceERSo+0x3A) [0x56413bee701a]
- mongod(+0x203A2DE) [0x56413bee62de]
- mongod(+0x203A7B2) [0x56413bee67b2]
- libpthread.so.0(+0x12890) [0x7f9363a95890]
- libc.so.6(gsignal+0xC7) [0x7f93636d0e97]
- libc.so.6(abort+0x141) [0x7f93636d2801]
- mongod(_ZN5mongo32fassertFailedNoTraceWithLocationEiPKcj+0x0) [0x56413a6e7421]
- mongod(+0x908456) [0x56413a7b4456]
- mongod(+0x974DA7) [0x56413a820da7]
- mongod(__wt_err+0xA0) [0x56413a695457]
- mongod(__wt_panic+0x34) [0x56413a69578a]
- mongod(+0x9DC995) [0x56413a888995]
- libpthread.so.0(+0x76DB) [0x7f9363a8a6db]
- libc.so.6(clone+0x3F) [0x7f93637b388f]
+{"backtrace":[{"b":"55952C064000","o":"203B01A","s":"_ZN5mongo15printStackTraceERSo"},{"b":"55952C064000","o":"203A2DE"},{"b":"55952C064000","o":"203A7B2"},{"b":"7F5289C31000","o":"12890"},{"b":"7F5289840000","o":"3EE97","s":"gsignal"},{"b":"7F5289840000","o":"40801","s":"abort"},{"b":"55952C064000","o":"83B421","s":"_ZN5mongo32fassertFailedNoTraceWithLocationEiPKcj"},{"b":"55952C064000","o":"908456"},{"b":"55952C064000","o":"974DA7"},{"b":"55952C064000","o":"7E9457","s":"__wt_err"},{"b":"55952C064000","o":"7E978A","s":"__wt_panic"},{"b":"55952C064000","o":"9DC995"},{"b":"7F5289C31000","o":"76DB"},{"b":"7F5289840000","o":"12188F","s":"clone"}],"processInfo":{ "mongodbVersion" : "3.6.3", "gitVersion" : "9586e557d54ef70f9ca4b43c26892cd55257e1a5", "compiledModules" : [], "uname" : { "sysname" : "Linux", "release" : "4.18.0-15-generic", "version" : "#16~18.04.1-Ubuntu SMP Thu Feb 7 14:06:04 UTC 2019", "machine" : "x86_64" }, "somap" : [ { "b" : "55952C064000", "elfType" : 3, "buildId" : "3BC7EC1BD697E0383D04402C13372B9D5B7C4993" }, { "b" : "7FFEBC1E8000", "path" : "linux-vdso.so.1", "elfType" : 3, "buildId" : "A30AFCDB6A1E54E7A4208A0343235DE4091E17BA" }, { "b" : "7F528C650000", "path" : "/usr/lib/x86_64-linux-gnu/libstemmer.so.0d", "elfType" : 3, "buildId" : "278CA72E21C11FF2E15A86B0B2C13A8922951702" }, { "b" : "7F528C433000", "path" : "/lib/x86_64-linux-gnu/libz.so.1", "elfType" : 3, "buildId" : "EF3E006DFE3132A41D4D4DC0E407D6EA658E11C4" }, { "b" : "7F528C22B000", "path" : "/usr/lib/x86_64-linux-gnu/libsnappy.so.1", "elfType" : 3, "buildId" : "55765D88D03CC928130D788F1C7E4BF8415AC7E3" }, { "b" : "7F528BFB1000", "path" : "/usr/lib/x86_64-linux-gnu/libyaml-cpp.so.0.5", "elfType" : 3, "buildId" : "BF65D47C8CD968E616F7D179F84A80CA71DB8249" }, { "b" : "7F528BDA8000", "path" : "/usr/lib/x86_64-linux-gnu/libpcrecpp.so.0", "elfType" : 3, "buildId" : "089B8438CC1394E978E56C556C9CAE768BD2F18C" }, { "b" : "7F528BB27000", "path" : "/usr/lib/x86_64-linux-gnu/libboost_program_options.so.1.65.1", "elfType" : 3, "buildId" : "9F69F11220BB1FAAB0B73A2B6F4B0E81D9B901CE" }, { "b" : "7F528B90D000", "path" : "/usr/lib/x86_64-linux-gnu/libboost_filesystem.so.1.65.1", "elfType" : 3, "buildId" : "32B8421A0643426D9FB008005F5A86688065008B" }, { "b" : "7F528B708000", "path" : "/usr/lib/x86_64-linux-gnu/libboost_system.so.1.65.1", "elfType" : 3, "buildId" : "4BA851D242F2DB710CB1817DE860CF97AE2F9714" }, { "b" : "7F528B498000", "path" : "/usr/lib/x86_64-linux-gnu/libtcmalloc.so.4", "elfType" : 3, "buildId" : "572D5C17FBDA6B678DF653411F676819DE18CA6B" }, { "b" : "7F528B27D000", "path" : "/lib/x86_64-linux-gnu/libresolv.so.2", "elfType" : 3, "buildId" : "390E9CC4C215314B6D8ADE6D6E28F8518418039C" }, { "b" : "7F528B013000", "path" : "/usr/lib/x86_64-linux-gnu/libssl.so.1.1", "elfType" : 3, "buildId" : "9787FF1FFFE8D82268D89F6BFA3AF07B3E9D140F" }, { "b" : "7F528AB9B000", "path" : "/usr/lib/x86_64-linux-gnu/libcrypto.so.1.1", "elfType" : 3, "buildId" : "A409BCD92DCDD3298E92C359876AC800FDD499AC" }, { "b" : "7F528A993000", "path" : "/lib/x86_64-linux-gnu/librt.so.1", "elfType" : 3, "buildId" : "9826FBDF57ED7D6965131074CB3C08B1009C1CD8" }, { "b" : "7F528A78F000", "path" : "/lib/x86_64-linux-gnu/libdl.so.2", "elfType" : 3, "buildId" : "25AD56E902E23B490A9CCDB08A9744D89CB95BCC" }, { "b" : "7F528A406000", "path" : "/usr/lib/x86_64-linux-gnu/libstdc++.so.6", "elfType" : 3, "buildId" : "CBCD95969196C3B0B7C538E13E996F62EA17B9D2" }, { "b" : "7F528A068000", "path" : "/lib/x86_64-linux-gnu/libm.so.6", "elfType" : 3, "buildId" : "A33761AB8FB485311B3C85BF4253099D7CABE653" }, { "b" : "7F5289E50000", "path" : "/lib/x86_64-linux-gnu/libgcc_s.so.1", "elfType" : 3, "buildId" : "92E0BE1929D28508CF9C6D5754C7EB48C12255B3" }, { "b" : "7F5289C31000", "path" : "/lib/x86_64-linux-gnu/libpthread.so.0", "elfType" : 3, "buildId" : "28C6AADE70B2D40D1F0F3D0A1A0CAD1AB816448F" }, { "b" : "7F5289840000", "path" : "/lib/x86_64-linux-gnu/libc.so.6", "elfType" : 3, "buildId" : "B417C0BA7CC5CF06D1D1BED6652CEDB9253C60D0" }, { "b" : "7F52895CE000", "path" : "/lib/x86_64-linux-gnu/libpcre.so.3", "elfType" : 3, "buildId" : "5B3416BB188EAF3FA4B7530AAE6C1890B38B0372" }, { "b" : "7F52893B3000", "path" : "/usr/lib/x86_64-linux-gnu/libunwind.so.8", "elfType" : 3, "buildId" : "7995F03B59E1D6EB7968EEA5B8534910D4E8E8D6" }, { "b" : "7F528C8A1000", "path" : "/lib64/ld-linux-x86-64.so.2", "elfType" : 3, "buildId" : "64DF1B961228382FE18684249ED800AB1DCEAAD4" }, { "b" : "7F528918D000", "path" : "/lib/x86_64-linux-gnu/liblzma.so.5", "elfType" : 3, "buildId" : "8FBCCA354D964860B9E6EB3736E9B7BC6177B417" } ] }}
+ mongod(_ZN5mongo15printStackTraceERSo+0x3A) [0x55952e09f01a]
+ mongod(+0x203A2DE) [0x55952e09e2de]
+ mongod(+0x203A7B2) [0x55952e09e7b2]
+ libpthread.so.0(+0x12890) [0x7f5289c43890]
+ libc.so.6(gsignal+0xC7) [0x7f528987ee97]
+ libc.so.6(abort+0x141) [0x7f5289880801]
+ mongod(_ZN5mongo32fassertFailedNoTraceWithLocationEiPKcj+0x0) [0x55952c89f421]
+ mongod(+0x908456) [0x55952c96c456]
+ mongod(+0x974DA7) [0x55952c9d8da7]
+ mongod(__wt_err+0xA0) [0x55952c84d457]
+ mongod(__wt_panic+0x34) [0x55952c84d78a]
+ mongod(+0x9DC995) [0x55952ca40995]
+ libpthread.so.0(+0x76DB) [0x7f5289c386db]
+ libc.so.6(clone+0x3F) [0x7f528996188f]
+-----  END BACKTRACE  -----
+2019-03-09T06:01:48.165+0000 I CONTROL  [initandlisten] MongoDB starting : pid=1891 port=36915 dbpath=stefan-ThinkPad-X230/instance_36915 64-bit host=stefan-ThinkPad-X230
+2019-03-09T06:01:48.165+0000 I CONTROL  [initandlisten] db version v3.6.3
+2019-03-09T06:01:48.165+0000 I CONTROL  [initandlisten] git version: 9586e557d54ef70f9ca4b43c26892cd55257e1a5
+2019-03-09T06:01:48.165+0000 I CONTROL  [initandlisten] OpenSSL version: OpenSSL 1.1.0g  2 Nov 2017
+2019-03-09T06:01:48.165+0000 I CONTROL  [initandlisten] allocator: tcmalloc
+2019-03-09T06:01:48.165+0000 I CONTROL  [initandlisten] modules: none
+2019-03-09T06:01:48.165+0000 I CONTROL  [initandlisten] build environment:
+2019-03-09T06:01:48.165+0000 I CONTROL  [initandlisten]     distarch: x86_64
+2019-03-09T06:01:48.165+0000 I CONTROL  [initandlisten]     target_arch: x86_64
+2019-03-09T06:01:48.165+0000 I CONTROL  [initandlisten] options: { net: { bindIp: "stefan-ThinkPad-X230", port: 36915 }, replication: { replSet: "rs_0_M" }, sharding: { clusterRole: "shardsvr" }, storage: { dbPath: "stefan-ThinkPad-X230/instance_36915" } }
+2019-03-09T06:01:48.165+0000 I STORAGE  [initandlisten] 
+2019-03-09T06:01:48.166+0000 I STORAGE  [initandlisten] ** WARNING: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine
+2019-03-09T06:01:48.166+0000 I STORAGE  [initandlisten] **          See http://dochub.mongodb.org/core/prodnotes-filesystem
+2019-03-09T06:01:48.166+0000 I STORAGE  [initandlisten] wiredtiger_open config: create,cache_size=7417M,session_max=20000,eviction=(threads_min=4,threads_max=4),config_base=false,statistics=(fast),log=(enabled=true,archive=true,path=journal,compressor=snappy),file_manager=(close_idle_time=100000),statistics_log=(wait=0),verbose=(recovery_progress),
+2019-03-09T06:01:49.287+0000 I CONTROL  [initandlisten] 
+2019-03-09T06:01:49.287+0000 I CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.
+2019-03-09T06:01:49.287+0000 I CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.
+2019-03-09T06:01:49.287+0000 I CONTROL  [initandlisten] 
+2019-03-09T06:01:49.291+0000 W SHARDING [initandlisten] Started with --shardsvr, but no shardIdentity document was found on disk in admin.system.version. This most likely means this server has not yet been added to a sharded cluster.
+2019-03-09T06:01:49.291+0000 I STORAGE  [initandlisten] createCollection: local.startup_log with no UUID.
+2019-03-09T06:01:49.309+0000 I FTDC     [initandlisten] Initializing full-time diagnostic data capture with directory 'stefan-ThinkPad-X230/instance_36915/diagnostic.data'
+2019-03-09T06:01:49.310+0000 I STORAGE  [initandlisten] createCollection: local.me with no UUID.
+2019-03-09T06:01:49.331+0000 I STORAGE  [initandlisten] createCollection: local.replset.minvalid with no UUID.
+2019-03-09T06:01:49.358+0000 I REPL     [initandlisten] Did not find local voted for document at startup.
+2019-03-09T06:01:49.358+0000 I REPL     [initandlisten] Did not find local Rollback ID document at startup. Creating one.
+2019-03-09T06:01:49.358+0000 I STORAGE  [initandlisten] createCollection: local.system.rollback.id with no UUID.
+2019-03-09T06:01:49.388+0000 I REPL     [initandlisten] Initialized the rollback ID to 1
+2019-03-09T06:01:49.388+0000 I REPL     [initandlisten] Did not find local replica set configuration document at startup;  NoMatchingDocument: Did not find replica set configuration document in local.system.replset
+2019-03-09T06:01:49.388+0000 I NETWORK  [initandlisten] waiting for connections on port 36915
+2019-03-09T06:01:58.187+0000 E STORAGE  [thread1] WiredTiger error (2) [1552111318:187767][1891:0x7f5f5943f700], log-server: stefan-ThinkPad-X230/instance_36915/journal: directory-list: opendir: No such file or directory
+2019-03-09T06:01:58.187+0000 E STORAGE  [thread1] WiredTiger error (2) [1552111318:187942][1891:0x7f5f5943f700], log-server: log pre-alloc server error: No such file or directory
+2019-03-09T06:01:58.188+0000 E STORAGE  [thread1] WiredTiger error (2) [1552111318:187993][1891:0x7f5f5943f700], log-server: log server error: No such file or directory
+2019-03-09T06:01:58.188+0000 E STORAGE  [thread1] WiredTiger error (-31804) [1552111318:188033][1891:0x7f5f5943f700], log-server: the process must exit and restart: WT_PANIC: WiredTiger library panic
+2019-03-09T06:01:58.188+0000 F -        [thread1] Fatal Assertion 28558 at src/mongo/db/storage/wiredtiger/wiredtiger_util.cpp 361
+2019-03-09T06:01:58.188+0000 F -        [thread1] 
+
+***aborting after fassert() failure
+
+
+2019-03-09T06:01:58.197+0000 F -        [thread1] Got signal: 6 (Aborted).
+
+ 0x56050655e01a 0x56050655d2de 0x56050655d7b2 0x7f5f5c10c890 0x7f5f5bd47e97 0x7f5f5bd49801 0x560504d5e421 0x560504e2b456 0x560504e97da7 0x560504d0c457 0x560504d0c78a 0x560504eff995 0x7f5f5c1016db 0x7f5f5be2a88f
+----- BEGIN BACKTRACE -----
+{"backtrace":[{"b":"560504523000","o":"203B01A","s":"_ZN5mongo15printStackTraceERSo"},{"b":"560504523000","o":"203A2DE"},{"b":"560504523000","o":"203A7B2"},{"b":"7F5F5C0FA000","o":"12890"},{"b":"7F5F5BD09000","o":"3EE97","s":"gsignal"},{"b":"7F5F5BD09000","o":"40801","s":"abort"},{"b":"560504523000","o":"83B421","s":"_ZN5mongo32fassertFailedNoTraceWithLocationEiPKcj"},{"b":"560504523000","o":"908456"},{"b":"560504523000","o":"974DA7"},{"b":"560504523000","o":"7E9457","s":"__wt_err"},{"b":"560504523000","o":"7E978A","s":"__wt_panic"},{"b":"560504523000","o":"9DC995"},{"b":"7F5F5C0FA000","o":"76DB"},{"b":"7F5F5BD09000","o":"12188F","s":"clone"}],"processInfo":{ "mongodbVersion" : "3.6.3", "gitVersion" : "9586e557d54ef70f9ca4b43c26892cd55257e1a5", "compiledModules" : [], "uname" : { "sysname" : "Linux", "release" : "4.18.0-15-generic", "version" : "#16~18.04.1-Ubuntu SMP Thu Feb 7 14:06:04 UTC 2019", "machine" : "x86_64" }, "somap" : [ { "b" : "560504523000", "elfType" : 3, "buildId" : "3BC7EC1BD697E0383D04402C13372B9D5B7C4993" }, { "b" : "7FFC062CA000", "path" : "linux-vdso.so.1", "elfType" : 3, "buildId" : "A30AFCDB6A1E54E7A4208A0343235DE4091E17BA" }, { "b" : "7F5F5EB19000", "path" : "/usr/lib/x86_64-linux-gnu/libstemmer.so.0d", "elfType" : 3, "buildId" : "278CA72E21C11FF2E15A86B0B2C13A8922951702" }, { "b" : "7F5F5E8FC000", "path" : "/lib/x86_64-linux-gnu/libz.so.1", "elfType" : 3, "buildId" : "EF3E006DFE3132A41D4D4DC0E407D6EA658E11C4" }, { "b" : "7F5F5E6F4000", "path" : "/usr/lib/x86_64-linux-gnu/libsnappy.so.1", "elfType" : 3, "buildId" : "55765D88D03CC928130D788F1C7E4BF8415AC7E3" }, { "b" : "7F5F5E47A000", "path" : "/usr/lib/x86_64-linux-gnu/libyaml-cpp.so.0.5", "elfType" : 3, "buildId" : "BF65D47C8CD968E616F7D179F84A80CA71DB8249" }, { "b" : "7F5F5E271000", "path" : "/usr/lib/x86_64-linux-gnu/libpcrecpp.so.0", "elfType" : 3, "buildId" : "089B8438CC1394E978E56C556C9CAE768BD2F18C" }, { "b" : "7F5F5DFF0000", "path" : "/usr/lib/x86_64-linux-gnu/libboost_program_options.so.1.65.1", "elfType" : 3, "buildId" : "9F69F11220BB1FAAB0B73A2B6F4B0E81D9B901CE" }, { "b" : "7F5F5DDD6000", "path" : "/usr/lib/x86_64-linux-gnu/libboost_filesystem.so.1.65.1", "elfType" : 3, "buildId" : "32B8421A0643426D9FB008005F5A86688065008B" }, { "b" : "7F5F5DBD1000", "path" : "/usr/lib/x86_64-linux-gnu/libboost_system.so.1.65.1", "elfType" : 3, "buildId" : "4BA851D242F2DB710CB1817DE860CF97AE2F9714" }, { "b" : "7F5F5D961000", "path" : "/usr/lib/x86_64-linux-gnu/libtcmalloc.so.4", "elfType" : 3, "buildId" : "572D5C17FBDA6B678DF653411F676819DE18CA6B" }, { "b" : "7F5F5D746000", "path" : "/lib/x86_64-linux-gnu/libresolv.so.2", "elfType" : 3, "buildId" : "390E9CC4C215314B6D8ADE6D6E28F8518418039C" }, { "b" : "7F5F5D4DC000", "path" : "/usr/lib/x86_64-linux-gnu/libssl.so.1.1", "elfType" : 3, "buildId" : "9787FF1FFFE8D82268D89F6BFA3AF07B3E9D140F" }, { "b" : "7F5F5D064000", "path" : "/usr/lib/x86_64-linux-gnu/libcrypto.so.1.1", "elfType" : 3, "buildId" : "A409BCD92DCDD3298E92C359876AC800FDD499AC" }, { "b" : "7F5F5CE5C000", "path" : "/lib/x86_64-linux-gnu/librt.so.1", "elfType" : 3, "buildId" : "9826FBDF57ED7D6965131074CB3C08B1009C1CD8" }, { "b" : "7F5F5CC58000", "path" : "/lib/x86_64-linux-gnu/libdl.so.2", "elfType" : 3, "buildId" : "25AD56E902E23B490A9CCDB08A9744D89CB95BCC" }, { "b" : "7F5F5C8CF000", "path" : "/usr/lib/x86_64-linux-gnu/libstdc++.so.6", "elfType" : 3, "buildId" : "CBCD95969196C3B0B7C538E13E996F62EA17B9D2" }, { "b" : "7F5F5C531000", "path" : "/lib/x86_64-linux-gnu/libm.so.6", "elfType" : 3, "buildId" : "A33761AB8FB485311B3C85BF4253099D7CABE653" }, { "b" : "7F5F5C319000", "path" : "/lib/x86_64-linux-gnu/libgcc_s.so.1", "elfType" : 3, "buildId" : "92E0BE1929D28508CF9C6D5754C7EB48C12255B3" }, { "b" : "7F5F5C0FA000", "path" : "/lib/x86_64-linux-gnu/libpthread.so.0", "elfType" : 3, "buildId" : "28C6AADE70B2D40D1F0F3D0A1A0CAD1AB816448F" }, { "b" : "7F5F5BD09000", "path" : "/lib/x86_64-linux-gnu/libc.so.6", "elfType" : 3, "buildId" : "B417C0BA7CC5CF06D1D1BED6652CEDB9253C60D0" }, { "b" : "7F5F5BA97000", "path" : "/lib/x86_64-linux-gnu/libpcre.so.3", "elfType" : 3, "buildId" : "5B3416BB188EAF3FA4B7530AAE6C1890B38B0372" }, { "b" : "7F5F5B87C000", "path" : "/usr/lib/x86_64-linux-gnu/libunwind.so.8", "elfType" : 3, "buildId" : "7995F03B59E1D6EB7968EEA5B8534910D4E8E8D6" }, { "b" : "7F5F5ED6A000", "path" : "/lib64/ld-linux-x86-64.so.2", "elfType" : 3, "buildId" : "64DF1B961228382FE18684249ED800AB1DCEAAD4" }, { "b" : "7F5F5B656000", "path" : "/lib/x86_64-linux-gnu/liblzma.so.5", "elfType" : 3, "buildId" : "8FBCCA354D964860B9E6EB3736E9B7BC6177B417" } ] }}
+ mongod(_ZN5mongo15printStackTraceERSo+0x3A) [0x56050655e01a]
+ mongod(+0x203A2DE) [0x56050655d2de]
+ mongod(+0x203A7B2) [0x56050655d7b2]
+ libpthread.so.0(+0x12890) [0x7f5f5c10c890]
+ libc.so.6(gsignal+0xC7) [0x7f5f5bd47e97]
+ libc.so.6(abort+0x141) [0x7f5f5bd49801]
+ mongod(_ZN5mongo32fassertFailedNoTraceWithLocationEiPKcj+0x0) [0x560504d5e421]
+ mongod(+0x908456) [0x560504e2b456]
+ mongod(+0x974DA7) [0x560504e97da7]
+ mongod(__wt_err+0xA0) [0x560504d0c457]
+ mongod(__wt_panic+0x34) [0x560504d0c78a]
+ mongod(+0x9DC995) [0x560504eff995]
+ libpthread.so.0(+0x76DB) [0x7f5f5c1016db]
+ libc.so.6(clone+0x3F) [0x7f5f5be2a88f]
+-----  END BACKTRACE  -----
+2019-03-09T06:02:58.408+0000 I CONTROL  [initandlisten] MongoDB starting : pid=2090 port=36915 dbpath=stefan-ThinkPad-X230/instance_36915 64-bit host=stefan-ThinkPad-X230
+2019-03-09T06:02:58.408+0000 I CONTROL  [initandlisten] db version v3.6.3
+2019-03-09T06:02:58.408+0000 I CONTROL  [initandlisten] git version: 9586e557d54ef70f9ca4b43c26892cd55257e1a5
+2019-03-09T06:02:58.409+0000 I CONTROL  [initandlisten] OpenSSL version: OpenSSL 1.1.0g  2 Nov 2017
+2019-03-09T06:02:58.409+0000 I CONTROL  [initandlisten] allocator: tcmalloc
+2019-03-09T06:02:58.409+0000 I CONTROL  [initandlisten] modules: none
+2019-03-09T06:02:58.409+0000 I CONTROL  [initandlisten] build environment:
+2019-03-09T06:02:58.409+0000 I CONTROL  [initandlisten]     distarch: x86_64
+2019-03-09T06:02:58.409+0000 I CONTROL  [initandlisten]     target_arch: x86_64
+2019-03-09T06:02:58.409+0000 I CONTROL  [initandlisten] options: { net: { bindIp: "stefan-ThinkPad-X230", port: 36915 }, replication: { replSet: "rs_0_M" }, sharding: { clusterRole: "shardsvr" }, storage: { dbPath: "stefan-ThinkPad-X230/instance_36915" } }
+2019-03-09T06:02:58.409+0000 I STORAGE  [initandlisten] 
+2019-03-09T06:02:58.409+0000 I STORAGE  [initandlisten] ** WARNING: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine
+2019-03-09T06:02:58.409+0000 I STORAGE  [initandlisten] **          See http://dochub.mongodb.org/core/prodnotes-filesystem
+2019-03-09T06:02:58.409+0000 I STORAGE  [initandlisten] wiredtiger_open config: create,cache_size=7417M,session_max=20000,eviction=(threads_min=4,threads_max=4),config_base=false,statistics=(fast),log=(enabled=true,archive=true,path=journal,compressor=snappy),file_manager=(close_idle_time=100000),statistics_log=(wait=0),verbose=(recovery_progress),
+2019-03-09T06:02:59.523+0000 I CONTROL  [initandlisten] 
+2019-03-09T06:02:59.524+0000 I CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.
+2019-03-09T06:02:59.524+0000 I CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.
+2019-03-09T06:02:59.524+0000 I CONTROL  [initandlisten] 
+2019-03-09T06:02:59.528+0000 W SHARDING [initandlisten] Started with --shardsvr, but no shardIdentity document was found on disk in admin.system.version. This most likely means this server has not yet been added to a sharded cluster.
+2019-03-09T06:02:59.528+0000 I STORAGE  [initandlisten] createCollection: local.startup_log with no UUID.
+2019-03-09T06:02:59.546+0000 I FTDC     [initandlisten] Initializing full-time diagnostic data capture with directory 'stefan-ThinkPad-X230/instance_36915/diagnostic.data'
+2019-03-09T06:02:59.546+0000 I STORAGE  [initandlisten] createCollection: local.me with no UUID.
+2019-03-09T06:02:59.563+0000 I STORAGE  [initandlisten] createCollection: local.replset.minvalid with no UUID.
+2019-03-09T06:02:59.580+0000 I REPL     [initandlisten] Did not find local voted for document at startup.
+2019-03-09T06:02:59.580+0000 I REPL     [initandlisten] Did not find local Rollback ID document at startup. Creating one.
+2019-03-09T06:02:59.580+0000 I STORAGE  [initandlisten] createCollection: local.system.rollback.id with no UUID.
+2019-03-09T06:02:59.599+0000 I REPL     [initandlisten] Initialized the rollback ID to 1
+2019-03-09T06:02:59.599+0000 I REPL     [initandlisten] Did not find local replica set configuration document at startup;  NoMatchingDocument: Did not find replica set configuration document in local.system.replset
+2019-03-09T06:02:59.599+0000 I NETWORK  [initandlisten] waiting for connections on port 36915
+2019-03-09T06:03:09.228+0000 E STORAGE  [thread1] WiredTiger error (2) [1552111389:228095][2090:0x7f5d48e51700], log-server: stefan-ThinkPad-X230/instance_36915/journal: directory-list: opendir: No such file or directory
+2019-03-09T06:03:09.228+0000 E STORAGE  [thread1] WiredTiger error (2) [1552111389:228264][2090:0x7f5d48e51700], log-server: log pre-alloc server error: No such file or directory
+2019-03-09T06:03:09.228+0000 E STORAGE  [thread1] WiredTiger error (2) [1552111389:228309][2090:0x7f5d48e51700], log-server: log server error: No such file or directory
+2019-03-09T06:03:09.228+0000 E STORAGE  [thread1] WiredTiger error (-31804) [1552111389:228343][2090:0x7f5d48e51700], log-server: the process must exit and restart: WT_PANIC: WiredTiger library panic
+2019-03-09T06:03:09.228+0000 F -        [thread1] Fatal Assertion 28558 at src/mongo/db/storage/wiredtiger/wiredtiger_util.cpp 361
+2019-03-09T06:03:09.228+0000 F -        [thread1] 
+
+***aborting after fassert() failure
+
+
+2019-03-09T06:03:09.239+0000 F -        [thread1] Got signal: 6 (Aborted).
+
+ 0x55c54f4a901a 0x55c54f4a82de 0x55c54f4a87b2 0x7f5d4bb1e890 0x7f5d4b759e97 0x7f5d4b75b801 0x55c54dca9421 0x55c54dd76456 0x55c54dde2da7 0x55c54dc57457 0x55c54dc5778a 0x55c54de4a995 0x7f5d4bb136db 0x7f5d4b83c88f
+----- BEGIN BACKTRACE -----
+{"backtrace":[{"b":"55C54D46E000","o":"203B01A","s":"_ZN5mongo15printStackTraceERSo"},{"b":"55C54D46E000","o":"203A2DE"},{"b":"55C54D46E000","o":"203A7B2"},{"b":"7F5D4BB0C000","o":"12890"},{"b":"7F5D4B71B000","o":"3EE97","s":"gsignal"},{"b":"7F5D4B71B000","o":"40801","s":"abort"},{"b":"55C54D46E000","o":"83B421","s":"_ZN5mongo32fassertFailedNoTraceWithLocationEiPKcj"},{"b":"55C54D46E000","o":"908456"},{"b":"55C54D46E000","o":"974DA7"},{"b":"55C54D46E000","o":"7E9457","s":"__wt_err"},{"b":"55C54D46E000","o":"7E978A","s":"__wt_panic"},{"b":"55C54D46E000","o":"9DC995"},{"b":"7F5D4BB0C000","o":"76DB"},{"b":"7F5D4B71B000","o":"12188F","s":"clone"}],"processInfo":{ "mongodbVersion" : "3.6.3", "gitVersion" : "9586e557d54ef70f9ca4b43c26892cd55257e1a5", "compiledModules" : [], "uname" : { "sysname" : "Linux", "release" : "4.18.0-15-generic", "version" : "#16~18.04.1-Ubuntu SMP Thu Feb 7 14:06:04 UTC 2019", "machine" : "x86_64" }, "somap" : [ { "b" : "55C54D46E000", "elfType" : 3, "buildId" : "3BC7EC1BD697E0383D04402C13372B9D5B7C4993" }, { "b" : "7FFE9E7D3000", "path" : "linux-vdso.so.1", "elfType" : 3, "buildId" : "A30AFCDB6A1E54E7A4208A0343235DE4091E17BA" }, { "b" : "7F5D4E52B000", "path" : "/usr/lib/x86_64-linux-gnu/libstemmer.so.0d", "elfType" : 3, "buildId" : "278CA72E21C11FF2E15A86B0B2C13A8922951702" }, { "b" : "7F5D4E30E000", "path" : "/lib/x86_64-linux-gnu/libz.so.1", "elfType" : 3, "buildId" : "EF3E006DFE3132A41D4D4DC0E407D6EA658E11C4" }, { "b" : "7F5D4E106000", "path" : "/usr/lib/x86_64-linux-gnu/libsnappy.so.1", "elfType" : 3, "buildId" : "55765D88D03CC928130D788F1C7E4BF8415AC7E3" }, { "b" : "7F5D4DE8C000", "path" : "/usr/lib/x86_64-linux-gnu/libyaml-cpp.so.0.5", "elfType" : 3, "buildId" : "BF65D47C8CD968E616F7D179F84A80CA71DB8249" }, { "b" : "7F5D4DC83000", "path" : "/usr/lib/x86_64-linux-gnu/libpcrecpp.so.0", "elfType" : 3, "buildId" : "089B8438CC1394E978E56C556C9CAE768BD2F18C" }, { "b" : "7F5D4DA02000", "path" : "/usr/lib/x86_64-linux-gnu/libboost_program_options.so.1.65.1", "elfType" : 3, "buildId" : "9F69F11220BB1FAAB0B73A2B6F4B0E81D9B901CE" }, { "b" : "7F5D4D7E8000", "path" : "/usr/lib/x86_64-linux-gnu/libboost_filesystem.so.1.65.1", "elfType" : 3, "buildId" : "32B8421A0643426D9FB008005F5A86688065008B" }, { "b" : "7F5D4D5E3000", "path" : "/usr/lib/x86_64-linux-gnu/libboost_system.so.1.65.1", "elfType" : 3, "buildId" : "4BA851D242F2DB710CB1817DE860CF97AE2F9714" }, { "b" : "7F5D4D373000", "path" : "/usr/lib/x86_64-linux-gnu/libtcmalloc.so.4", "elfType" : 3, "buildId" : "572D5C17FBDA6B678DF653411F676819DE18CA6B" }, { "b" : "7F5D4D158000", "path" : "/lib/x86_64-linux-gnu/libresolv.so.2", "elfType" : 3, "buildId" : "390E9CC4C215314B6D8ADE6D6E28F8518418039C" }, { "b" : "7F5D4CEEE000", "path" : "/usr/lib/x86_64-linux-gnu/libssl.so.1.1", "elfType" : 3, "buildId" : "9787FF1FFFE8D82268D89F6BFA3AF07B3E9D140F" }, { "b" : "7F5D4CA76000", "path" : "/usr/lib/x86_64-linux-gnu/libcrypto.so.1.1", "elfType" : 3, "buildId" : "A409BCD92DCDD3298E92C359876AC800FDD499AC" }, { "b" : "7F5D4C86E000", "path" : "/lib/x86_64-linux-gnu/librt.so.1", "elfType" : 3, "buildId" : "9826FBDF57ED7D6965131074CB3C08B1009C1CD8" }, { "b" : "7F5D4C66A000", "path" : "/lib/x86_64-linux-gnu/libdl.so.2", "elfType" : 3, "buildId" : "25AD56E902E23B490A9CCDB08A9744D89CB95BCC" }, { "b" : "7F5D4C2E1000", "path" : "/usr/lib/x86_64-linux-gnu/libstdc++.so.6", "elfType" : 3, "buildId" : "CBCD95969196C3B0B7C538E13E996F62EA17B9D2" }, { "b" : "7F5D4BF43000", "path" : "/lib/x86_64-linux-gnu/libm.so.6", "elfType" : 3, "buildId" : "A33761AB8FB485311B3C85BF4253099D7CABE653" }, { "b" : "7F5D4BD2B000", "path" : "/lib/x86_64-linux-gnu/libgcc_s.so.1", "elfType" : 3, "buildId" : "92E0BE1929D28508CF9C6D5754C7EB48C12255B3" }, { "b" : "7F5D4BB0C000", "path" : "/lib/x86_64-linux-gnu/libpthread.so.0", "elfType" : 3, "buildId" : "28C6AADE70B2D40D1F0F3D0A1A0CAD1AB816448F" }, { "b" : "7F5D4B71B000", "path" : "/lib/x86_64-linux-gnu/libc.so.6", "elfType" : 3, "buildId" : "B417C0BA7CC5CF06D1D1BED6652CEDB9253C60D0" }, { "b" : "7F5D4B4A9000", "path" : "/lib/x86_64-linux-gnu/libpcre.so.3", "elfType" : 3, "buildId" : "5B3416BB188EAF3FA4B7530AAE6C1890B38B0372" }, { "b" : "7F5D4B28E000", "path" : "/usr/lib/x86_64-linux-gnu/libunwind.so.8", "elfType" : 3, "buildId" : "7995F03B59E1D6EB7968EEA5B8534910D4E8E8D6" }, { "b" : "7F5D4E77C000", "path" : "/lib64/ld-linux-x86-64.so.2", "elfType" : 3, "buildId" : "64DF1B961228382FE18684249ED800AB1DCEAAD4" }, { "b" : "7F5D4B068000", "path" : "/lib/x86_64-linux-gnu/liblzma.so.5", "elfType" : 3, "buildId" : "8FBCCA354D964860B9E6EB3736E9B7BC6177B417" } ] }}
+ mongod(_ZN5mongo15printStackTraceERSo+0x3A) [0x55c54f4a901a]
+ mongod(+0x203A2DE) [0x55c54f4a82de]
+ mongod(+0x203A7B2) [0x55c54f4a87b2]
+ libpthread.so.0(+0x12890) [0x7f5d4bb1e890]
+ libc.so.6(gsignal+0xC7) [0x7f5d4b759e97]
+ libc.so.6(abort+0x141) [0x7f5d4b75b801]
+ mongod(_ZN5mongo32fassertFailedNoTraceWithLocationEiPKcj+0x0) [0x55c54dca9421]
+ mongod(+0x908456) [0x55c54dd76456]
+ mongod(+0x974DA7) [0x55c54dde2da7]
+ mongod(__wt_err+0xA0) [0x55c54dc57457]
+ mongod(__wt_panic+0x34) [0x55c54dc5778a]
+ mongod(+0x9DC995) [0x55c54de4a995]
+ libpthread.so.0(+0x76DB) [0x7f5d4bb136db]
+ libc.so.6(clone+0x3F) [0x7f5d4b83c88f]
+-----  END BACKTRACE  -----
+2019-03-09T06:05:34.722+0000 I CONTROL  [initandlisten] MongoDB starting : pid=2291 port=36915 dbpath=stefan-ThinkPad-X230/instance_36915 64-bit host=stefan-ThinkPad-X230
+2019-03-09T06:05:34.722+0000 I CONTROL  [initandlisten] db version v3.6.3
+2019-03-09T06:05:34.722+0000 I CONTROL  [initandlisten] git version: 9586e557d54ef70f9ca4b43c26892cd55257e1a5
+2019-03-09T06:05:34.722+0000 I CONTROL  [initandlisten] OpenSSL version: OpenSSL 1.1.0g  2 Nov 2017
+2019-03-09T06:05:34.722+0000 I CONTROL  [initandlisten] allocator: tcmalloc
+2019-03-09T06:05:34.722+0000 I CONTROL  [initandlisten] modules: none
+2019-03-09T06:05:34.722+0000 I CONTROL  [initandlisten] build environment:
+2019-03-09T06:05:34.722+0000 I CONTROL  [initandlisten]     distarch: x86_64
+2019-03-09T06:05:34.722+0000 I CONTROL  [initandlisten]     target_arch: x86_64
+2019-03-09T06:05:34.722+0000 I CONTROL  [initandlisten] options: { net: { bindIp: "stefan-ThinkPad-X230", port: 36915 }, replication: { replSet: "rs_0_M" }, sharding: { clusterRole: "shardsvr" }, storage: { dbPath: "stefan-ThinkPad-X230/instance_36915" } }
+2019-03-09T06:05:34.723+0000 I STORAGE  [initandlisten] 
+2019-03-09T06:05:34.723+0000 I STORAGE  [initandlisten] ** WARNING: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine
+2019-03-09T06:05:34.723+0000 I STORAGE  [initandlisten] **          See http://dochub.mongodb.org/core/prodnotes-filesystem
+2019-03-09T06:05:34.724+0000 I STORAGE  [initandlisten] wiredtiger_open config: create,cache_size=7417M,session_max=20000,eviction=(threads_min=4,threads_max=4),config_base=false,statistics=(fast),log=(enabled=true,archive=true,path=journal,compressor=snappy),file_manager=(close_idle_time=100000),statistics_log=(wait=0),verbose=(recovery_progress),
+2019-03-09T06:06:49.904+0000 I CONTROL  [signalProcessingThread] got signal 1 (Hangup), will terminate after current cmd ends
+2019-03-09T06:06:49.904+0000 I NETWORK  [signalProcessingThread] shutdown: going to close listening sockets...
+2019-03-09T06:06:49.904+0000 I NETWORK  [signalProcessingThread] removing socket file: /tmp/mongodb-36915.sock
+2019-03-09T06:06:49.904+0000 I CONTROL  [signalProcessingThread] now exiting
+2019-03-09T06:06:49.904+0000 I CONTROL  [signalProcessingThread] shutting down with code:0
+2019-03-09T06:16:49.156+0000 I CONTROL  [initandlisten] MongoDB starting : pid=2431 port=36915 dbpath=stefan-ThinkPad-X230/instance_36915 64-bit host=stefan-ThinkPad-X230
+2019-03-09T06:16:49.156+0000 I CONTROL  [initandlisten] db version v3.6.3
+2019-03-09T06:16:49.156+0000 I CONTROL  [initandlisten] git version: 9586e557d54ef70f9ca4b43c26892cd55257e1a5
+2019-03-09T06:16:49.156+0000 I CONTROL  [initandlisten] OpenSSL version: OpenSSL 1.1.0g  2 Nov 2017
+2019-03-09T06:16:49.156+0000 I CONTROL  [initandlisten] allocator: tcmalloc
+2019-03-09T06:16:49.156+0000 I CONTROL  [initandlisten] modules: none
+2019-03-09T06:16:49.156+0000 I CONTROL  [initandlisten] build environment:
+2019-03-09T06:16:49.156+0000 I CONTROL  [initandlisten]     distarch: x86_64
+2019-03-09T06:16:49.156+0000 I CONTROL  [initandlisten]     target_arch: x86_64
+2019-03-09T06:16:49.156+0000 I CONTROL  [initandlisten] options: { net: { bindIp: "stefan-ThinkPad-X230", port: 36915 }, replication: { replSet: "rs_0_M" }, sharding: { clusterRole: "shardsvr" }, storage: { dbPath: "stefan-ThinkPad-X230/instance_36915" } }
+2019-03-09T06:16:49.157+0000 I STORAGE  [initandlisten] 
+2019-03-09T06:16:49.157+0000 I STORAGE  [initandlisten] ** WARNING: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine
+2019-03-09T06:16:49.157+0000 I STORAGE  [initandlisten] **          See http://dochub.mongodb.org/core/prodnotes-filesystem
+2019-03-09T06:16:49.157+0000 I STORAGE  [initandlisten] wiredtiger_open config: create,cache_size=7417M,session_max=20000,eviction=(threads_min=4,threads_max=4),config_base=false,statistics=(fast),log=(enabled=true,archive=true,path=journal,compressor=snappy),file_manager=(close_idle_time=100000),statistics_log=(wait=0),verbose=(recovery_progress),
+2019-03-09T06:16:50.363+0000 I CONTROL  [initandlisten] 
+2019-03-09T06:16:50.363+0000 I CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.
+2019-03-09T06:16:50.363+0000 I CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.
+2019-03-09T06:16:50.363+0000 I CONTROL  [initandlisten] 
+2019-03-09T06:16:50.366+0000 W SHARDING [initandlisten] Started with --shardsvr, but no shardIdentity document was found on disk in admin.system.version. This most likely means this server has not yet been added to a sharded cluster.
+2019-03-09T06:16:50.366+0000 I STORAGE  [initandlisten] createCollection: local.startup_log with no UUID.
+2019-03-09T06:16:50.385+0000 I FTDC     [initandlisten] Initializing full-time diagnostic data capture with directory 'stefan-ThinkPad-X230/instance_36915/diagnostic.data'
+2019-03-09T06:16:50.385+0000 I STORAGE  [initandlisten] createCollection: local.me with no UUID.
+2019-03-09T06:16:50.408+0000 I STORAGE  [initandlisten] createCollection: local.replset.minvalid with no UUID.
+2019-03-09T06:16:50.434+0000 I REPL     [initandlisten] Did not find local voted for document at startup.
+2019-03-09T06:16:50.434+0000 I REPL     [initandlisten] Did not find local Rollback ID document at startup. Creating one.
+2019-03-09T06:16:50.435+0000 I STORAGE  [initandlisten] createCollection: local.system.rollback.id with no UUID.
+2019-03-09T06:16:50.468+0000 I REPL     [initandlisten] Initialized the rollback ID to 1
+2019-03-09T06:16:50.468+0000 I REPL     [initandlisten] Did not find local replica set configuration document at startup;  NoMatchingDocument: Did not find replica set configuration document in local.system.replset
+2019-03-09T06:16:50.468+0000 I NETWORK  [initandlisten] waiting for connections on port 36915
+2019-03-09T06:16:59.261+0000 E STORAGE  [thread1] WiredTiger error (2) [1552112219:261808][2431:0x7fc066ac8700], log-server: stefan-ThinkPad-X230/instance_36915/journal: directory-list: opendir: No such file or directory
+2019-03-09T06:16:59.261+0000 E STORAGE  [thread1] WiredTiger error (2) [1552112219:261896][2431:0x7fc066ac8700], log-server: log pre-alloc server error: No such file or directory
+2019-03-09T06:16:59.261+0000 E STORAGE  [thread1] WiredTiger error (2) [1552112219:261921][2431:0x7fc066ac8700], log-server: log server error: No such file or directory
+2019-03-09T06:16:59.261+0000 E STORAGE  [thread1] WiredTiger error (-31804) [1552112219:261953][2431:0x7fc066ac8700], log-server: the process must exit and restart: WT_PANIC: WiredTiger library panic
+2019-03-09T06:16:59.261+0000 F -        [thread1] Fatal Assertion 28558 at src/mongo/db/storage/wiredtiger/wiredtiger_util.cpp 361
+2019-03-09T06:16:59.262+0000 F -        [thread1] 
+
+***aborting after fassert() failure
+
+
+2019-03-09T06:16:59.267+0000 F -        [thread1] Got signal: 6 (Aborted).
+
+ 0x5654b5a4a01a 0x5654b5a492de 0x5654b5a497b2 0x7fc069795890 0x7fc0693d0e97 0x7fc0693d2801 0x5654b424a421 0x5654b4317456 0x5654b4383da7 0x5654b41f8457 0x5654b41f878a 0x5654b43eb995 0x7fc06978a6db 0x7fc0694b388f
+----- BEGIN BACKTRACE -----
+{"backtrace":[{"b":"5654B3A0F000","o":"203B01A","s":"_ZN5mongo15printStackTraceERSo"},{"b":"5654B3A0F000","o":"203A2DE"},{"b":"5654B3A0F000","o":"203A7B2"},{"b":"7FC069783000","o":"12890"},{"b":"7FC069392000","o":"3EE97","s":"gsignal"},{"b":"7FC069392000","o":"40801","s":"abort"},{"b":"5654B3A0F000","o":"83B421","s":"_ZN5mongo32fassertFailedNoTraceWithLocationEiPKcj"},{"b":"5654B3A0F000","o":"908456"},{"b":"5654B3A0F000","o":"974DA7"},{"b":"5654B3A0F000","o":"7E9457","s":"__wt_err"},{"b":"5654B3A0F000","o":"7E978A","s":"__wt_panic"},{"b":"5654B3A0F000","o":"9DC995"},{"b":"7FC069783000","o":"76DB"},{"b":"7FC069392000","o":"12188F","s":"clone"}],"processInfo":{ "mongodbVersion" : "3.6.3", "gitVersion" : "9586e557d54ef70f9ca4b43c26892cd55257e1a5", "compiledModules" : [], "uname" : { "sysname" : "Linux", "release" : "4.18.0-15-generic", "version" : "#16~18.04.1-Ubuntu SMP Thu Feb 7 14:06:04 UTC 2019", "machine" : "x86_64" }, "somap" : [ { "b" : "5654B3A0F000", "elfType" : 3, "buildId" : "3BC7EC1BD697E0383D04402C13372B9D5B7C4993" }, { "b" : "7FFDE9BCB000", "path" : "linux-vdso.so.1", "elfType" : 3, "buildId" : "A30AFCDB6A1E54E7A4208A0343235DE4091E17BA" }, { "b" : "7FC06C1A2000", "path" : "/usr/lib/x86_64-linux-gnu/libstemmer.so.0d", "elfType" : 3, "buildId" : "278CA72E21C11FF2E15A86B0B2C13A8922951702" }, { "b" : "7FC06BF85000", "path" : "/lib/x86_64-linux-gnu/libz.so.1", "elfType" : 3, "buildId" : "EF3E006DFE3132A41D4D4DC0E407D6EA658E11C4" }, { "b" : "7FC06BD7D000", "path" : "/usr/lib/x86_64-linux-gnu/libsnappy.so.1", "elfType" : 3, "buildId" : "55765D88D03CC928130D788F1C7E4BF8415AC7E3" }, { "b" : "7FC06BB03000", "path" : "/usr/lib/x86_64-linux-gnu/libyaml-cpp.so.0.5", "elfType" : 3, "buildId" : "BF65D47C8CD968E616F7D179F84A80CA71DB8249" }, { "b" : "7FC06B8FA000", "path" : "/usr/lib/x86_64-linux-gnu/libpcrecpp.so.0", "elfType" : 3, "buildId" : "089B8438CC1394E978E56C556C9CAE768BD2F18C" }, { "b" : "7FC06B679000", "path" : "/usr/lib/x86_64-linux-gnu/libboost_program_options.so.1.65.1", "elfType" : 3, "buildId" : "9F69F11220BB1FAAB0B73A2B6F4B0E81D9B901CE" }, { "b" : "7FC06B45F000", "path" : "/usr/lib/x86_64-linux-gnu/libboost_filesystem.so.1.65.1", "elfType" : 3, "buildId" : "32B8421A0643426D9FB008005F5A86688065008B" }, { "b" : "7FC06B25A000", "path" : "/usr/lib/x86_64-linux-gnu/libboost_system.so.1.65.1", "elfType" : 3, "buildId" : "4BA851D242F2DB710CB1817DE860CF97AE2F9714" }, { "b" : "7FC06AFEA000", "path" : "/usr/lib/x86_64-linux-gnu/libtcmalloc.so.4", "elfType" : 3, "buildId" : "572D5C17FBDA6B678DF653411F676819DE18CA6B" }, { "b" : "7FC06ADCF000", "path" : "/lib/x86_64-linux-gnu/libresolv.so.2", "elfType" : 3, "buildId" : "390E9CC4C215314B6D8ADE6D6E28F8518418039C" }, { "b" : "7FC06AB65000", "path" : "/usr/lib/x86_64-linux-gnu/libssl.so.1.1", "elfType" : 3, "buildId" : "9787FF1FFFE8D82268D89F6BFA3AF07B3E9D140F" }, { "b" : "7FC06A6ED000", "path" : "/usr/lib/x86_64-linux-gnu/libcrypto.so.1.1", "elfType" : 3, "buildId" : "A409BCD92DCDD3298E92C359876AC800FDD499AC" }, { "b" : "7FC06A4E5000", "path" : "/lib/x86_64-linux-gnu/librt.so.1", "elfType" : 3, "buildId" : "9826FBDF57ED7D6965131074CB3C08B1009C1CD8" }, { "b" : "7FC06A2E1000", "path" : "/lib/x86_64-linux-gnu/libdl.so.2", "elfType" : 3, "buildId" : "25AD56E902E23B490A9CCDB08A9744D89CB95BCC" }, { "b" : "7FC069F58000", "path" : "/usr/lib/x86_64-linux-gnu/libstdc++.so.6", "elfType" : 3, "buildId" : "CBCD95969196C3B0B7C538E13E996F62EA17B9D2" }, { "b" : "7FC069BBA000", "path" : "/lib/x86_64-linux-gnu/libm.so.6", "elfType" : 3, "buildId" : "A33761AB8FB485311B3C85BF4253099D7CABE653" }, { "b" : "7FC0699A2000", "path" : "/lib/x86_64-linux-gnu/libgcc_s.so.1", "elfType" : 3, "buildId" : "92E0BE1929D28508CF9C6D5754C7EB48C12255B3" }, { "b" : "7FC069783000", "path" : "/lib/x86_64-linux-gnu/libpthread.so.0", "elfType" : 3, "buildId" : "28C6AADE70B2D40D1F0F3D0A1A0CAD1AB816448F" }, { "b" : "7FC069392000", "path" : "/lib/x86_64-linux-gnu/libc.so.6", "elfType" : 3, "buildId" : "B417C0BA7CC5CF06D1D1BED6652CEDB9253C60D0" }, { "b" : "7FC069120000", "path" : "/lib/x86_64-linux-gnu/libpcre.so.3", "elfType" : 3, "buildId" : "5B3416BB188EAF3FA4B7530AAE6C1890B38B0372" }, { "b" : "7FC068F05000", "path" : "/usr/lib/x86_64-linux-gnu/libunwind.so.8", "elfType" : 3, "buildId" : "7995F03B59E1D6EB7968EEA5B8534910D4E8E8D6" }, { "b" : "7FC06C3F3000", "path" : "/lib64/ld-linux-x86-64.so.2", "elfType" : 3, "buildId" : "64DF1B961228382FE18684249ED800AB1DCEAAD4" }, { "b" : "7FC068CDF000", "path" : "/lib/x86_64-linux-gnu/liblzma.so.5", "elfType" : 3, "buildId" : "8FBCCA354D964860B9E6EB3736E9B7BC6177B417" } ] }}
+ mongod(_ZN5mongo15printStackTraceERSo+0x3A) [0x5654b5a4a01a]
+ mongod(+0x203A2DE) [0x5654b5a492de]
+ mongod(+0x203A7B2) [0x5654b5a497b2]
+ libpthread.so.0(+0x12890) [0x7fc069795890]
+ libc.so.6(gsignal+0xC7) [0x7fc0693d0e97]
+ libc.so.6(abort+0x141) [0x7fc0693d2801]
+ mongod(_ZN5mongo32fassertFailedNoTraceWithLocationEiPKcj+0x0) [0x5654b424a421]
+ mongod(+0x908456) [0x5654b4317456]
+ mongod(+0x974DA7) [0x5654b4383da7]
+ mongod(__wt_err+0xA0) [0x5654b41f8457]
+ mongod(__wt_panic+0x34) [0x5654b41f878a]
+ mongod(+0x9DC995) [0x5654b43eb995]
+ libpthread.so.0(+0x76DB) [0x7fc06978a6db]
+ libc.so.6(clone+0x3F) [0x7fc0694b388f]
+-----  END BACKTRACE  -----
+2019-03-09T06:17:18.179+0000 I CONTROL  [initandlisten] MongoDB starting : pid=2639 port=36915 dbpath=stefan-ThinkPad-X230/instance_36915 64-bit host=stefan-ThinkPad-X230
+2019-03-09T06:17:18.179+0000 I CONTROL  [initandlisten] db version v3.6.3
+2019-03-09T06:17:18.179+0000 I CONTROL  [initandlisten] git version: 9586e557d54ef70f9ca4b43c26892cd55257e1a5
+2019-03-09T06:17:18.179+0000 I CONTROL  [initandlisten] OpenSSL version: OpenSSL 1.1.0g  2 Nov 2017
+2019-03-09T06:17:18.179+0000 I CONTROL  [initandlisten] allocator: tcmalloc
+2019-03-09T06:17:18.179+0000 I CONTROL  [initandlisten] modules: none
+2019-03-09T06:17:18.179+0000 I CONTROL  [initandlisten] build environment:
+2019-03-09T06:17:18.179+0000 I CONTROL  [initandlisten]     distarch: x86_64
+2019-03-09T06:17:18.179+0000 I CONTROL  [initandlisten]     target_arch: x86_64
+2019-03-09T06:17:18.179+0000 I CONTROL  [initandlisten] options: { net: { bindIp: "stefan-ThinkPad-X230", port: 36915 }, replication: { replSet: "rs_0_M" }, sharding: { clusterRole: "shardsvr" }, storage: { dbPath: "stefan-ThinkPad-X230/instance_36915" } }
+2019-03-09T06:17:18.179+0000 I STORAGE  [initandlisten] 
+2019-03-09T06:17:18.180+0000 I STORAGE  [initandlisten] ** WARNING: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine
+2019-03-09T06:17:18.180+0000 I STORAGE  [initandlisten] **          See http://dochub.mongodb.org/core/prodnotes-filesystem
+2019-03-09T06:17:18.180+0000 I STORAGE  [initandlisten] wiredtiger_open config: create,cache_size=7417M,session_max=20000,eviction=(threads_min=4,threads_max=4),config_base=false,statistics=(fast),log=(enabled=true,archive=true,path=journal,compressor=snappy),file_manager=(close_idle_time=100000),statistics_log=(wait=0),verbose=(recovery_progress),
+2019-03-09T06:17:19.789+0000 I CONTROL  [initandlisten] 
+2019-03-09T06:17:19.789+0000 I CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.
+2019-03-09T06:17:19.790+0000 I CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.
+2019-03-09T06:17:19.790+0000 I CONTROL  [initandlisten] 
+2019-03-09T06:17:19.793+0000 W SHARDING [initandlisten] Started with --shardsvr, but no shardIdentity document was found on disk in admin.system.version. This most likely means this server has not yet been added to a sharded cluster.
+2019-03-09T06:17:19.793+0000 I STORAGE  [initandlisten] createCollection: local.startup_log with no UUID.
+2019-03-09T06:17:19.811+0000 I FTDC     [initandlisten] Initializing full-time diagnostic data capture with directory 'stefan-ThinkPad-X230/instance_36915/diagnostic.data'
+2019-03-09T06:17:19.811+0000 I STORAGE  [initandlisten] createCollection: local.me with no UUID.
+2019-03-09T06:17:19.830+0000 I STORAGE  [initandlisten] createCollection: local.replset.minvalid with no UUID.
+2019-03-09T06:17:19.848+0000 I REPL     [initandlisten] Did not find local voted for document at startup.
+2019-03-09T06:17:19.848+0000 I REPL     [initandlisten] Did not find local Rollback ID document at startup. Creating one.
+2019-03-09T06:17:19.848+0000 I STORAGE  [initandlisten] createCollection: local.system.rollback.id with no UUID.
+2019-03-09T06:17:19.867+0000 I REPL     [initandlisten] Initialized the rollback ID to 1
+2019-03-09T06:17:19.867+0000 I REPL     [initandlisten] Did not find local replica set configuration document at startup;  NoMatchingDocument: Did not find replica set configuration document in local.system.replset
+2019-03-09T06:17:19.868+0000 I NETWORK  [initandlisten] waiting for connections on port 36915
+2019-03-09T06:17:28.492+0000 E STORAGE  [thread1] WiredTiger error (2) [1552112248:492108][2639:0x7f40f14a3700], log-server: stefan-ThinkPad-X230/instance_36915/journal: directory-list: opendir: No such file or directory
+2019-03-09T06:17:28.492+0000 E STORAGE  [thread1] WiredTiger error (2) [1552112248:492192][2639:0x7f40f14a3700], log-server: log pre-alloc server error: No such file or directory
+2019-03-09T06:17:28.492+0000 E STORAGE  [thread1] WiredTiger error (2) [1552112248:492209][2639:0x7f40f14a3700], log-server: log server error: No such file or directory
+2019-03-09T06:17:28.492+0000 E STORAGE  [thread1] WiredTiger error (-31804) [1552112248:492221][2639:0x7f40f14a3700], log-server: the process must exit and restart: WT_PANIC: WiredTiger library panic
+2019-03-09T06:17:28.492+0000 F -        [thread1] Fatal Assertion 28558 at src/mongo/db/storage/wiredtiger/wiredtiger_util.cpp 361
+2019-03-09T06:17:28.492+0000 F -        [thread1] 
+
+***aborting after fassert() failure
+
+
+2019-03-09T06:17:28.496+0000 F -        [thread1] Got signal: 6 (Aborted).
+
+ 0x55feb3eff01a 0x55feb3efe2de 0x55feb3efe7b2 0x7f40f4170890 0x7f40f3dabe97 0x7f40f3dad801 0x55feb26ff421 0x55feb27cc456 0x55feb2838da7 0x55feb26ad457 0x55feb26ad78a 0x55feb28a0995 0x7f40f41656db 0x7f40f3e8e88f
+----- BEGIN BACKTRACE -----
+{"backtrace":[{"b":"55FEB1EC4000","o":"203B01A","s":"_ZN5mongo15printStackTraceERSo"},{"b":"55FEB1EC4000","o":"203A2DE"},{"b":"55FEB1EC4000","o":"203A7B2"},{"b":"7F40F415E000","o":"12890"},{"b":"7F40F3D6D000","o":"3EE97","s":"gsignal"},{"b":"7F40F3D6D000","o":"40801","s":"abort"},{"b":"55FEB1EC4000","o":"83B421","s":"_ZN5mongo32fassertFailedNoTraceWithLocationEiPKcj"},{"b":"55FEB1EC4000","o":"908456"},{"b":"55FEB1EC4000","o":"974DA7"},{"b":"55FEB1EC4000","o":"7E9457","s":"__wt_err"},{"b":"55FEB1EC4000","o":"7E978A","s":"__wt_panic"},{"b":"55FEB1EC4000","o":"9DC995"},{"b":"7F40F415E000","o":"76DB"},{"b":"7F40F3D6D000","o":"12188F","s":"clone"}],"processInfo":{ "mongodbVersion" : "3.6.3", "gitVersion" : "9586e557d54ef70f9ca4b43c26892cd55257e1a5", "compiledModules" : [], "uname" : { "sysname" : "Linux", "release" : "4.18.0-15-generic", "version" : "#16~18.04.1-Ubuntu SMP Thu Feb 7 14:06:04 UTC 2019", "machine" : "x86_64" }, "somap" : [ { "b" : "55FEB1EC4000", "elfType" : 3, "buildId" : "3BC7EC1BD697E0383D04402C13372B9D5B7C4993" }, { "b" : "7FFE80DB5000", "path" : "linux-vdso.so.1", "elfType" : 3, "buildId" : "A30AFCDB6A1E54E7A4208A0343235DE4091E17BA" }, { "b" : "7F40F6B7D000", "path" : "/usr/lib/x86_64-linux-gnu/libstemmer.so.0d", "elfType" : 3, "buildId" : "278CA72E21C11FF2E15A86B0B2C13A8922951702" }, { "b" : "7F40F6960000", "path" : "/lib/x86_64-linux-gnu/libz.so.1", "elfType" : 3, "buildId" : "EF3E006DFE3132A41D4D4DC0E407D6EA658E11C4" }, { "b" : "7F40F6758000", "path" : "/usr/lib/x86_64-linux-gnu/libsnappy.so.1", "elfType" : 3, "buildId" : "55765D88D03CC928130D788F1C7E4BF8415AC7E3" }, { "b" : "7F40F64DE000", "path" : "/usr/lib/x86_64-linux-gnu/libyaml-cpp.so.0.5", "elfType" : 3, "buildId" : "BF65D47C8CD968E616F7D179F84A80CA71DB8249" }, { "b" : "7F40F62D5000", "path" : "/usr/lib/x86_64-linux-gnu/libpcrecpp.so.0", "elfType" : 3, "buildId" : "089B8438CC1394E978E56C556C9CAE768BD2F18C" }, { "b" : "7F40F6054000", "path" : "/usr/lib/x86_64-linux-gnu/libboost_program_options.so.1.65.1", "elfType" : 3, "buildId" : "9F69F11220BB1FAAB0B73A2B6F4B0E81D9B901CE" }, { "b" : "7F40F5E3A000", "path" : "/usr/lib/x86_64-linux-gnu/libboost_filesystem.so.1.65.1", "elfType" : 3, "buildId" : "32B8421A0643426D9FB008005F5A86688065008B" }, { "b" : "7F40F5C35000", "path" : "/usr/lib/x86_64-linux-gnu/libboost_system.so.1.65.1", "elfType" : 3, "buildId" : "4BA851D242F2DB710CB1817DE860CF97AE2F9714" }, { "b" : "7F40F59C5000", "path" : "/usr/lib/x86_64-linux-gnu/libtcmalloc.so.4", "elfType" : 3, "buildId" : "572D5C17FBDA6B678DF653411F676819DE18CA6B" }, { "b" : "7F40F57AA000", "path" : "/lib/x86_64-linux-gnu/libresolv.so.2", "elfType" : 3, "buildId" : "390E9CC4C215314B6D8ADE6D6E28F8518418039C" }, { "b" : "7F40F5540000", "path" : "/usr/lib/x86_64-linux-gnu/libssl.so.1.1", "elfType" : 3, "buildId" : "9787FF1FFFE8D82268D89F6BFA3AF07B3E9D140F" }, { "b" : "7F40F50C8000", "path" : "/usr/lib/x86_64-linux-gnu/libcrypto.so.1.1", "elfType" : 3, "buildId" : "A409BCD92DCDD3298E92C359876AC800FDD499AC" }, { "b" : "7F40F4EC0000", "path" : "/lib/x86_64-linux-gnu/librt.so.1", "elfType" : 3, "buildId" : "9826FBDF57ED7D6965131074CB3C08B1009C1CD8" }, { "b" : "7F40F4CBC000", "path" : "/lib/x86_64-linux-gnu/libdl.so.2", "elfType" : 3, "buildId" : "25AD56E902E23B490A9CCDB08A9744D89CB95BCC" }, { "b" : "7F40F4933000", "path" : "/usr/lib/x86_64-linux-gnu/libstdc++.so.6", "elfType" : 3, "buildId" : "CBCD95969196C3B0B7C538E13E996F62EA17B9D2" }, { "b" : "7F40F4595000", "path" : "/lib/x86_64-linux-gnu/libm.so.6", "elfType" : 3, "buildId" : "A33761AB8FB485311B3C85BF4253099D7CABE653" }, { "b" : "7F40F437D000", "path" : "/lib/x86_64-linux-gnu/libgcc_s.so.1", "elfType" : 3, "buildId" : "92E0BE1929D28508CF9C6D5754C7EB48C12255B3" }, { "b" : "7F40F415E000", "path" : "/lib/x86_64-linux-gnu/libpthread.so.0", "elfType" : 3, "buildId" : "28C6AADE70B2D40D1F0F3D0A1A0CAD1AB816448F" }, { "b" : "7F40F3D6D000", "path" : "/lib/x86_64-linux-gnu/libc.so.6", "elfType" : 3, "buildId" : "B417C0BA7CC5CF06D1D1BED6652CEDB9253C60D0" }, { "b" : "7F40F3AFB000", "path" : "/lib/x86_64-linux-gnu/libpcre.so.3", "elfType" : 3, "buildId" : "5B3416BB188EAF3FA4B7530AAE6C1890B38B0372" }, { "b" : "7F40F38E0000", "path" : "/usr/lib/x86_64-linux-gnu/libunwind.so.8", "elfType" : 3, "buildId" : "7995F03B59E1D6EB7968EEA5B8534910D4E8E8D6" }, { "b" : "7F40F6DCE000", "path" : "/lib64/ld-linux-x86-64.so.2", "elfType" : 3, "buildId" : "64DF1B961228382FE18684249ED800AB1DCEAAD4" }, { "b" : "7F40F36BA000", "path" : "/lib/x86_64-linux-gnu/liblzma.so.5", "elfType" : 3, "buildId" : "8FBCCA354D964860B9E6EB3736E9B7BC6177B417" } ] }}
+ mongod(_ZN5mongo15printStackTraceERSo+0x3A) [0x55feb3eff01a]
+ mongod(+0x203A2DE) [0x55feb3efe2de]
+ mongod(+0x203A7B2) [0x55feb3efe7b2]
+ libpthread.so.0(+0x12890) [0x7f40f4170890]
+ libc.so.6(gsignal+0xC7) [0x7f40f3dabe97]
+ libc.so.6(abort+0x141) [0x7f40f3dad801]
+ mongod(_ZN5mongo32fassertFailedNoTraceWithLocationEiPKcj+0x0) [0x55feb26ff421]
+ mongod(+0x908456) [0x55feb27cc456]
+ mongod(+0x974DA7) [0x55feb2838da7]
+ mongod(__wt_err+0xA0) [0x55feb26ad457]
+ mongod(__wt_panic+0x34) [0x55feb26ad78a]
+ mongod(+0x9DC995) [0x55feb28a0995]
+ libpthread.so.0(+0x76DB) [0x7f40f41656db]
+ libc.so.6(clone+0x3F) [0x7f40f3e8e88f]
+-----  END BACKTRACE  -----
+2019-03-09T16:15:24.526+0000 I CONTROL  [initandlisten] MongoDB starting : pid=5048 port=36915 dbpath=stefan-ThinkPad-X230/instance_36915 64-bit host=stefan-ThinkPad-X230
+2019-03-09T16:15:24.527+0000 I CONTROL  [initandlisten] db version v3.6.3
+2019-03-09T16:15:24.527+0000 I CONTROL  [initandlisten] git version: 9586e557d54ef70f9ca4b43c26892cd55257e1a5
+2019-03-09T16:15:24.527+0000 I CONTROL  [initandlisten] OpenSSL version: OpenSSL 1.1.0g  2 Nov 2017
+2019-03-09T16:15:24.527+0000 I CONTROL  [initandlisten] allocator: tcmalloc
+2019-03-09T16:15:24.527+0000 I CONTROL  [initandlisten] modules: none
+2019-03-09T16:15:24.527+0000 I CONTROL  [initandlisten] build environment:
+2019-03-09T16:15:24.527+0000 I CONTROL  [initandlisten]     distarch: x86_64
+2019-03-09T16:15:24.527+0000 I CONTROL  [initandlisten]     target_arch: x86_64
+2019-03-09T16:15:24.527+0000 I CONTROL  [initandlisten] options: { net: { bindIp: "stefan-ThinkPad-X230", port: 36915 }, replication: { replSet: "rs_0_M" }, sharding: { clusterRole: "shardsvr" }, storage: { dbPath: "stefan-ThinkPad-X230/instance_36915" } }
+2019-03-09T16:15:24.527+0000 I STORAGE  [initandlisten] 
+2019-03-09T16:15:24.527+0000 I STORAGE  [initandlisten] ** WARNING: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine
+2019-03-09T16:15:24.527+0000 I STORAGE  [initandlisten] **          See http://dochub.mongodb.org/core/prodnotes-filesystem
+2019-03-09T16:15:24.527+0000 I STORAGE  [initandlisten] wiredtiger_open config: create,cache_size=7417M,session_max=20000,eviction=(threads_min=4,threads_max=4),config_base=false,statistics=(fast),log=(enabled=true,archive=true,path=journal,compressor=snappy),file_manager=(close_idle_time=100000),statistics_log=(wait=0),verbose=(recovery_progress),
+2019-03-09T16:15:25.995+0000 I CONTROL  [initandlisten] 
+2019-03-09T16:15:25.995+0000 I CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.
+2019-03-09T16:15:25.995+0000 I CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.
+2019-03-09T16:15:25.996+0000 I CONTROL  [initandlisten] 
+2019-03-09T16:15:25.999+0000 W SHARDING [initandlisten] Started with --shardsvr, but no shardIdentity document was found on disk in admin.system.version. This most likely means this server has not yet been added to a sharded cluster.
+2019-03-09T16:15:25.999+0000 I STORAGE  [initandlisten] createCollection: local.startup_log with no UUID.
+2019-03-09T16:15:26.025+0000 I FTDC     [initandlisten] Initializing full-time diagnostic data capture with directory 'stefan-ThinkPad-X230/instance_36915/diagnostic.data'
+2019-03-09T16:15:26.025+0000 I STORAGE  [initandlisten] createCollection: local.me with no UUID.
+2019-03-09T16:15:26.053+0000 I STORAGE  [initandlisten] createCollection: local.replset.minvalid with no UUID.
+2019-03-09T16:15:26.081+0000 I REPL     [initandlisten] Did not find local voted for document at startup.
+2019-03-09T16:15:26.081+0000 I REPL     [initandlisten] Did not find local Rollback ID document at startup. Creating one.
+2019-03-09T16:15:26.081+0000 I STORAGE  [initandlisten] createCollection: local.system.rollback.id with no UUID.
+2019-03-09T16:15:26.106+0000 I REPL     [initandlisten] Initialized the rollback ID to 1
+2019-03-09T16:15:26.106+0000 I REPL     [initandlisten] Did not find local replica set configuration document at startup;  NoMatchingDocument: Did not find replica set configuration document in local.system.replset
+2019-03-09T16:15:26.106+0000 I NETWORK  [initandlisten] waiting for connections on port 36915
+2019-03-09T16:15:34.882+0000 E STORAGE  [thread1] WiredTiger error (2) [1552148134:882610][5048:0x7f9c54552700], log-server: stefan-ThinkPad-X230/instance_36915/journal: directory-list: opendir: No such file or directory
+2019-03-09T16:15:34.882+0000 E STORAGE  [thread1] WiredTiger error (2) [1552148134:882684][5048:0x7f9c54552700], log-server: log pre-alloc server error: No such file or directory
+2019-03-09T16:15:34.882+0000 E STORAGE  [thread1] WiredTiger error (2) [1552148134:882700][5048:0x7f9c54552700], log-server: log server error: No such file or directory
+2019-03-09T16:15:34.882+0000 E STORAGE  [thread1] WiredTiger error (-31804) [1552148134:882712][5048:0x7f9c54552700], log-server: the process must exit and restart: WT_PANIC: WiredTiger library panic
+2019-03-09T16:15:34.882+0000 F -        [thread1] Fatal Assertion 28558 at src/mongo/db/storage/wiredtiger/wiredtiger_util.cpp 361
+2019-03-09T16:15:34.882+0000 F -        [thread1] 
+
+***aborting after fassert() failure
+
+
+2019-03-09T16:15:34.888+0000 F -        [thread1] Got signal: 6 (Aborted).
+
+ 0x55f5ceb4501a 0x55f5ceb442de 0x55f5ceb447b2 0x7f9c5721f890 0x7f9c56e5ae97 0x7f9c56e5c801 0x55f5cd345421 0x55f5cd412456 0x55f5cd47eda7 0x55f5cd2f3457 0x55f5cd2f378a 0x55f5cd4e6995 0x7f9c572146db 0x7f9c56f3d88f
+----- BEGIN BACKTRACE -----
+{"backtrace":[{"b":"55F5CCB0A000","o":"203B01A","s":"_ZN5mongo15printStackTraceERSo"},{"b":"55F5CCB0A000","o":"203A2DE"},{"b":"55F5CCB0A000","o":"203A7B2"},{"b":"7F9C5720D000","o":"12890"},{"b":"7F9C56E1C000","o":"3EE97","s":"gsignal"},{"b":"7F9C56E1C000","o":"40801","s":"abort"},{"b":"55F5CCB0A000","o":"83B421","s":"_ZN5mongo32fassertFailedNoTraceWithLocationEiPKcj"},{"b":"55F5CCB0A000","o":"908456"},{"b":"55F5CCB0A000","o":"974DA7"},{"b":"55F5CCB0A000","o":"7E9457","s":"__wt_err"},{"b":"55F5CCB0A000","o":"7E978A","s":"__wt_panic"},{"b":"55F5CCB0A000","o":"9DC995"},{"b":"7F9C5720D000","o":"76DB"},{"b":"7F9C56E1C000","o":"12188F","s":"clone"}],"processInfo":{ "mongodbVersion" : "3.6.3", "gitVersion" : "9586e557d54ef70f9ca4b43c26892cd55257e1a5", "compiledModules" : [], "uname" : { "sysname" : "Linux", "release" : "4.18.0-15-generic", "version" : "#16~18.04.1-Ubuntu SMP Thu Feb 7 14:06:04 UTC 2019", "machine" : "x86_64" }, "somap" : [ { "b" : "55F5CCB0A000", "elfType" : 3, "buildId" : "3BC7EC1BD697E0383D04402C13372B9D5B7C4993" }, { "b" : "7FFD09DDC000", "path" : "linux-vdso.so.1", "elfType" : 3, "buildId" : "A30AFCDB6A1E54E7A4208A0343235DE4091E17BA" }, { "b" : "7F9C59C2C000", "path" : "/usr/lib/x86_64-linux-gnu/libstemmer.so.0d", "elfType" : 3, "buildId" : "278CA72E21C11FF2E15A86B0B2C13A8922951702" }, { "b" : "7F9C59A0F000", "path" : "/lib/x86_64-linux-gnu/libz.so.1", "elfType" : 3, "buildId" : "EF3E006DFE3132A41D4D4DC0E407D6EA658E11C4" }, { "b" : "7F9C59807000", "path" : "/usr/lib/x86_64-linux-gnu/libsnappy.so.1", "elfType" : 3, "buildId" : "55765D88D03CC928130D788F1C7E4BF8415AC7E3" }, { "b" : "7F9C5958D000", "path" : "/usr/lib/x86_64-linux-gnu/libyaml-cpp.so.0.5", "elfType" : 3, "buildId" : "BF65D47C8CD968E616F7D179F84A80CA71DB8249" }, { "b" : "7F9C59384000", "path" : "/usr/lib/x86_64-linux-gnu/libpcrecpp.so.0", "elfType" : 3, "buildId" : "089B8438CC1394E978E56C556C9CAE768BD2F18C" }, { "b" : "7F9C59103000", "path" : "/usr/lib/x86_64-linux-gnu/libboost_program_options.so.1.65.1", "elfType" : 3, "buildId" : "9F69F11220BB1FAAB0B73A2B6F4B0E81D9B901CE" }, { "b" : "7F9C58EE9000", "path" : "/usr/lib/x86_64-linux-gnu/libboost_filesystem.so.1.65.1", "elfType" : 3, "buildId" : "32B8421A0643426D9FB008005F5A86688065008B" }, { "b" : "7F9C58CE4000", "path" : "/usr/lib/x86_64-linux-gnu/libboost_system.so.1.65.1", "elfType" : 3, "buildId" : "4BA851D242F2DB710CB1817DE860CF97AE2F9714" }, { "b" : "7F9C58A74000", "path" : "/usr/lib/x86_64-linux-gnu/libtcmalloc.so.4", "elfType" : 3, "buildId" : "572D5C17FBDA6B678DF653411F676819DE18CA6B" }, { "b" : "7F9C58859000", "path" : "/lib/x86_64-linux-gnu/libresolv.so.2", "elfType" : 3, "buildId" : "390E9CC4C215314B6D8ADE6D6E28F8518418039C" }, { "b" : "7F9C585EF000", "path" : "/usr/lib/x86_64-linux-gnu/libssl.so.1.1", "elfType" : 3, "buildId" : "9787FF1FFFE8D82268D89F6BFA3AF07B3E9D140F" }, { "b" : "7F9C58177000", "path" : "/usr/lib/x86_64-linux-gnu/libcrypto.so.1.1", "elfType" : 3, "buildId" : "A409BCD92DCDD3298E92C359876AC800FDD499AC" }, { "b" : "7F9C57F6F000", "path" : "/lib/x86_64-linux-gnu/librt.so.1", "elfType" : 3, "buildId" : "9826FBDF57ED7D6965131074CB3C08B1009C1CD8" }, { "b" : "7F9C57D6B000", "path" : "/lib/x86_64-linux-gnu/libdl.so.2", "elfType" : 3, "buildId" : "25AD56E902E23B490A9CCDB08A9744D89CB95BCC" }, { "b" : "7F9C579E2000", "path" : "/usr/lib/x86_64-linux-gnu/libstdc++.so.6", "elfType" : 3, "buildId" : "CBCD95969196C3B0B7C538E13E996F62EA17B9D2" }, { "b" : "7F9C57644000", "path" : "/lib/x86_64-linux-gnu/libm.so.6", "elfType" : 3, "buildId" : "A33761AB8FB485311B3C85BF4253099D7CABE653" }, { "b" : "7F9C5742C000", "path" : "/lib/x86_64-linux-gnu/libgcc_s.so.1", "elfType" : 3, "buildId" : "92E0BE1929D28508CF9C6D5754C7EB48C12255B3" }, { "b" : "7F9C5720D000", "path" : "/lib/x86_64-linux-gnu/libpthread.so.0", "elfType" : 3, "buildId" : "28C6AADE70B2D40D1F0F3D0A1A0CAD1AB816448F" }, { "b" : "7F9C56E1C000", "path" : "/lib/x86_64-linux-gnu/libc.so.6", "elfType" : 3, "buildId" : "B417C0BA7CC5CF06D1D1BED6652CEDB9253C60D0" }, { "b" : "7F9C56BAA000", "path" : "/lib/x86_64-linux-gnu/libpcre.so.3", "elfType" : 3, "buildId" : "5B3416BB188EAF3FA4B7530AAE6C1890B38B0372" }, { "b" : "7F9C5698F000", "path" : "/usr/lib/x86_64-linux-gnu/libunwind.so.8", "elfType" : 3, "buildId" : "7995F03B59E1D6EB7968EEA5B8534910D4E8E8D6" }, { "b" : "7F9C59E7D000", "path" : "/lib64/ld-linux-x86-64.so.2", "elfType" : 3, "buildId" : "64DF1B961228382FE18684249ED800AB1DCEAAD4" }, { "b" : "7F9C56769000", "path" : "/lib/x86_64-linux-gnu/liblzma.so.5", "elfType" : 3, "buildId" : "8FBCCA354D964860B9E6EB3736E9B7BC6177B417" } ] }}
+ mongod(_ZN5mongo15printStackTraceERSo+0x3A) [0x55f5ceb4501a]
+ mongod(+0x203A2DE) [0x55f5ceb442de]
+ mongod(+0x203A7B2) [0x55f5ceb447b2]
+ libpthread.so.0(+0x12890) [0x7f9c5721f890]
+ libc.so.6(gsignal+0xC7) [0x7f9c56e5ae97]
+ libc.so.6(abort+0x141) [0x7f9c56e5c801]
+ mongod(_ZN5mongo32fassertFailedNoTraceWithLocationEiPKcj+0x0) [0x55f5cd345421]
+ mongod(+0x908456) [0x55f5cd412456]
+ mongod(+0x974DA7) [0x55f5cd47eda7]
+ mongod(__wt_err+0xA0) [0x55f5cd2f3457]
+ mongod(__wt_panic+0x34) [0x55f5cd2f378a]
+ mongod(+0x9DC995) [0x55f5cd4e6995]
+ libpthread.so.0(+0x76DB) [0x7f9c572146db]
+ libc.so.6(clone+0x3F) [0x7f9c56f3d88f]
 -----  END BACKTRACE  -----
