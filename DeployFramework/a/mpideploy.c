@@ -5,13 +5,32 @@
 #include <unistd.h>
 #include "cjson/cJSON.h"
 #define HOSTNAME_MAXSIZE 255
+#define MONGO_ROUTER_ADDSHARD_COMMAND_MAXSIZE 500
+#define MONGOS_ROUTER_START_COMMAND_MAXSIZE 500
 #define RICH_STRING_MAX_PAYLOAD 255
 #define ACK_REPLICAS_COMMAND_MAXSIZE 1000
 #define RICH_STRING_METADATA_OFFSET 1
-#define every(x, i) (int i=0;i<x;i++)
+#define SAFE_PADDING 1
+
+#define SERVER_START_PADDING 1
+#define CONF_SERVER_START_PADDING(s_argvinfo) s_argvinfo->server_nodes+SERVER_START_PADDING
+
+
+#define every_replica_server(s_argvinfo, i) (int i=1;i<=s_argvinfo->server_nodes;i++)
+#define every_conf_server(s_argvinfo, i) (int i=s_argvinfo->server_nodes+SERVER_START_PADDING;i<=s_argvinfo->server_nodes+s_argvinfo->config_server_nodes;i++)
+#define every_client_server(s_argvinfo, i) (int i=s_argvinfo->server_nodes+s_argvinfo->conf_server_nodes;i<=s_argvinfo->server_nodes+s_argvinfo->config_server_nodes+s_argvinfo->client_nodes;i++)
+
+#define every_replica_server_set(s_argvinfo, i,j) (int i=0,j=SERVER_START_PADDING;j<s_argvinfo->server_nodes + SERVER_START_PADDING;j+=s_argvinfo->replicas_per_shard,i++)
+#define every_conf_replica_server_set(s_argvinfo, i,j) (int i=0,j=s_argvinfo->server_nodes+SERVER_START_PADDING;j<s_argvinfo->server_nodes+s_argvinfo->config_server_nodes;i+=1,j+=s_argvinfo->config_replicas_per_shard)
+
+
+
+
 #define PURPOSE_SERVER 	0
 #define PURPOSE_CLIENT 	1
 #define PURPOSE_MAIN	2
+#define PURPOSE_CONF 	3
+
 #define MAIN_SERVER_RANK 0
 
 #define SERVER_TAG	10
@@ -21,8 +40,15 @@
 #define COMMAND_SUICIDE	1
 
 #define INT_MAX_STRING 10
-cJSON* _rs_replica_initiate_buildJson(char*replicaName,char**hosts,int*ports,int startOffset,int numberOfServers);
 
+
+#define NUMBER_OF_REPLICA_SETS(s_argvinfo) (s_argvinfo->server_nodes+1)/s_argvinfo->replicas_per_shard
+#define NUMBER_OF_CONFIG_REPLICA_SETS(s_argvinfo) (s_argvinfo->config_server_nodes+1)/s_argvinfo->config_replicas_per_shard
+
+
+
+cJSON* _rs_replica_initiate_buildJson(char*replicaName,char**hosts,int*ports,int startOffset,int numberOfServers);
+cJSON* _rs_configsvr_initiate_buildJson(char*replicaName,char**hosts,int*ports,int startOffset,int numberOfServers);
 
 
 
@@ -41,6 +67,8 @@ union richmsg{
 *
 */
 char*richmsg_compose(char*str){
+	
+
 	union richmsg*retval=(union richmsg*)malloc(sizeof(union richmsg));
 	retval->size=strlen(str);
 	memcpy(retval->payload+RICH_STRING_METADATA_OFFSET,str,retval->size);
@@ -123,8 +151,15 @@ char*main_server_not_applicable(char**ptr){
  */
 struct argv{
 	unsigned short server_nodes;				//the amount of server nodes
-	unsigned short client_nodes;				//the amount of client nodes
 	unsigned short replicas_per_shard;			//replicas per shards(obviously)
+
+
+	unsigned short config_server_nodes;				//the amount of server nodes
+	unsigned short config_replicas_per_shard;			//replicas per shards(obviously)
+
+	unsigned short client_nodes;				//the amount of client nodes
+
+
 
 };
 
@@ -156,9 +191,16 @@ argvinfo*free_argv(argvinfo*ptr){
  *
  */
 argvinfo*default_construct(argvinfo*param,int procsize){
+	param->config_server_nodes=3;
+	param->config_replicas_per_shard=3;
+
+
+
+	procsize-=4;
 	param->server_nodes=(int)procsize/2;
 	param->client_nodes=(int)procsize/2;
-	param->replicas_per_shard=3;
+	param->replicas_per_shard=2;
+
 	return param;
 }
 /***
@@ -169,13 +211,13 @@ argvinfo*default_construct(argvinfo*param,int procsize){
 argvinfo*parseargv(int argc,char*argv[],int procsize){
 	argvinfo*retval=default_construct(alloc_argv(),procsize);	
 	for(int i=0;i<argc;i++){
-		if(!strcmp("-s",argv[i])){
+		if(!strcmp("--serv",argv[i])){
 			retval->server_nodes=strtol(argv[i+1],NULL,10);
 		}
-		else if(!strcmp("-c",argv[i])){
+		else if(!strcmp("--cli",argv[i])){
 			retval->client_nodes=strtol(argv[i+1],NULL,10);
 		}
-		else if(!strcmp("-rps",argv[i])){
+		else if(!strcmp("--rps",argv[i])){
 			retval->replicas_per_shard=strtol(argv[i+1],NULL,10);
 		}
 	}
@@ -189,11 +231,11 @@ argvinfo*parseargv(int argc,char*argv[],int procsize){
  */
 void **alloc2D(int n,int m,ssize_t typesize){
 	int i=0;
-	void **retval=malloc(n*sizeof(char*));
+	void **retval=malloc(n*sizeof(char*)+SAFE_PADDING);
 	if(!retval)printf("[WARN]Null returned at alloc2D , it will crash maybe due to LOWMEM");
-	for (i=0;i<n;i++)
+	for (i=0;i<n+SAFE_PADDING;i++)
 	{
-		retval[i]=(char*)malloc(typesize*m);
+		retval[i]=(char*)malloc(typesize*(m+SAFE_PADDING));
 		if(!retval[i])printf("[WARN]Null returned at alloc2D , it will crash maybe due to LOWMEM");
 	}
 	return retval;
@@ -265,6 +307,7 @@ int *generatePorts(int procsize){
  *
  */
 int nodeAs(int rank,int purpose){
+	printf("Server %d on purpose %d\n",rank,purpose);
 	MPI_Send(&purpose,1,MPI_INT,rank,0,MPI_COMM_WORLD);
 	return purpose;	
 }
@@ -275,6 +318,15 @@ int nodeAs(int rank,int purpose){
  */
 int nodeAsMain(int rank){
 	return PURPOSE_MAIN;
+}
+/***
+ *A simple wrapper over nodeAs(rack,puprose) routine who assigns in x-th server(x=rank)
+ * The PURPOSE_SERVER (0)
+ *
+ */
+int nodeAsConfig(int rank){
+	return nodeAs(rank,PURPOSE_CONF);
+
 }
 /***
  *A simple wrapper over nodeAs(rack,puprose) routine who assigns in x-th server(x=rank)
@@ -322,14 +374,22 @@ char* setupPath(char*hostname,int port){
 void startReplicaServer(char*hostname,int port,char*replicaName,char*dbpath){
 	char command[1000];
 	sprintf(command,"mongod --shardsvr --replSet %s --port %d --bind_ip %s --dbpath %s >> log_%d & \n",replicaName,port,hostname,dbpath,port);
-	printf("%s",command);
-	system(command);
+	//printf("%s",command);
+	system(command);	
+}
 
-
-	
+/***
+ *Given the hostname , port , replica name and dbPath , this routine starts the mongod instances 
+ *
+ */
+void startConfReplicaServer(char*hostname,int port,char*replicaName,char*dbpath){
+	char command[1000];
+	sprintf(command,"mongod --configsvr --replSet %s --port %d --bind_ip %s --dbpath %s >> log_%d & \n",replicaName,port,hostname,dbpath,port);
+	//printf("%s",command);
+	system(command);	
 }
 /*
- *Clears the instances data
+ *Clears the instances dataa
  *
  * */
 char* deletePath(char*dbpath){
@@ -376,7 +436,6 @@ char*getReplicaName(){
  *	This command deletes the dbPath data , causing the mongodb instance to crash(and eventually stop(#TheEasyWay))
  */
 void server_start(char*hostname,int port){
-	int forkretval;
 	MPI_Status status;
     int receiveCommand;
 	char *dbpath=setupPath(hostname,port);
@@ -392,7 +451,7 @@ void server_start(char*hostname,int port){
                 	case COMMAND_SUICIDE:{
 				//printf("THREAD %d receive : SUICIDE\n",port);
 				deletePath(dbpath);
-				killReplicaServer(forkretval);
+				
 				isDead=1;
 				break;
 				}
@@ -405,8 +464,36 @@ void server_start(char*hostname,int port){
  * @NotImplemented
  *
  */
-void client_start(char*hostname,int port){
-//	printf("CLIENT RUN %d\n",port);
+void client_start(char*hostname,int port){}
+
+/***
+ *This is every confs servers slave mainloop
+ * @NotImplemented
+ *
+ */
+void server_conf_start(char*hostname,int port){
+	MPI_Status status;
+    int receiveCommand;
+	char *dbpath=setupPath(hostname,port);
+	int isDead=0;
+	
+	char*replicaName=getReplicaName();
+	startConfReplicaServer(hostname,port,replicaName,dbpath);
+        
+	while(1){
+		if(isDead)break;
+		MPI_Recv(&receiveCommand,sizeof(int),MPI_INT,MAIN_SERVER_RANK,SERVER_TAG,MPI_COMM_WORLD,&status);
+                switch(receiveCommand){
+                	case COMMAND_SUICIDE:{
+				//printf("THREAD %d receive : SUICIDE\n",port);
+				deletePath(dbpath);
+				
+				isDead=1;
+				break;
+				}
+            }
+        }
+        
 }
 /***
  *Triggered by every slave .Here happenes the main split between client and server slaves by slave side
@@ -415,6 +502,7 @@ void client_start(char*hostname,int port){
 void applyPurpose(int purpose,char*hostname,int port){
 	switch(purpose){
 		case PURPOSE_SERVER:server_start(hostname,port);break;
+		case PURPOSE_CONF:server_conf_start(hostname,port);break;
 		case PURPOSE_CLIENT:client_start(hostname,port);break;
 	
 	}
@@ -451,9 +539,10 @@ int*assignPurposes(argvinfo*user_params,int procsize){
 	int*purposes=(int*)malloc(sizeof(int)*procsize);
 	purposes[0]=nodeAsMain(0);
 	for(int i=1;i<procsize;i++){
-		if(i<user_params->server_nodes)purposes[i]=nodeAsServer(i);
-                else purposes[i]=nodeAsClient(i);
-        }
+		if(i<=user_params->server_nodes)purposes[i]=nodeAsServer(i);
+        else if(i<=user_params->server_nodes+user_params->config_server_nodes)purposes[i]=nodeAsConfig(i);
+        else purposes[i]=nodeAsClient(i);
+    }
 	return purposes;
 
 }
@@ -466,23 +555,49 @@ char** sentReplicaNames(argvinfo*user_args,int procsize){
 	char *replicaBuffer;
 	char **replicaNames=alloc2D(procsize,REPLICA_NAME_MAX,sizeof(char));
 	
-	for(int i=1,cnt=0;i<user_args->server_nodes;i+=user_args->replicas_per_shard,cnt+=1){
+
+	/***
+		Replica Names for shards
+
+	*/
+
+	printf("ASC REPLICAS\n");
+	for(int i=SERVER_START_PADDING,cnt=0;i<=user_args->server_nodes;i+=user_args->replicas_per_shard,cnt+=1){
 		sprintf(tmp_buffer,"%d_M",cnt);
 		replicaBuffer=concat(replicaPrefix,tmp_buffer);
-		for(int j=0;j<user_args->replicas_per_shard&&j+i<user_args->server_nodes;j++){
+		for(int j=0;j<user_args->replicas_per_shard&&j+i<=user_args->server_nodes;j++){
 			memcpy(replicaNames[i+j],replicaBuffer,strlen(replicaBuffer));
+			printf("%s on rack %d\n",replicaNames[i+j],i+j);
 			MPI_Send(replicaBuffer,strlen(replicaBuffer),MPI_CHAR,i+j,SERVER_TAG,MPI_COMM_WORLD);
 			//free(replicaBuffer); MPI_Send takes ownership of the buffer
 
 		}
 		
 	}
+	/***
+		Replica Names for configuration servers
+
+	*/
+	printf("ASC CONF REPLICAS\n");
+	for(int i=user_args->server_nodes+SERVER_START_PADDING,cnt=0;i<=(user_args->server_nodes+user_args->config_server_nodes);i+=user_args->config_replicas_per_shard,cnt+=1){
+		sprintf(tmp_buffer,"%d_CM",cnt);
+		replicaBuffer=concat(replicaPrefix,tmp_buffer);
+		for(int j=0;j<user_args->config_replicas_per_shard&&j+i<=user_args->server_nodes+user_args->config_server_nodes;j++){
+			memcpy(replicaNames[i+j],replicaBuffer,strlen(replicaBuffer));
+			printf("%s on rack %d\n",replicaNames[i+j],i+j);
+			MPI_Send(replicaBuffer,strlen(replicaBuffer),MPI_CHAR,i+j,SERVER_TAG,MPI_COMM_WORLD);
+			//free(replicaBuffer); MPI_Send takes ownership of the buffer
+
+		}
+		
+	}
+	printf("END\n");
 	replicaNames[0]=main_server_not_applicable(&replicaNames[0]);
 	return replicaNames;
 
 }
 /***
- *Acknowledge Instances 
+ *Acknowledge server Instances 
  *		Composes the rs.initiate({ ... }) json , and acknowledges each replicas primary with it!
  *
  *
@@ -496,7 +611,26 @@ void ack_instances(argvinfo*user_params,char**hostnames,int*ports,int*purposes,c
 			curr_port=ports[i];
 			printf("%s is %d at index %d with replicas %d\n",curr_replica,curr_port,i,user_params->replicas_per_shard);	
 			evaluate_rs_initiate(hostnames[i],ports[i],cJSON_Print(_rs_replica_initiate_buildJson(replicaNames[i],hostnames,ports,i,user_params->replicas_per_shard)));
-			//printf("%s",cJSON_Print(_rs_replica_initiate_buildJson(replicaNames[i],hostnames,ports,i,user_params->replicas_per_shard)));
+			printf("%s",cJSON_Print(_rs_replica_initiate_buildJson(replicaNames[i],hostnames,ports,i,user_params->replicas_per_shard)));
+		
+		}
+	}	
+}
+
+/***
+ *Acknowledge conf Instances 
+ *		Composes the rs.initiate({ ... }) json , and acknowledges each replicas primary with it!
+ *
+ *
+ */
+void ack_config_instances(argvinfo*user_params,char**hostnames,int*ports,int*purposes,char**replicaNames){
+	char curr_replica[REPLICA_NAME_MAX] = "NONE";
+	int curr_port;
+	for(int i=user_params->server_nodes+SERVER_START_PADDING;i<=user_params->server_nodes+user_params->config_server_nodes;i++){
+		if(strcmp(curr_replica,replicaNames[i])){
+			memcpy(curr_replica,replicaNames[i],strlen(replicaNames[i]));
+			curr_port=ports[i];	
+			evaluate_rs_initiate(hostnames[i],ports[i],cJSON_Print(_rs_configsvr_initiate_buildJson(replicaNames[i],hostnames,ports,i,user_params->config_replicas_per_shard)));
 		
 		}
 	}	
@@ -504,7 +638,7 @@ void ack_instances(argvinfo*user_params,char**hostnames,int*ports,int*purposes,c
 void evaluate_rs_initiate(char*primary_hostname,int port,char*rs_initiate_json){
 	char buff[5000];
 	sprintf(buff,"mongo --host %s --port %d --eval 'rs.initiate(%s)' \0",primary_hostname,port,rs_initiate_json);
-	printf("%s",buff);
+	//printf("%s",buff);
 	system(buff);
 }
 /***
@@ -553,7 +687,7 @@ char *itoa_buff(char*buff,int n){
  *
  *
  */
-cJSON* _rs_replicas_initiate_buildJson(char*replicaName,char**hosts,int*ports,int startOffset,int numberOfServers){
+cJSON* _rs_replica_initiate_buildJson(char*replicaName,char**hosts,int*ports,int startOffset,int numberOfServers){
 	cJSON *rs_initiate=					cJSON_CreateObject();
 	cJSON *members_array=				cJSON_CreateArray();
 	cJSON *_id_value=					cJSON_CreateString(replicaName);
@@ -590,8 +724,53 @@ cJSON* _rs_replicas_initiate_buildJson(char*replicaName,char**hosts,int*ports,in
 
 	return rs_initiate;
 }
+char**get_config_master_hosts(argvinfo*user_params,char**hosts){
+	char**retval=alloc2D(NUMBER_OF_CONFIG_REPLICA_SETS(user_params),HOSTNAME_MAXSIZE,sizeof(char));
+	int k;
+	for every_conf_replica_server_set(user_params,k,j){
+		sprintf(retval[k],"%s",hosts[j]);
+		printf("%s\n",retval[k]);
+	}
+	return retval;
+
+}
+/***
+	Currently only one config cluster supported(with as many shards as you want) , we always use the first config shard
+
+*/
+void activate_query_router_mongos(argvinfo*user_params,char**replicaNames,char**hosts,char**ports){
+	char buff[1000];
+	for every_conf_server(user_params,i){
+		//if(k==0||j==0)continue;
+		sprintf(buff,"mongos --configdb %s/%s:%d --bind_ip localhost --port 20000 & >> mongos_log",replicaNames[i],hosts[i],ports[i]);
+		printf("%s\n",buff);
+		system(buff);
+
+		break;
+	}
+	//free2D(config_master_hosts,NUMBER_OF_REPLICA_SETS(user_params));
+
+
+}
+char**get_master_hosts(argvinfo*user_params,char**hosts){
+	char**retval=alloc2D(NUMBER_OF_REPLICA_SETS(user_params),HOSTNAME_MAXSIZE,sizeof(char));
+	int k;
+	for every_replica_server_set(user_params,k,j){
+		sprintf(retval[k],"%s",hosts[j]);
+	}
+	return retval;
+
+}
+char**get_mongo_query_router_add_shard_command(argvinfo*user_params,char**replicaNames,char**hosts,char**ports){
+	char**retval=alloc2D(NUMBER_OF_REPLICA_SETS(user_params),MONGO_ROUTER_ADDSHARD_COMMAND_MAXSIZE,sizeof(char));
+	int k;
+	for every_replica_server_set(user_params,k,j){
+			sprintf(retval[k],"%s/%s:%d",replicaNames[j],hosts[j],ports[j]);
+	}
+	return retval;
+}
 cJSON* _rs_configsvr_initiate_buildJson(char*replicaName,char**hosts,int*ports,int startOffset,int numberOfServers){
-	cJSON* retval=_rs_replicas_initiate_buildJson(replicaName,hosts,startOffset,numberOfServers);
+	cJSON* retval=_rs_replica_initiate_buildJson(replicaName,hosts,ports,startOffset,numberOfServers);
 	cJSON* confsvr_option=cJSON_CreateTrue();
 	cJSON_AddItemToObject(retval,"configsvr",confsvr_option);
 	return retval;
@@ -658,8 +837,19 @@ int main(int argc,char*argv[]){
 		char**replicaNames;
 		int*ports;
 		int*purposes;
+
+
+
+
 		printf("Size of cluster %d\n",p);
+
+
+
 		argvinfo*user_params=parseargv(argc,argv,p);			//parse user arguments 
+
+		printf("argvinfo server_nodes %d\n",user_params->server_nodes);
+
+
 		hosts=receiveHostnames(p);								//receive hostnames from slaves
 		ports=generatePorts(p);									//generate ports and sent the into the servers
 		purposes=assignPurposes(user_params,p);					//sent in every server their purpise
@@ -668,20 +858,41 @@ int main(int argc,char*argv[]){
 		replicaNames=sentReplicaNames(user_params,p);				//sent in each server their replica name
 		
 
-
-		for (int i = 0; i < p; ++i)
-		{
-			printf("AAA %s AAA", hosts[i]);
-			printf("\n");
-		}
 		
+		
+		
+		//get_config_master_hosts(user_params,hosts);
+		
+		system("sleep 10");	
 
-		system("sleep 10");
-		ack_instances(user_params,					//acknowledge instances 
+
+		ack_instances(user_params,							//acknowledge instances 
 				hosts,
 				ports,
 				purposes,
 				replicaNames);
+
+		ack_config_instances(user_params,					//acknowledge configuration instances 
+				hosts,
+				ports,
+				purposes,
+				replicaNames);
+
+		system("sleep 10");
+
+		printf("START MONGOS ROUTER\n");
+
+
+		printf("host\t\tport\track\tpurpose\treplica\t\n");
+		for (int i=1;i<p;i++){
+			printf("%s\t%d\t%d\t%d\t%s\n",hosts[i],ports[i],i,purposes[i],replicaNames[i]);
+		
+		}
+		activate_query_router_mongos(user_params,replicaNames,hosts,ports);
+
+
+
+
 
 
 		//_rs_replica_initiate_buildJson("rs0_M",hosts,ports,3);
@@ -698,3 +909,4 @@ int main(int argc,char*argv[]){
 	MPI_Finalize();
 	fflush(stdout);
 }
+	
