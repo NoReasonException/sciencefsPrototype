@@ -20,7 +20,7 @@
 #define every_conf_server(s_argvinfo, i) (int i=s_argvinfo->server_nodes+SERVER_START_PADDING;i<=s_argvinfo->server_nodes+s_argvinfo->config_server_nodes;i++)
 #define every_client_server(s_argvinfo, i) (int i=s_argvinfo->server_nodes+s_argvinfo->conf_server_nodes;i<=s_argvinfo->server_nodes+s_argvinfo->config_server_nodes+s_argvinfo->client_nodes;i++)
 
-#define every_replica_server_set(s_argvinfo, i,j) (int i=0,j=SERVER_START_PADDING;j<s_argvinfo->server_nodes + SERVER_START_PADDING;j+=s_argvinfo->replicas_per_shard,i++)
+#define every_replica_server_set(s_argvinfo, i,j) (int i=0,j=SERVER_START_PADDING;j<=s_argvinfo->server_nodes;j+=s_argvinfo->replicas_per_shard,i++)
 #define every_conf_replica_server_set(s_argvinfo, i,j) (int i=0,j=s_argvinfo->server_nodes+SERVER_START_PADDING;j<s_argvinfo->server_nodes+s_argvinfo->config_server_nodes;i+=1,j+=s_argvinfo->config_replicas_per_shard)
 
 
@@ -57,6 +57,12 @@ struct argv;
 typedef struct argv argvinfo;
 
 
+
+void * memcpy_slow ( void * destination, const void * source, size_t num ){
+	for (int i = 0; i <num ; ++i)((char*)destination)[i]=((char*)source)[i];
+	return destination;
+}
+
 union richmsg{
 	char size;
 	char payload[RICH_STRING_MAX_PAYLOAD];
@@ -71,14 +77,14 @@ char*richmsg_compose(char*str){
 
 	union richmsg*retval=(union richmsg*)malloc(sizeof(union richmsg));
 	retval->size=strlen(str);
-	memcpy(retval->payload+RICH_STRING_METADATA_OFFSET,str,retval->size);
+	memcpy_slow(retval->payload+RICH_STRING_METADATA_OFFSET,str,retval->size);
 	return (char*)retval;
 
 }
 char*richmsg_decompose(char*msg){
 	char*retval=(char*)malloc(sizeof(char)*RICH_STRING_MAX_PAYLOAD);
 	union richmsg *decompose=(union richmsg*)msg;
-	memcpy(retval,decompose->payload+RICH_STRING_METADATA_OFFSET,decompose->size);
+	memcpy_slow(retval,decompose->payload+RICH_STRING_METADATA_OFFSET,decompose->size);
 	retval[decompose->size]='\0';
 	return retval;
 
@@ -130,8 +136,8 @@ char*replaceNewLineWithNull(char*str){
  */
 char *concat(char*first,char*second){
 	char*retval=(char*)malloc(sizeof(char)*(strlen(first)+strlen(second)+1));
-	memcpy(retval,first,strlen(first));
-	memcpy(retval+strlen(first),second,strlen(second)+1);
+	memcpy_slow(retval,first,strlen(first));
+	memcpy_slow(retval+strlen(first),second,strlen(second)+1);
 
 	return retval;
 	
@@ -566,7 +572,7 @@ char** sentReplicaNames(argvinfo*user_args,int procsize){
 		sprintf(tmp_buffer,"%d_M",cnt);
 		replicaBuffer=concat(replicaPrefix,tmp_buffer);
 		for(int j=0;j<user_args->replicas_per_shard&&j+i<=user_args->server_nodes;j++){
-			memcpy(replicaNames[i+j],replicaBuffer,strlen(replicaBuffer));
+			memcpy_slow(replicaNames[i+j],replicaBuffer,strlen(replicaBuffer));
 			printf("%s on rack %d\n",replicaNames[i+j],i+j);
 			MPI_Send(replicaBuffer,strlen(replicaBuffer),MPI_CHAR,i+j,SERVER_TAG,MPI_COMM_WORLD);
 			//free(replicaBuffer); MPI_Send takes ownership of the buffer
@@ -583,7 +589,7 @@ char** sentReplicaNames(argvinfo*user_args,int procsize){
 		sprintf(tmp_buffer,"%d_CM",cnt);
 		replicaBuffer=concat(replicaPrefix,tmp_buffer);
 		for(int j=0;j<user_args->config_replicas_per_shard&&j+i<=user_args->server_nodes+user_args->config_server_nodes;j++){
-			memcpy(replicaNames[i+j],replicaBuffer,strlen(replicaBuffer));
+			memcpy_slow(replicaNames[i+j],replicaBuffer,strlen(replicaBuffer));
 			printf("%s on rack %d\n",replicaNames[i+j],i+j);
 			MPI_Send(replicaBuffer,strlen(replicaBuffer),MPI_CHAR,i+j,SERVER_TAG,MPI_COMM_WORLD);
 			//free(replicaBuffer); MPI_Send takes ownership of the buffer
@@ -596,6 +602,13 @@ char** sentReplicaNames(argvinfo*user_args,int procsize){
 	return replicaNames;
 
 }
+
+void evaluate_rs_initiate(char*primary_hostname,int port,char*rs_initiate_json){
+	char buff[5000];
+	sprintf(buff,"mongo --host %s --port %d --eval 'rs.initiate(%s)' \0",primary_hostname,port,rs_initiate_json);
+	//printf("%s",buff);
+	system(buff);
+}
 /***
  *Acknowledge server Instances 
  *		Composes the rs.initiate({ ... }) json , and acknowledges each replicas primary with it!
@@ -607,7 +620,7 @@ void ack_instances(argvinfo*user_params,char**hostnames,int*ports,int*purposes,c
 	int curr_port;
 	for(int i=1;i<user_params->server_nodes;i++){
 		if(strcmp(curr_replica,replicaNames[i])){
-			memcpy(curr_replica,replicaNames[i],strlen(replicaNames[i]));
+			memcpy_slow(curr_replica,replicaNames[i],strlen(replicaNames[i]));
 			curr_port=ports[i];
 			printf("%s is %d at index %d with replicas %d\n",curr_replica,curr_port,i,user_params->replicas_per_shard);	
 			evaluate_rs_initiate(hostnames[i],ports[i],cJSON_Print(_rs_replica_initiate_buildJson(replicaNames[i],hostnames,ports,i,user_params->replicas_per_shard)));
@@ -628,28 +641,22 @@ void ack_config_instances(argvinfo*user_params,char**hostnames,int*ports,int*pur
 	int curr_port;
 	for(int i=user_params->server_nodes+SERVER_START_PADDING;i<=user_params->server_nodes+user_params->config_server_nodes;i++){
 		if(strcmp(curr_replica,replicaNames[i])){
-			memcpy(curr_replica,replicaNames[i],strlen(replicaNames[i]));
+			memcpy_slow(curr_replica,replicaNames[i],strlen(replicaNames[i]));
 			curr_port=ports[i];	
 			evaluate_rs_initiate(hostnames[i],ports[i],cJSON_Print(_rs_configsvr_initiate_buildJson(replicaNames[i],hostnames,ports,i,user_params->config_replicas_per_shard)));
 		
 		}
 	}	
 }
-void evaluate_rs_initiate(char*primary_hostname,int port,char*rs_initiate_json){
-	char buff[5000];
-	sprintf(buff,"mongo --host %s --port %d --eval 'rs.initiate(%s)' \0",primary_hostname,port,rs_initiate_json);
-	//printf("%s",buff);
-	system(buff);
-}
 /***
  * Called by the main server , keeps the clock . after 10 seconds commands every slave to SUICIDE
  */
 void run(int my_rank,int p,int *ports){
-	system("sleep 100");
+	system("sleep 10");
 	int command=COMMAND_SUICIDE;
-	for(int i=1;i<=p;i++){
+	for(int i=1;i<=p+1;i++){
 		MPI_Send(&command,1,MPI_INT,i,SERVER_TAG,MPI_COMM_WORLD);
-		//printf("SERVER %d SENT KILL ON %d(%d)\n",my_rank,i,ports[i]);
+		printf("SERVER %d SENT KILL ON %d(%d)\n",my_rank,i,ports[i]);
 	}
 
 }
@@ -738,36 +745,22 @@ char**get_config_master_hosts(argvinfo*user_params,char**hosts){
 	Currently only one config cluster supported(with as many shards as you want) , we always use the first config shard
 
 */
-void activate_query_router_mongos(argvinfo*user_params,char**replicaNames,char**hosts,char**ports){
+void activate_query_router_mongos(argvinfo*user_params,char**replicaNames,char**hosts,int*ports){
 	char buff[1000];
 	for every_conf_server(user_params,i){
-		//if(k==0||j==0)continue;
-		sprintf(buff,"mongos --configdb %s/%s:%d --bind_ip localhost --port 20000 & >> mongos_log",replicaNames[i],hosts[i],ports[i]);
+		sprintf(buff,"mongos --configdb %s/%s:21421 --bind_ip nre-Aspire-F5-573G --port 20000 >> mongos_log &",replicaNames[i],hosts[i],ports[i]);
 		printf("%s\n",buff);
 		system(buff);
-
 		break;
 	}
-	//free2D(config_master_hosts,NUMBER_OF_REPLICA_SETS(user_params));
-
-
-}
-char**get_master_hosts(argvinfo*user_params,char**hosts){
-	char**retval=alloc2D(NUMBER_OF_REPLICA_SETS(user_params),HOSTNAME_MAXSIZE,sizeof(char));
-	int k;
-	for every_replica_server_set(user_params,k,j){
-		sprintf(retval[k],"%s",hosts[j]);
+	system("sleep 10");
+	for every_replica_server_set(user_params,i,j){
+		sprintf(buff,"mongo --host nre-Aspire-F5-573G --port 20000 --eval 'sh.addShard(\"%s/%s:%d\")' >> addShard_log f& ",replicaNames[j],hosts[j],ports[j]);
+		printf("%s\n",buff);
+		system(buff);
 	}
-	return retval;
 
-}
-char**get_mongo_query_router_add_shard_command(argvinfo*user_params,char**replicaNames,char**hosts,char**ports){
-	char**retval=alloc2D(NUMBER_OF_REPLICA_SETS(user_params),MONGO_ROUTER_ADDSHARD_COMMAND_MAXSIZE,sizeof(char));
-	int k;
-	for every_replica_server_set(user_params,k,j){
-			sprintf(retval[k],"%s/%s:%d",replicaNames[j],hosts[j],ports[j]);
-	}
-	return retval;
+
 }
 cJSON* _rs_configsvr_initiate_buildJson(char*replicaName,char**hosts,int*ports,int startOffset,int numberOfServers){
 	cJSON* retval=_rs_replica_initiate_buildJson(replicaName,hosts,ports,startOffset,numberOfServers);
@@ -823,6 +816,9 @@ int main(int argc,char*argv[]){
 		applyPurpose(purpose,local_hostname,port);
 	
 
+
+
+		printf("RANK %d DEAD \n",my_rank);
 		//free(hostname);
 
 	}
@@ -897,9 +893,11 @@ int main(int argc,char*argv[]){
 
 		//_rs_replica_initiate_buildJson("rs0_M",hosts,ports,3);
  
-		run(my_rank,user_params->server_nodes,ports);
+		run(my_rank,user_params->server_nodes+user_params->config_server_nodes,ports);
 
-		
+
+
+		printf("MAIN DEAD \n");
 		free2D(hosts,p);
 		free2D(replicaNames,user_params->server_nodes);
 		free(ports);

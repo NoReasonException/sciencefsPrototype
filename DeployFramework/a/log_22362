@@ -1,0 +1,673 @@
+2019-03-21T08:42:48.693+0000 I CONTROL  [initandlisten] MongoDB starting : pid=18216 port=22362 dbpath=nre-Aspire-F5-573G/instance_22362 64-bit host=nre-Aspire-F5-573G
+2019-03-21T08:42:48.693+0000 I CONTROL  [initandlisten] db version v3.6.3
+2019-03-21T08:42:48.693+0000 I CONTROL  [initandlisten] git version: 9586e557d54ef70f9ca4b43c26892cd55257e1a5
+2019-03-21T08:42:48.693+0000 I CONTROL  [initandlisten] OpenSSL version: OpenSSL 1.1.0g  2 Nov 2017
+2019-03-21T08:42:48.693+0000 I CONTROL  [initandlisten] allocator: tcmalloc
+2019-03-21T08:42:48.693+0000 I CONTROL  [initandlisten] modules: none
+2019-03-21T08:42:48.693+0000 I CONTROL  [initandlisten] build environment:
+2019-03-21T08:42:48.693+0000 I CONTROL  [initandlisten]     distarch: x86_64
+2019-03-21T08:42:48.693+0000 I CONTROL  [initandlisten]     target_arch: x86_64
+2019-03-21T08:42:48.693+0000 I CONTROL  [initandlisten] options: { net: { bindIp: "nre-Aspire-F5-573G", port: 22362 }, replication: { replSet: "rs_0_CM" }, sharding: { clusterRole: "configsvr" }, storage: { dbPath: "nre-Aspire-F5-573G/instance_22362" } }
+2019-03-21T08:42:48.694+0000 I STORAGE  [initandlisten] 
+2019-03-21T08:42:48.694+0000 I STORAGE  [initandlisten] ** WARNING: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine
+2019-03-21T08:42:48.694+0000 I STORAGE  [initandlisten] **          See http://dochub.mongodb.org/core/prodnotes-filesystem
+2019-03-21T08:42:48.694+0000 I STORAGE  [initandlisten] wiredtiger_open config: create,cache_size=3410M,session_max=20000,eviction=(threads_min=4,threads_max=4),config_base=false,statistics=(fast),log=(enabled=true,archive=true,path=journal,compressor=snappy),file_manager=(close_idle_time=100000),statistics_log=(wait=0),verbose=(recovery_progress),
+2019-03-21T08:42:52.944+0000 I CONTROL  [initandlisten] 
+2019-03-21T08:42:52.944+0000 I CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.
+2019-03-21T08:42:52.944+0000 I CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.
+2019-03-21T08:42:52.944+0000 I CONTROL  [initandlisten] 
+2019-03-21T08:42:52.948+0000 I STORAGE  [initandlisten] createCollection: local.startup_log with no UUID.
+2019-03-21T08:42:53.020+0000 I FTDC     [initandlisten] Initializing full-time diagnostic data capture with directory 'nre-Aspire-F5-573G/instance_22362/diagnostic.data'
+2019-03-21T08:42:53.021+0000 I SHARDING [initandlisten] first cluster operation detected, adding sharding hook to enable versioning and authentication to remote servers
+2019-03-21T08:42:53.021+0000 I SHARDING [thread1] creating distributed lock ping thread for process ConfigServer (sleeping for 30000ms)
+2019-03-21T08:42:53.021+0000 I STORAGE  [initandlisten] createCollection: local.me with no UUID.
+2019-03-21T08:42:53.021+0000 I SHARDING [shard registry reload] Periodic reload of shard registry failed  :: caused by :: ReadConcernMajorityNotAvailableYet: could not get updated shard list from config server due to Read concern majority reads are currently not possible.; will retry after 30s
+2019-03-21T08:42:53.093+0000 I STORAGE  [initandlisten] createCollection: local.replset.minvalid with no UUID.
+2019-03-21T08:42:53.157+0000 I REPL     [initandlisten] Did not find local voted for document at startup.
+2019-03-21T08:42:53.157+0000 I REPL     [initandlisten] Did not find local Rollback ID document at startup. Creating one.
+2019-03-21T08:42:53.158+0000 I STORAGE  [initandlisten] createCollection: local.system.rollback.id with no UUID.
+2019-03-21T08:42:53.213+0000 I REPL     [initandlisten] Initialized the rollback ID to 1
+2019-03-21T08:42:53.213+0000 I REPL     [initandlisten] Did not find local replica set configuration document at startup;  NoMatchingDocument: Did not find replica set configuration document in local.system.replset
+2019-03-21T08:42:53.213+0000 I NETWORK  [initandlisten] waiting for connections on port 22362
+2019-03-21T08:43:00.447+0000 I NETWORK  [listener] connection accepted from 127.0.0.1:49972 #1 (1 connection now open)
+2019-03-21T08:43:00.453+0000 I NETWORK  [conn1] end connection 127.0.0.1:49972 (0 connections now open)
+2019-03-21T08:43:00.471+0000 I NETWORK  [listener] connection accepted from 127.0.0.1:49976 #2 (1 connection now open)
+2019-03-21T08:43:00.483+0000 I NETWORK  [conn2] received client metadata from 127.0.0.1:49976 conn: { driver: { name: "NetworkInterfaceASIO-Replication", version: "3.6.3" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+2019-03-21T08:43:00.483+0000 I ASIO     [NetworkInterfaceASIO-Replication-0] Connecting to nre-Aspire-F5-573G:21421
+2019-03-21T08:43:00.497+0000 I ASIO     [NetworkInterfaceASIO-Replication-0] Successfully connected to nre-Aspire-F5-573G:21421, took 14ms (1 connections now open to nre-Aspire-F5-573G:21421)
+2019-03-21T08:43:02.499+0000 I NETWORK  [listener] connection accepted from 127.0.0.1:50020 #3 (2 connections now open)
+2019-03-21T08:43:02.503+0000 I NETWORK  [conn3] end connection 127.0.0.1:50020 (1 connection now open)
+2019-03-21T08:43:02.508+0000 I NETWORK  [listener] connection accepted from 127.0.0.1:50024 #4 (2 connections now open)
+2019-03-21T08:43:02.510+0000 I NETWORK  [conn4] end connection 127.0.0.1:50024 (1 connection now open)
+2019-03-21T08:43:02.516+0000 I STORAGE  [replexec-0] createCollection: local.system.replset with no UUID.
+2019-03-21T08:43:02.527+0000 I NETWORK  [listener] connection accepted from 127.0.0.1:50028 #5 (2 connections now open)
+2019-03-21T08:43:02.539+0000 I NETWORK  [conn5] received client metadata from 127.0.0.1:50028 conn: { driver: { name: "NetworkInterfaceASIO-Replication", version: "3.6.3" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+2019-03-21T08:43:02.539+0000 I ASIO     [NetworkInterfaceASIO-Replication-0] Connecting to nre-Aspire-F5-573G:30027
+2019-03-21T08:43:02.552+0000 I ASIO     [NetworkInterfaceASIO-Replication-0] Successfully connected to nre-Aspire-F5-573G:30027, took 13ms (1 connections now open to nre-Aspire-F5-573G:30027)
+2019-03-21T08:43:02.555+0000 I REPL     [replexec-0] New replica set config in use: { _id: "rs_0_CM", version: 1, configsvr: true, protocolVersion: 1, members: [ { _id: 9, host: "nre-Aspire-F5-573G:21421", arbiterOnly: false, buildIndexes: true, hidden: false, priority: 1.0, tags: {}, slaveDelay: 0, votes: 1 }, { _id: 10, host: "nre-Aspire-F5-573G:22362", arbiterOnly: false, buildIndexes: true, hidden: false, priority: 1.0, tags: {}, slaveDelay: 0, votes: 1 }, { _id: 11, host: "nre-Aspire-F5-573G:30027", arbiterOnly: false, buildIndexes: true, hidden: false, priority: 1.0, tags: {}, slaveDelay: 0, votes: 1 } ], settings: { chainingAllowed: true, heartbeatIntervalMillis: 2000, heartbeatTimeoutSecs: 10, electionTimeoutMillis: 10000, catchUpTimeoutMillis: -1, catchUpTakeoverDelayMillis: 30000, getLastErrorModes: {}, getLastErrorDefaults: { w: 1, wtimeout: 0 }, replicaSetId: ObjectId('5c934e9440bdbb6c9bce45d1') } }
+2019-03-21T08:43:02.555+0000 I REPL     [replexec-0] This node is nre-Aspire-F5-573G:22362 in the config
+2019-03-21T08:43:02.555+0000 I REPL     [replexec-0] transition to STARTUP2 from STARTUP
+2019-03-21T08:43:02.555+0000 I REPL     [replexec-0] Starting replication storage threads
+2019-03-21T08:43:02.556+0000 I REPL     [replexec-1] Member nre-Aspire-F5-573G:21421 is now in state SECONDARY
+2019-03-21T08:43:02.556+0000 I REPL     [replexec-1] Member nre-Aspire-F5-573G:30027 is now in state STARTUP2
+2019-03-21T08:43:02.556+0000 I STORAGE  [replexec-0] createCollection: local.temp_oplog_buffer with no UUID.
+2019-03-21T08:43:02.607+0000 I REPL     [replication-0] Starting initial sync (attempt 1 of 10)
+2019-03-21T08:43:02.607+0000 I STORAGE  [replication-0] Finishing collection drop for local.temp_oplog_buffer (no UUID).
+2019-03-21T08:43:02.608+0000 I STORAGE  [replication-0] createCollection: local.temp_oplog_buffer with no UUID.
+2019-03-21T08:43:02.655+0000 I REPL     [replication-0] sync source candidate: nre-Aspire-F5-573G:21421
+2019-03-21T08:43:02.655+0000 I REPL     [replication-0] ******
+2019-03-21T08:43:02.655+0000 I REPL     [replication-0] creating replication oplog of size: 10149MB...
+2019-03-21T08:43:02.655+0000 I STORAGE  [replication-0] createCollection: local.oplog.rs with no UUID.
+2019-03-21T08:43:02.681+0000 I STORAGE  [replication-0] Starting WiredTigerRecordStoreThread local.oplog.rs
+2019-03-21T08:43:02.681+0000 I STORAGE  [replication-0] The size storer reports that the oplog contains 0 records totaling to 0 bytes
+2019-03-21T08:43:02.681+0000 I STORAGE  [replication-0] Scanning the oplog to determine where to place markers for truncation
+2019-03-21T08:43:02.790+0000 I REPL     [replication-0] ******
+2019-03-21T08:43:02.790+0000 I STORAGE  [replication-0] dropAllDatabasesExceptLocal 1
+2019-03-21T08:43:02.790+0000 I ASIO     [NetworkInterfaceASIO-RS-0] Connecting to nre-Aspire-F5-573G:21421
+2019-03-21T08:43:02.805+0000 I ASIO     [NetworkInterfaceASIO-RS-0] Successfully connected to nre-Aspire-F5-573G:21421, took 15ms (1 connections now open to nre-Aspire-F5-573G:21421)
+2019-03-21T08:43:02.806+0000 I ASIO     [NetworkInterfaceASIO-RS-0] Connecting to nre-Aspire-F5-573G:21421
+2019-03-21T08:43:02.808+0000 I REPL     [replication-0] CollectionCloner::start called, on ns:admin.system.version
+2019-03-21T08:43:02.816+0000 I ASIO     [NetworkInterfaceASIO-RS-0] Successfully connected to nre-Aspire-F5-573G:21421, took 10ms (2 connections now open to nre-Aspire-F5-573G:21421)
+2019-03-21T08:43:02.817+0000 I STORAGE  [repl writer worker 0] createCollection: admin.system.version with provided UUID: 5f572c9d-195e-4f0b-a6e3-28da6a062f7c
+2019-03-21T08:43:02.852+0000 I INDEX    [repl writer worker 0] build index on: admin.system.version properties: { v: 2, key: { _id: 1 }, name: "_id_", ns: "admin.system.version" }
+2019-03-21T08:43:02.852+0000 I INDEX    [repl writer worker 0] 	 building index using bulk method; build may temporarily use up to 500 megabytes of RAM
+2019-03-21T08:43:02.853+0000 I COMMAND  [repl writer worker 1] setting featureCompatibilityVersion to 3.6
+2019-03-21T08:43:02.853+0000 I NETWORK  [repl writer worker 1] Skip closing connection for connection # 5
+2019-03-21T08:43:02.853+0000 I NETWORK  [repl writer worker 1] Skip closing connection for connection # 2
+2019-03-21T08:43:02.853+0000 I REPL     [repl writer worker 1] CollectionCloner ns:admin.system.version finished cloning with status: OK
+2019-03-21T08:43:02.871+0000 I REPL     [repl writer worker 1] Finished cloning data: OK. Beginning oplog replay.
+2019-03-21T08:43:02.871+0000 I REPL     [replication-0] No need to apply operations. (currently at { : Timestamp(1553157780, 1) })
+2019-03-21T08:43:02.871+0000 I COMMAND  [replication-1] Assigning UUID 46f2f1df-c27f-403a-b5df-011a7aca2fca to collection local.system.rollback.id
+2019-03-21T08:43:02.872+0000 I COMMAND  [replication-1] Assigning UUID f05f40c4-9502-46ae-8a47-b524cceeb05b to collection local.temp_oplog_buffer
+2019-03-21T08:43:02.872+0000 I COMMAND  [replication-1] Assigning UUID c8aa1e8a-6352-4efa-92f2-19adf0f33e12 to collection local.system.replset
+2019-03-21T08:43:02.872+0000 I COMMAND  [replication-1] Assigning UUID c682e254-b70f-48b1-9d84-eb5a25bd3319 to collection local.me
+2019-03-21T08:43:02.872+0000 I COMMAND  [replication-1] Assigning UUID 0e0e771c-145e-422b-bf6d-7c6be9066528 to collection local.startup_log
+2019-03-21T08:43:02.872+0000 I COMMAND  [replication-1] Assigning UUID dbaf9fa0-16ad-4554-a75b-b5f885af24c4 to collection local.replset.minvalid
+2019-03-21T08:43:02.872+0000 I COMMAND  [replication-1] Assigning UUID 11dc71f3-a454-450b-87aa-b401dd15cb0f to collection local.oplog.rs
+2019-03-21T08:43:02.872+0000 I ASIO     [NetworkInterfaceASIO-RS-0] Ending connection to host nre-Aspire-F5-573G:21421 due to bad connection status; 1 connections to that host remain open
+2019-03-21T08:43:02.872+0000 I REPL     [replication-0] Finished fetching oplog during initial sync: CallbackCanceled: error in fetcher batch callback: oplog fetcher is shutting down. Last fetched optime and hash: { ts: Timestamp(0, 0), t: -1 }[0]
+2019-03-21T08:43:02.872+0000 I REPL     [replication-0] Initial sync attempt finishing up.
+2019-03-21T08:43:02.872+0000 I REPL     [replication-0] Initial Sync Attempt Statistics: { failedInitialSyncAttempts: 0, maxFailedInitialSyncAttempts: 10, initialSyncStart: new Date(1553157782607), initialSyncAttempts: [], fetchedMissingDocs: 0, appliedOps: 0, initialSyncOplogStart: Timestamp(1553157780, 1), initialSyncOplogEnd: Timestamp(1553157780, 1), databases: { databasesCloned: 1, admin: { collections: 1, clonedCollections: 1, start: new Date(1553157782807), end: new Date(1553157782871), elapsedMillis: 64, admin.system.version: { documentsToCopy: 1, documentsCopied: 1, indexes: 1, fetchedBatches: 1, start: new Date(1553157782808), end: new Date(1553157782871), elapsedMillis: 63 } } } }
+2019-03-21T08:43:02.872+0000 I STORAGE  [replication-0] Finishing collection drop for local.temp_oplog_buffer (f05f40c4-9502-46ae-8a47-b524cceeb05b).
+2019-03-21T08:43:02.879+0000 I REPL     [replication-0] initial sync done; took 0s.
+2019-03-21T08:43:02.879+0000 I REPL     [replication-0] transition to RECOVERING from STARTUP2
+2019-03-21T08:43:02.879+0000 I REPL     [replication-0] Starting replication fetcher thread
+2019-03-21T08:43:02.879+0000 I REPL     [replication-0] Starting replication applier thread
+2019-03-21T08:43:02.879+0000 I REPL     [replication-0] Starting replication reporter thread
+2019-03-21T08:43:02.885+0000 I REPL     [rsBackgroundSync] could not find member to sync from
+2019-03-21T08:43:02.886+0000 I REPL     [replexec-1] Member nre-Aspire-F5-573G:30027 is now in state SECONDARY
+2019-03-21T08:43:02.889+0000 I REPL     [rsSync] transition to SECONDARY from RECOVERING
+2019-03-21T08:43:10.719+0000 I NETWORK  [listener] connection accepted from 127.0.0.1:50042 #6 (3 connections now open)
+2019-03-21T08:43:10.726+0000 I NETWORK  [conn6] received client metadata from 127.0.0.1:50042 conn: { driver: { name: "MongoDB Internal Client", version: "3.6.3" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+2019-03-21T08:43:10.727+0000 I NETWORK  [listener] connection accepted from 127.0.0.1:50048 #7 (4 connections now open)
+2019-03-21T08:43:10.727+0000 I NETWORK  [conn7] received client metadata from 127.0.0.1:50048 conn: { driver: { name: "NetworkInterfaceASIO-ShardRegistry", version: "3.6.3" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+2019-03-21T08:43:10.728+0000 I NETWORK  [listener] connection accepted from 127.0.0.1:50050 #8 (5 connections now open)
+2019-03-21T08:43:10.735+0000 I NETWORK  [conn8] received client metadata from 127.0.0.1:50050 conn: { driver: { name: "NetworkInterfaceASIO-ShardRegistry", version: "3.6.3" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+2019-03-21T08:43:11.219+0000 I STORAGE  [conn2] createCollection: local.replset.election with generated UUID: af712163-1a50-47ed-8ec1-8a6ffe2f6b6d
+2019-03-21T08:43:12.887+0000 I REPL     [replexec-4] Member nre-Aspire-F5-573G:21421 is now in state PRIMARY
+2019-03-21T08:43:12.887+0000 I REPL     [rsBackgroundSync] sync source candidate: nre-Aspire-F5-573G:21421
+2019-03-21T08:43:13.011+0000 I ASIO     [NetworkInterfaceASIO-RS-0] Connecting to nre-Aspire-F5-573G:21421
+2019-03-21T08:43:13.012+0000 I STORAGE  [rsSync] createCollection: local.replset.oplogTruncateAfterPoint with generated UUID: 405a2f9c-9437-4b1d-988a-758dedadef92
+2019-03-21T08:43:13.025+0000 I ASIO     [NetworkInterfaceASIO-RS-0] Successfully connected to nre-Aspire-F5-573G:21421, took 14ms (2 connections now open to nre-Aspire-F5-573G:21421)
+2019-03-21T08:43:13.040+0000 I STORAGE  [repl writer worker 5] createCollection: config.chunks with provided UUID: da1f7737-3122-472c-857b-e1523735b24a
+2019-03-21T08:43:13.082+0000 I INDEX    [repl writer worker 8] build index on: config.chunks properties: { v: 2, unique: true, key: { ns: 1, min: 1 }, name: "ns_1_min_1", ns: "config.chunks" }
+2019-03-21T08:43:13.082+0000 I INDEX    [repl writer worker 8] 	 building index using bulk method; build may temporarily use up to 500 megabytes of RAM
+2019-03-21T08:43:13.083+0000 I INDEX    [repl writer worker 8] build index done.  scanned 0 total records. 0 secs
+2019-03-21T08:43:13.098+0000 I INDEX    [repl writer worker 15] build index on: config.chunks properties: { v: 2, unique: true, key: { ns: 1, shard: 1, min: 1 }, name: "ns_1_shard_1_min_1", ns: "config.chunks" }
+2019-03-21T08:43:13.098+0000 I INDEX    [repl writer worker 15] 	 building index using bulk method; build may temporarily use up to 500 megabytes of RAM
+2019-03-21T08:43:13.099+0000 I INDEX    [repl writer worker 15] build index done.  scanned 0 total records. 0 secs
+2019-03-21T08:43:13.119+0000 I INDEX    [repl writer worker 11] build index on: config.chunks properties: { v: 2, unique: true, key: { ns: 1, lastmod: 1 }, name: "ns_1_lastmod_1", ns: "config.chunks" }
+2019-03-21T08:43:13.119+0000 I INDEX    [repl writer worker 11] 	 building index using bulk method; build may temporarily use up to 500 megabytes of RAM
+2019-03-21T08:43:13.120+0000 I INDEX    [repl writer worker 11] build index done.  scanned 0 total records. 0 secs
+2019-03-21T08:43:13.120+0000 I STORAGE  [repl writer worker 1] createCollection: config.migrations with provided UUID: 0d1278d6-2b81-44e1-b7b2-687beccb9006
+2019-03-21T08:43:13.160+0000 I INDEX    [repl writer worker 6] build index on: config.migrations properties: { v: 2, unique: true, key: { ns: 1, min: 1 }, name: "ns_1_min_1", ns: "config.migrations" }
+2019-03-21T08:43:13.160+0000 I INDEX    [repl writer worker 6] 	 building index using bulk method; build may temporarily use up to 500 megabytes of RAM
+2019-03-21T08:43:13.161+0000 I INDEX    [repl writer worker 6] build index done.  scanned 0 total records. 0 secs
+2019-03-21T08:43:13.161+0000 I STORAGE  [repl writer worker 12] createCollection: config.shards with provided UUID: c9f0e893-ccdf-4dc2-80fa-95545ea47fd6
+2019-03-21T08:43:13.210+0000 I INDEX    [repl writer worker 2] build index on: config.shards properties: { v: 2, unique: true, key: { host: 1 }, name: "host_1", ns: "config.shards" }
+2019-03-21T08:43:13.211+0000 I INDEX    [repl writer worker 2] 	 building index using bulk method; build may temporarily use up to 500 megabytes of RAM
+2019-03-21T08:43:13.223+0000 I INDEX    [repl writer worker 2] build index done.  scanned 0 total records. 0 secs
+2019-03-21T08:43:13.223+0000 I STORAGE  [repl writer worker 5] createCollection: config.locks with provided UUID: ac5edcd8-0506-48d2-bd66-21e603ac3cde
+2019-03-21T08:43:13.262+0000 I COMMAND  [conn7] command config.shards command: find { find: "shards", readConcern: { level: "majority", afterOpTime: { ts: Timestamp(0, 0), t: -1 } }, maxTimeMS: 30000, $readPreference: { mode: "nearest" }, $replData: 1, $clusterTime: { clusterTime: Timestamp(0, 0), signature: { hash: BinData(0, 0000000000000000000000000000000000000000), keyId: 0 } }, $configServerState: { opTime: { ts: Timestamp(0, 0), t: -1 } }, $db: "config" } planSummary: COLLSCAN keysExamined:0 docsExamined:0 cursorExhausted:1 numYields:0 nreturned:0 reslen:477 locks:{ Global: { acquireCount: { r: 2 }, acquireWaitCount: { r: 1 }, timeAcquiringMicros: { r: 26488 } }, Database: { acquireCount: { r: 1 } }, Collection: { acquireCount: { r: 1 } } } protocol:op_msg 2533ms
+2019-03-21T08:43:13.262+0000 I COMMAND  [conn8] command admin.system.keys command: find { find: "system.keys", filter: { purpose: "HMAC", expiresAt: { $gt: Timestamp(0, 0) } }, sort: { expiresAt: 1 }, readConcern: { level: "majority", afterOpTime: { ts: Timestamp(0, 0), t: -1 } }, maxTimeMS: 30000, $readPreference: { mode: "nearest" }, $replData: 1, $clusterTime: { clusterTime: Timestamp(0, 0), signature: { hash: BinData(0, 0000000000000000000000000000000000000000), keyId: 0 } }, $configServerState: { opTime: { ts: Timestamp(0, 0), t: -1 } }, $db: "admin" } planSummary: EOF keysExamined:0 docsExamined:0 cursorExhausted:1 numYields:0 nreturned:0 reslen:481 locks:{ Global: { acquireCount: { r: 2 }, acquireWaitCount: { r: 1 }, timeAcquiringMicros: { r: 26040 } }, Database: { acquireCount: { r: 1 } }, Collection: { acquireCount: { r: 1 } } } protocol:op_msg 2526ms
+2019-03-21T08:43:13.271+0000 I INDEX    [repl writer worker 8] build index on: config.locks properties: { v: 2, key: { ts: 1 }, name: "ts_1", ns: "config.locks" }
+2019-03-21T08:43:13.271+0000 I INDEX    [repl writer worker 8] 	 building index using bulk method; build may temporarily use up to 500 megabytes of RAM
+2019-03-21T08:43:13.271+0000 I INDEX    [repl writer worker 8] build index done.  scanned 0 total records. 0 secs
+2019-03-21T08:43:13.291+0000 I INDEX    [repl writer worker 15] build index on: config.locks properties: { v: 2, key: { state: 1, process: 1 }, name: "state_1_process_1", ns: "config.locks" }
+2019-03-21T08:43:13.291+0000 I INDEX    [repl writer worker 15] 	 building index using bulk method; build may temporarily use up to 500 megabytes of RAM
+2019-03-21T08:43:13.292+0000 I INDEX    [repl writer worker 15] build index done.  scanned 0 total records. 0 secs
+2019-03-21T08:43:13.292+0000 I STORAGE  [repl writer worker 11] createCollection: config.lockpings with provided UUID: af56ffa8-0d8d-474e-93e7-d1568bab604f
+2019-03-21T08:43:13.344+0000 I INDEX    [repl writer worker 1] build index on: config.lockpings properties: { v: 2, key: { ping: 1 }, name: "ping_1", ns: "config.lockpings" }
+2019-03-21T08:43:13.345+0000 I INDEX    [repl writer worker 1] 	 building index using bulk method; build may temporarily use up to 500 megabytes of RAM
+2019-03-21T08:43:13.345+0000 I INDEX    [repl writer worker 1] build index done.  scanned 0 total records. 0 secs
+2019-03-21T08:43:13.346+0000 I STORAGE  [repl writer worker 6] createCollection: config.tags with provided UUID: e07975b0-965b-479b-9db4-245cd108cb9e
+2019-03-21T08:43:13.381+0000 I INDEX    [repl writer worker 12] build index on: config.tags properties: { v: 2, unique: true, key: { ns: 1, min: 1 }, name: "ns_1_min_1", ns: "config.tags" }
+2019-03-21T08:43:13.381+0000 I INDEX    [repl writer worker 12] 	 building index using bulk method; build may temporarily use up to 500 megabytes of RAM
+2019-03-21T08:43:13.382+0000 I INDEX    [repl writer worker 12] build index done.  scanned 0 total records. 0 secs
+2019-03-21T08:43:13.403+0000 I INDEX    [repl writer worker 2] build index on: config.tags properties: { v: 2, key: { ns: 1, tag: 1 }, name: "ns_1_tag_1", ns: "config.tags" }
+2019-03-21T08:43:13.403+0000 I INDEX    [repl writer worker 2] 	 building index using bulk method; build may temporarily use up to 500 megabytes of RAM
+2019-03-21T08:43:13.404+0000 I INDEX    [repl writer worker 2] build index done.  scanned 0 total records. 0 secs
+2019-03-21T08:43:13.404+0000 I STORAGE  [repl writer worker 5] createCollection: config.version with provided UUID: 4f36b411-77dd-4092-80ad-e565b9568df6
+2019-03-21T08:43:13.432+0000 I STORAGE  [repl writer worker 15] createCollection: config.transactions with provided UUID: 1864a5ff-7313-453c-83fb-de276977ccc5
+2019-03-21T08:43:13.474+0000 I STORAGE  [repl writer worker 1] createCollection: admin.system.keys with provided UUID: 2efc3239-279a-493c-ab69-014e6df56ae8
+2019-03-21T08:43:14.921+0000 I STORAGE  [repl writer worker 2] createCollection: config.mongos with provided UUID: 21395bfd-e7a3-4a98-9489-cb42406eb1e3
+2019-03-21T08:43:21.025+0000 I NETWORK  [listener] connection accepted from 127.0.0.1:50092 #9 (6 connections now open)
+2019-03-21T08:43:21.034+0000 I NETWORK  [conn9] received client metadata from 127.0.0.1:50092 conn: { driver: { name: "MongoDB Internal Client", version: "3.6.3" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+2019-03-21T08:43:21.048+0000 I NETWORK  [listener] connection accepted from 127.0.0.1:50096 #10 (7 connections now open)
+2019-03-21T08:43:21.050+0000 I NETWORK  [listener] connection accepted from 127.0.0.1:50100 #11 (8 connections now open)
+2019-03-21T08:43:21.056+0000 I NETWORK  [conn10] received client metadata from 127.0.0.1:50096 conn: { driver: { name: "NetworkInterfaceASIO-ShardRegistry", version: "3.6.3" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+2019-03-21T08:43:21.061+0000 I NETWORK  [conn11] received client metadata from 127.0.0.1:50100 conn: { driver: { name: "MongoDB Internal Client", version: "3.6.3" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+2019-03-21T08:43:21.147+0000 I STORAGE  [repl writer worker 1] createCollection: config.changelog with provided UUID: 6fb0b844-4d1e-45ca-bc34-1b47187decda
+2019-03-21T08:43:21.244+0000 I NETWORK  [listener] connection accepted from 127.0.0.1:50130 #12 (9 connections now open)
+2019-03-21T08:43:21.246+0000 I NETWORK  [listener] connection accepted from 127.0.0.1:50132 #13 (10 connections now open)
+2019-03-21T08:43:21.254+0000 I NETWORK  [conn13] received client metadata from 127.0.0.1:50132 conn: { driver: { name: "MongoDB Internal Client", version: "3.6.3" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+2019-03-21T08:43:21.254+0000 I NETWORK  [conn12] received client metadata from 127.0.0.1:50130 conn: { driver: { name: "MongoDB Internal Client", version: "3.6.3" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+2019-03-21T08:43:21.363+0000 I NETWORK  [listener] connection accepted from 127.0.0.1:50170 #14 (11 connections now open)
+2019-03-21T08:43:21.373+0000 I NETWORK  [conn14] received client metadata from 127.0.0.1:50170 conn: { driver: { name: "MongoDB Internal Client", version: "3.6.3" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+2019-03-21T08:43:21.373+0000 I NETWORK  [listener] connection accepted from 127.0.0.1:50176 #15 (12 connections now open)
+2019-03-21T08:43:21.382+0000 I NETWORK  [conn15] received client metadata from 127.0.0.1:50176 conn: { driver: { name: "MongoDB Internal Client", version: "3.6.3" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+2019-03-21T08:43:21.472+0000 I NETWORK  [listener] connection accepted from 127.0.0.1:50216 #16 (13 connections now open)
+2019-03-21T08:43:21.481+0000 I NETWORK  [conn16] received client metadata from 127.0.0.1:50216 conn: { driver: { name: "MongoDB Internal Client", version: "3.6.3" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+2019-03-21T08:43:21.494+0000 I NETWORK  [listener] connection accepted from 127.0.0.1:50234 #17 (14 connections now open)
+2019-03-21T08:43:21.498+0000 I NETWORK  [conn17] received client metadata from 127.0.0.1:50234 conn: { driver: { name: "MongoDB Internal Client", version: "3.6.3" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+2019-03-21T08:43:23.022+0000 I NETWORK  [shard registry reload] Starting new replica set monitor for rs_3_M/nre-Aspire-F5-573G:20492,nre-Aspire-F5-573G:36649
+2019-03-21T08:43:23.022+0000 I NETWORK  [shard registry reload] Starting new replica set monitor for rs_1_M/nre-Aspire-F5-573G:27793,nre-Aspire-F5-573G:36915
+2019-03-21T08:43:23.022+0000 I NETWORK  [shard registry reload] Starting new replica set monitor for rs_0_M/nre-Aspire-F5-573G:30886,nre-Aspire-F5-573G:32777
+2019-03-21T08:43:23.022+0000 I NETWORK  [shard registry reload] Starting new replica set monitor for rs_2_M/nre-Aspire-F5-573G:25386,nre-Aspire-F5-573G:38335
+2019-03-21T08:43:23.040+0000 I NETWORK  [ReplicaSetMonitor-TaskExecutor-0] Successfully connected to nre-Aspire-F5-573G:36649 (1 connections now open to nre-Aspire-F5-573G:36649 with a 5 second timeout)
+2019-03-21T08:43:23.051+0000 I NETWORK  [ReplicaSetMonitor-TaskExecutor-0] Successfully connected to nre-Aspire-F5-573G:20492 (1 connections now open to nre-Aspire-F5-573G:20492 with a 5 second timeout)
+2019-03-21T08:43:23.063+0000 I NETWORK  [ReplicaSetMonitor-TaskExecutor-0] Successfully connected to nre-Aspire-F5-573G:36915 (1 connections now open to nre-Aspire-F5-573G:36915 with a 5 second timeout)
+2019-03-21T08:43:23.073+0000 I NETWORK  [ReplicaSetMonitor-TaskExecutor-0] Successfully connected to nre-Aspire-F5-573G:27793 (1 connections now open to nre-Aspire-F5-573G:27793 with a 5 second timeout)
+2019-03-21T08:43:23.081+0000 I NETWORK  [ReplicaSetMonitor-TaskExecutor-0] Successfully connected to nre-Aspire-F5-573G:32777 (1 connections now open to nre-Aspire-F5-573G:32777 with a 5 second timeout)
+2019-03-21T08:43:23.094+0000 I NETWORK  [ReplicaSetMonitor-TaskExecutor-0] Successfully connected to nre-Aspire-F5-573G:30886 (1 connections now open to nre-Aspire-F5-573G:30886 with a 5 second timeout)
+2019-03-21T08:43:23.106+0000 I NETWORK  [ReplicaSetMonitor-TaskExecutor-0] Successfully connected to nre-Aspire-F5-573G:38335 (1 connections now open to nre-Aspire-F5-573G:38335 with a 5 second timeout)
+2019-03-21T08:43:23.114+0000 I NETWORK  [ReplicaSetMonitor-TaskExecutor-0] Successfully connected to nre-Aspire-F5-573G:25386 (1 connections now open to nre-Aspire-F5-573G:25386 with a 5 second timeout)
+2019-03-21T08:43:31.003+0000 E STORAGE  [ftdc] WiredTiger error (2) [1553157811:3816][18216:0x7f7d092c2700], WT_SESSION.open_cursor: nre-Aspire-F5-573G/instance_22362/collection-14-6460983549012812062.wt: file-size: stat: No such file or directory
+2019-03-21T08:43:31.061+0000 I NETWORK  [conn11] end connection 127.0.0.1:50100 (13 connections now open)
+2019-03-21T08:43:31.159+0000 I NETWORK  [conn10] end connection 127.0.0.1:50096 (12 connections now open)
+2019-03-21T08:43:31.159+0000 I NETWORK  [conn9] end connection 127.0.0.1:50092 (11 connections now open)
+2019-03-21T08:43:31.182+0000 I NETWORK  [conn13] end connection 127.0.0.1:50132 (10 connections now open)
+2019-03-21T08:43:31.236+0000 I NETWORK  [conn12] end connection 127.0.0.1:50130 (9 connections now open)
+2019-03-21T08:43:31.441+0000 I ASIO     [NetworkInterfaceASIO-RS-0] Ending connection to host nre-Aspire-F5-573G:21421 due to bad connection status; 1 connections to that host remain open
+2019-03-21T08:43:31.441+0000 I REPL     [replication-1] Restarting oplog query due to error: HostUnreachable: error in fetcher batch callback: End of file. Last fetched optime (with hash): { ts: Timestamp(1553157804, 1), t: 1 }[9218003403132745617]. Restarts remaining: 3
+2019-03-21T08:43:31.441+0000 I ASIO     [replication-1] dropping unhealthy pooled connection to nre-Aspire-F5-573G:21421
+2019-03-21T08:43:31.441+0000 I ASIO     [replication-1] after drop, pool was empty, going to spawn some connections
+2019-03-21T08:43:31.441+0000 I REPL     [replication-1] Scheduled new oplog query Fetcher source: nre-Aspire-F5-573G:21421 database: local query: { find: "oplog.rs", filter: { ts: { $gte: Timestamp(1553157804, 1) } }, tailable: true, oplogReplay: true, awaitData: true, maxTimeMS: 60000, batchSize: 13981010, term: 1, readConcern: { afterClusterTime: Timestamp(1553157804, 1) } } query metadata: { $replData: 1, $oplogQueryData: 1, $readPreference: { mode: "secondaryPreferred" } } active: 1 findNetworkTimeout: 65000ms getMoreNetworkTimeout: 10000ms shutting down?: 0 first: 1 firstCommandScheduler: RemoteCommandRetryScheduler request: RemoteCommand 400 -- target:nre-Aspire-F5-573G:21421 db:local cmd:{ find: "oplog.rs", filter: { ts: { $gte: Timestamp(1553157804, 1) } }, tailable: true, oplogReplay: true, awaitData: true, maxTimeMS: 60000, batchSize: 13981010, term: 1, readConcern: { afterClusterTime: Timestamp(1553157804, 1) } } active: 1 callbackHandle.valid: 1 callbackHandle.cancelled: 0 attempt: 1 retryPolicy: RetryPolicyImpl maxAttempts: 1 maxTimeMillis: -1ms
+2019-03-21T08:43:31.441+0000 I ASIO     [NetworkInterfaceASIO-RS-0] Connecting to nre-Aspire-F5-573G:21421
+2019-03-21T08:43:31.441+0000 I NETWORK  [conn2] end connection 127.0.0.1:49976 (8 connections now open)
+2019-03-21T08:43:31.441+0000 I ASIO     [NetworkInterfaceASIO-RS-0] Failed to connect to nre-Aspire-F5-573G:21421 - HostUnreachable: Connection reset by peer
+2019-03-21T08:43:31.442+0000 I ASIO     [NetworkInterfaceASIO-RS-0] Dropping all pooled connections to nre-Aspire-F5-573G:21421 due to failed operation on a connection
+2019-03-21T08:43:31.442+0000 I ASIO     [NetworkInterfaceASIO-RS-0] Failed to close stream: Transport endpoint is not connected
+2019-03-21T08:43:31.442+0000 I REPL     [replication-0] Restarting oplog query due to error: HostUnreachable: error in fetcher batch callback: Connection reset by peer. Last fetched optime (with hash): { ts: Timestamp(1553157804, 1), t: 1 }[9218003403132745617]. Restarts remaining: 2
+2019-03-21T08:43:31.442+0000 I REPL     [replication-0] Scheduled new oplog query Fetcher source: nre-Aspire-F5-573G:21421 database: local query: { find: "oplog.rs", filter: { ts: { $gte: Timestamp(1553157804, 1) } }, tailable: true, oplogReplay: true, awaitData: true, maxTimeMS: 60000, batchSize: 13981010, term: 1, readConcern: { afterClusterTime: Timestamp(1553157804, 1) } } query metadata: { $replData: 1, $oplogQueryData: 1, $readPreference: { mode: "secondaryPreferred" } } active: 1 findNetworkTimeout: 65000ms getMoreNetworkTimeout: 10000ms shutting down?: 0 first: 1 firstCommandScheduler: RemoteCommandRetryScheduler request: RemoteCommand 402 -- target:nre-Aspire-F5-573G:21421 db:local cmd:{ find: "oplog.rs", filter: { ts: { $gte: Timestamp(1553157804, 1) } }, tailable: true, oplogReplay: true, awaitData: true, maxTimeMS: 60000, batchSize: 13981010, term: 1, readConcern: { afterClusterTime: Timestamp(1553157804, 1) } } active: 1 callbackHandle.valid: 1 callbackHandle.cancelled: 0 attempt: 1 retryPolicy: RetryPolicyImpl maxAttempts: 1 maxTimeMillis: -1ms
+2019-03-21T08:43:31.442+0000 I ASIO     [NetworkInterfaceASIO-RS-0] Connecting to nre-Aspire-F5-573G:21421
+2019-03-21T08:43:31.442+0000 I ASIO     [NetworkInterfaceASIO-RS-0] Failed to connect to nre-Aspire-F5-573G:21421 - HostUnreachable: Connection refused
+2019-03-21T08:43:31.442+0000 I ASIO     [NetworkInterfaceASIO-RS-0] Dropping all pooled connections to nre-Aspire-F5-573G:21421 due to failed operation on a connection
+2019-03-21T08:43:31.442+0000 I REPL     [replication-1] Restarting oplog query due to error: HostUnreachable: error in fetcher batch callback: Connection refused. Last fetched optime (with hash): { ts: Timestamp(1553157804, 1), t: 1 }[9218003403132745617]. Restarts remaining: 1
+2019-03-21T08:43:31.442+0000 I REPL     [replication-1] Scheduled new oplog query Fetcher source: nre-Aspire-F5-573G:21421 database: local query: { find: "oplog.rs", filter: { ts: { $gte: Timestamp(1553157804, 1) } }, tailable: true, oplogReplay: true, awaitData: true, maxTimeMS: 60000, batchSize: 13981010, term: 1, readConcern: { afterClusterTime: Timestamp(1553157804, 1) } } query metadata: { $replData: 1, $oplogQueryData: 1, $readPreference: { mode: "secondaryPreferred" } } active: 1 findNetworkTimeout: 65000ms getMoreNetworkTimeout: 10000ms shutting down?: 0 first: 1 firstCommandScheduler: RemoteCommandRetryScheduler request: RemoteCommand 404 -- target:nre-Aspire-F5-573G:21421 db:local cmd:{ find: "oplog.rs", filter: { ts: { $gte: Timestamp(1553157804, 1) } }, tailable: true, oplogReplay: true, awaitData: true, maxTimeMS: 60000, batchSize: 13981010, term: 1, readConcern: { afterClusterTime: Timestamp(1553157804, 1) } } active: 1 callbackHandle.valid: 1 callbackHandle.cancelled: 0 attempt: 1 retryPolicy: RetryPolicyImpl maxAttempts: 1 maxTimeMillis: -1ms
+2019-03-21T08:43:31.442+0000 I ASIO     [NetworkInterfaceASIO-RS-0] Connecting to nre-Aspire-F5-573G:21421
+2019-03-21T08:43:31.442+0000 I ASIO     [NetworkInterfaceASIO-RS-0] Failed to connect to nre-Aspire-F5-573G:21421 - HostUnreachable: Connection refused
+2019-03-21T08:43:31.442+0000 I ASIO     [NetworkInterfaceASIO-RS-0] Dropping all pooled connections to nre-Aspire-F5-573G:21421 due to failed operation on a connection
+2019-03-21T08:43:31.442+0000 I REPL     [replication-0] Error returned from oplog query (no more query restarts left): HostUnreachable: error in fetcher batch callback: Connection refused
+2019-03-21T08:43:31.442+0000 W REPL     [rsBackgroundSync] Fetcher stopped querying remote oplog with error: HostUnreachable: error in fetcher batch callback: Connection refused
+2019-03-21T08:43:31.442+0000 I REPL     [rsBackgroundSync] could not find member to sync from
+2019-03-21T08:43:31.442+0000 I ASIO     [replexec-3] dropping unhealthy pooled connection to nre-Aspire-F5-573G:21421
+2019-03-21T08:43:31.442+0000 I ASIO     [replexec-3] after drop, pool was empty, going to spawn some connections
+2019-03-21T08:43:31.442+0000 I ASIO     [NetworkInterfaceASIO-Replication-0] Connecting to nre-Aspire-F5-573G:21421
+2019-03-21T08:43:31.443+0000 I ASIO     [NetworkInterfaceASIO-Replication-0] Failed to connect to nre-Aspire-F5-573G:21421 - HostUnreachable: Connection refused
+2019-03-21T08:43:31.443+0000 I ASIO     [NetworkInterfaceASIO-Replication-0] Dropping all pooled connections to nre-Aspire-F5-573G:21421 due to failed operation on a connection
+2019-03-21T08:43:31.443+0000 I REPL_HB  [replexec-0] Error in heartbeat (requestId: 407) to nre-Aspire-F5-573G:21421, response status: HostUnreachable: Connection refused
+2019-03-21T08:43:31.443+0000 I ASIO     [NetworkInterfaceASIO-Replication-0] Connecting to nre-Aspire-F5-573G:21421
+2019-03-21T08:43:31.443+0000 I ASIO     [NetworkInterfaceASIO-Replication-0] Failed to connect to nre-Aspire-F5-573G:21421 - HostUnreachable: Connection refused
+2019-03-21T08:43:31.443+0000 I ASIO     [NetworkInterfaceASIO-Replication-0] Dropping all pooled connections to nre-Aspire-F5-573G:21421 due to failed operation on a connection
+2019-03-21T08:43:31.443+0000 I REPL_HB  [replexec-3] Error in heartbeat (requestId: 410) to nre-Aspire-F5-573G:21421, response status: HostUnreachable: Connection refused
+2019-03-21T08:43:31.443+0000 I ASIO     [NetworkInterfaceASIO-Replication-0] Connecting to nre-Aspire-F5-573G:21421
+2019-03-21T08:43:31.443+0000 I ASIO     [NetworkInterfaceASIO-Replication-0] Failed to connect to nre-Aspire-F5-573G:21421 - HostUnreachable: Connection refused
+2019-03-21T08:43:31.443+0000 I ASIO     [NetworkInterfaceASIO-Replication-0] Dropping all pooled connections to nre-Aspire-F5-573G:21421 due to failed operation on a connection
+2019-03-21T08:43:31.443+0000 I REPL_HB  [replexec-1] Error in heartbeat (requestId: 412) to nre-Aspire-F5-573G:21421, response status: HostUnreachable: Connection refused
+2019-03-21T08:43:31.443+0000 I REPL     [replexec-1] Member nre-Aspire-F5-573G:21421 is now in state RS_DOWN
+2019-03-21T08:43:31.521+0000 E STORAGE  [thread19] WiredTiger error (2) [1553157811:521014][18216:0x7f7d0e2cc700], log-server: nre-Aspire-F5-573G/instance_22362/journal: directory-list: opendir: No such file or directory
+2019-03-21T08:43:31.521+0000 E STORAGE  [thread19] WiredTiger error (2) [1553157811:521074][18216:0x7f7d0e2cc700], log-server: log pre-alloc server error: No such file or directory
+2019-03-21T08:43:31.521+0000 E STORAGE  [thread19] WiredTiger error (2) [1553157811:521088][18216:0x7f7d0e2cc700], log-server: log server error: No such file or directory
+2019-03-21T08:43:31.521+0000 E STORAGE  [thread19] WiredTiger error (-31804) [1553157811:521099][18216:0x7f7d0e2cc700], log-server: the process must exit and restart: WT_PANIC: WiredTiger library panic
+2019-03-21T08:43:31.521+0000 F -        [thread19] Fatal Assertion 28558 at src/mongo/db/storage/wiredtiger/wiredtiger_util.cpp 361
+2019-03-21T08:43:31.521+0000 F -        [thread19] 
+
+***aborting after fassert() failure
+
+
+2019-03-21T08:43:31.525+0000 F -        [thread19] Got signal: 6 (Aborted).
+
+ 0x55ca4313801a 0x55ca431372de 0x55ca431377b2 0x7f7d10f99890 0x7f7d10bd4e97 0x7f7d10bd6801 0x55ca41938421 0x55ca41a05456 0x55ca41a71da7 0x55ca418e6457 0x55ca418e678a 0x55ca41ad9995 0x7f7d10f8e6db 0x7f7d10cb788f
+----- BEGIN BACKTRACE -----
+{"backtrace":[{"b":"55CA410FD000","o":"203B01A","s":"_ZN5mongo15printStackTraceERSo"},{"b":"55CA410FD000","o":"203A2DE"},{"b":"55CA410FD000","o":"203A7B2"},{"b":"7F7D10F87000","o":"12890"},{"b":"7F7D10B96000","o":"3EE97","s":"gsignal"},{"b":"7F7D10B96000","o":"40801","s":"abort"},{"b":"55CA410FD000","o":"83B421","s":"_ZN5mongo32fassertFailedNoTraceWithLocationEiPKcj"},{"b":"55CA410FD000","o":"908456"},{"b":"55CA410FD000","o":"974DA7"},{"b":"55CA410FD000","o":"7E9457","s":"__wt_err"},{"b":"55CA410FD000","o":"7E978A","s":"__wt_panic"},{"b":"55CA410FD000","o":"9DC995"},{"b":"7F7D10F87000","o":"76DB"},{"b":"7F7D10B96000","o":"12188F","s":"clone"}],"processInfo":{ "mongodbVersion" : "3.6.3", "gitVersion" : "9586e557d54ef70f9ca4b43c26892cd55257e1a5", "compiledModules" : [], "uname" : { "sysname" : "Linux", "release" : "4.15.0-45-generic", "version" : "#48-Ubuntu SMP Tue Jan 29 16:28:13 UTC 2019", "machine" : "x86_64" }, "somap" : [ { "b" : "55CA410FD000", "elfType" : 3, "buildId" : "3BC7EC1BD697E0383D04402C13372B9D5B7C4993" }, { "b" : "7F7D13E1C000", "path" : "linux-vdso.so.1", "elfType" : 3, "buildId" : "025AD7BDF9DF8C7251192246537C451A988B98AE" }, { "b" : "7F7D139A6000", "path" : "/usr/lib/x86_64-linux-gnu/libstemmer.so.0d", "elfType" : 3, "buildId" : "278CA72E21C11FF2E15A86B0B2C13A8922951702" }, { "b" : "7F7D13789000", "path" : "/lib/x86_64-linux-gnu/libz.so.1", "elfType" : 3, "buildId" : "EF3E006DFE3132A41D4D4DC0E407D6EA658E11C4" }, { "b" : "7F7D13581000", "path" : "/usr/lib/x86_64-linux-gnu/libsnappy.so.1", "elfType" : 3, "buildId" : "55765D88D03CC928130D788F1C7E4BF8415AC7E3" }, { "b" : "7F7D13307000", "path" : "/usr/lib/x86_64-linux-gnu/libyaml-cpp.so.0.5", "elfType" : 3, "buildId" : "BF65D47C8CD968E616F7D179F84A80CA71DB8249" }, { "b" : "7F7D130FE000", "path" : "/usr/lib/x86_64-linux-gnu/libpcrecpp.so.0", "elfType" : 3, "buildId" : "089B8438CC1394E978E56C556C9CAE768BD2F18C" }, { "b" : "7F7D12E7D000", "path" : "/usr/lib/x86_64-linux-gnu/libboost_program_options.so.1.65.1", "elfType" : 3, "buildId" : "9F69F11220BB1FAAB0B73A2B6F4B0E81D9B901CE" }, { "b" : "7F7D12C63000", "path" : "/usr/lib/x86_64-linux-gnu/libboost_filesystem.so.1.65.1", "elfType" : 3, "buildId" : "32B8421A0643426D9FB008005F5A86688065008B" }, { "b" : "7F7D12A5E000", "path" : "/usr/lib/x86_64-linux-gnu/libboost_system.so.1.65.1", "elfType" : 3, "buildId" : "4BA851D242F2DB710CB1817DE860CF97AE2F9714" }, { "b" : "7F7D127EE000", "path" : "/usr/lib/x86_64-linux-gnu/libtcmalloc.so.4", "elfType" : 3, "buildId" : "572D5C17FBDA6B678DF653411F676819DE18CA6B" }, { "b" : "7F7D125D3000", "path" : "/lib/x86_64-linux-gnu/libresolv.so.2", "elfType" : 3, "buildId" : "390E9CC4C215314B6D8ADE6D6E28F8518418039C" }, { "b" : "7F7D12369000", "path" : "/usr/lib/x86_64-linux-gnu/libssl.so.1.1", "elfType" : 3, "buildId" : "9787FF1FFFE8D82268D89F6BFA3AF07B3E9D140F" }, { "b" : "7F7D11EF1000", "path" : "/usr/lib/x86_64-linux-gnu/libcrypto.so.1.1", "elfType" : 3, "buildId" : "A409BCD92DCDD3298E92C359876AC800FDD499AC" }, { "b" : "7F7D11CE9000", "path" : "/lib/x86_64-linux-gnu/librt.so.1", "elfType" : 3, "buildId" : "9826FBDF57ED7D6965131074CB3C08B1009C1CD8" }, { "b" : "7F7D11AE5000", "path" : "/lib/x86_64-linux-gnu/libdl.so.2", "elfType" : 3, "buildId" : "25AD56E902E23B490A9CCDB08A9744D89CB95BCC" }, { "b" : "7F7D1175C000", "path" : "/usr/lib/x86_64-linux-gnu/libstdc++.so.6", "elfType" : 3, "buildId" : "CBCD95969196C3B0B7C538E13E996F62EA17B9D2" }, { "b" : "7F7D113BE000", "path" : "/lib/x86_64-linux-gnu/libm.so.6", "elfType" : 3, "buildId" : "A33761AB8FB485311B3C85BF4253099D7CABE653" }, { "b" : "7F7D111A6000", "path" : "/lib/x86_64-linux-gnu/libgcc_s.so.1", "elfType" : 3, "buildId" : "92E0BE1929D28508CF9C6D5754C7EB48C12255B3" }, { "b" : "7F7D10F87000", "path" : "/lib/x86_64-linux-gnu/libpthread.so.0", "elfType" : 3, "buildId" : "28C6AADE70B2D40D1F0F3D0A1A0CAD1AB816448F" }, { "b" : "7F7D10B96000", "path" : "/lib/x86_64-linux-gnu/libc.so.6", "elfType" : 3, "buildId" : "B417C0BA7CC5CF06D1D1BED6652CEDB9253C60D0" }, { "b" : "7F7D10924000", "path" : "/lib/x86_64-linux-gnu/libpcre.so.3", "elfType" : 3, "buildId" : "5B3416BB188EAF3FA4B7530AAE6C1890B38B0372" }, { "b" : "7F7D10709000", "path" : "/usr/lib/x86_64-linux-gnu/libunwind.so.8", "elfType" : 3, "buildId" : "7995F03B59E1D6EB7968EEA5B8534910D4E8E8D6" }, { "b" : "7F7D13BF7000", "path" : "/lib64/ld-linux-x86-64.so.2", "elfType" : 3, "buildId" : "64DF1B961228382FE18684249ED800AB1DCEAAD4" }, { "b" : "7F7D104E3000", "path" : "/lib/x86_64-linux-gnu/liblzma.so.5", "elfType" : 3, "buildId" : "8FBCCA354D964860B9E6EB3736E9B7BC6177B417" } ] }}
+ mongod(_ZN5mongo15printStackTraceERSo+0x3A) [0x55ca4313801a]
+ mongod(+0x203A2DE) [0x55ca431372de]
+ mongod(+0x203A7B2) [0x55ca431377b2]
+ libpthread.so.0(+0x12890) [0x7f7d10f99890]
+ libc.so.6(gsignal+0xC7) [0x7f7d10bd4e97]
+ libc.so.6(abort+0x141) [0x7f7d10bd6801]
+ mongod(_ZN5mongo32fassertFailedNoTraceWithLocationEiPKcj+0x0) [0x55ca41938421]
+ mongod(+0x908456) [0x55ca41a05456]
+ mongod(+0x974DA7) [0x55ca41a71da7]
+ mongod(__wt_err+0xA0) [0x55ca418e6457]
+ mongod(__wt_panic+0x34) [0x55ca418e678a]
+ mongod(+0x9DC995) [0x55ca41ad9995]
+ libpthread.so.0(+0x76DB) [0x7f7d10f8e6db]
+ libc.so.6(clone+0x3F) [0x7f7d10cb788f]
+-----  END BACKTRACE  -----
+2019-03-21T08:44:20.826+0000 I CONTROL  [initandlisten] MongoDB starting : pid=19620 port=22362 dbpath=nre-Aspire-F5-573G/instance_22362 64-bit host=nre-Aspire-F5-573G
+2019-03-21T08:44:20.826+0000 I CONTROL  [initandlisten] db version v3.6.3
+2019-03-21T08:44:20.826+0000 I CONTROL  [initandlisten] git version: 9586e557d54ef70f9ca4b43c26892cd55257e1a5
+2019-03-21T08:44:20.826+0000 I CONTROL  [initandlisten] OpenSSL version: OpenSSL 1.1.0g  2 Nov 2017
+2019-03-21T08:44:20.826+0000 I CONTROL  [initandlisten] allocator: tcmalloc
+2019-03-21T08:44:20.826+0000 I CONTROL  [initandlisten] modules: none
+2019-03-21T08:44:20.826+0000 I CONTROL  [initandlisten] build environment:
+2019-03-21T08:44:20.826+0000 I CONTROL  [initandlisten]     distarch: x86_64
+2019-03-21T08:44:20.826+0000 I CONTROL  [initandlisten]     target_arch: x86_64
+2019-03-21T08:44:20.827+0000 I CONTROL  [initandlisten] options: { net: { bindIp: "nre-Aspire-F5-573G", port: 22362 }, replication: { replSet: "rs_0_CM" }, sharding: { clusterRole: "configsvr" }, storage: { dbPath: "nre-Aspire-F5-573G/instance_22362" } }
+2019-03-21T08:44:20.827+0000 I STORAGE  [initandlisten] 
+2019-03-21T08:44:20.827+0000 I STORAGE  [initandlisten] ** WARNING: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine
+2019-03-21T08:44:20.827+0000 I STORAGE  [initandlisten] **          See http://dochub.mongodb.org/core/prodnotes-filesystem
+2019-03-21T08:44:20.827+0000 I STORAGE  [initandlisten] wiredtiger_open config: create,cache_size=3410M,session_max=20000,eviction=(threads_min=4,threads_max=4),config_base=false,statistics=(fast),log=(enabled=true,archive=true,path=journal,compressor=snappy),file_manager=(close_idle_time=100000),statistics_log=(wait=0),verbose=(recovery_progress),
+2019-03-21T08:44:24.781+0000 I CONTROL  [initandlisten] 
+2019-03-21T08:44:24.782+0000 I CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.
+2019-03-21T08:44:24.782+0000 I CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.
+2019-03-21T08:44:24.782+0000 I CONTROL  [initandlisten] 
+2019-03-21T08:44:24.785+0000 I STORAGE  [initandlisten] createCollection: local.startup_log with no UUID.
+2019-03-21T08:44:24.854+0000 I FTDC     [initandlisten] Initializing full-time diagnostic data capture with directory 'nre-Aspire-F5-573G/instance_22362/diagnostic.data'
+2019-03-21T08:44:24.857+0000 I SHARDING [initandlisten] first cluster operation detected, adding sharding hook to enable versioning and authentication to remote servers
+2019-03-21T08:44:24.857+0000 I STORAGE  [initandlisten] createCollection: local.me with no UUID.
+2019-03-21T08:44:24.867+0000 I SHARDING [shard registry reload] Periodic reload of shard registry failed  :: caused by :: ReadConcernMajorityNotAvailableYet: could not get updated shard list from config server due to Read concern majority reads are currently not possible.; will retry after 30s
+2019-03-21T08:44:24.872+0000 I SHARDING [thread1] creating distributed lock ping thread for process ConfigServer (sleeping for 30000ms)
+2019-03-21T08:44:24.938+0000 I STORAGE  [initandlisten] createCollection: local.replset.minvalid with no UUID.
+2019-03-21T08:44:25.004+0000 I REPL     [initandlisten] Did not find local voted for document at startup.
+2019-03-21T08:44:25.004+0000 I REPL     [initandlisten] Did not find local Rollback ID document at startup. Creating one.
+2019-03-21T08:44:25.004+0000 I STORAGE  [initandlisten] createCollection: local.system.rollback.id with no UUID.
+2019-03-21T08:44:25.075+0000 I REPL     [initandlisten] Initialized the rollback ID to 1
+2019-03-21T08:44:25.076+0000 I REPL     [initandlisten] Did not find local replica set configuration document at startup;  NoMatchingDocument: Did not find replica set configuration document in local.system.replset
+2019-03-21T08:44:25.077+0000 I NETWORK  [initandlisten] waiting for connections on port 22362
+2019-03-21T08:44:32.341+0000 I NETWORK  [listener] connection accepted from 127.0.0.1:51522 #1 (1 connection now open)
+2019-03-21T08:44:32.345+0000 I NETWORK  [conn1] end connection 127.0.0.1:51522 (0 connections now open)
+2019-03-21T08:44:32.356+0000 I NETWORK  [listener] connection accepted from 127.0.0.1:51526 #2 (1 connection now open)
+2019-03-21T08:44:32.364+0000 I NETWORK  [conn2] received client metadata from 127.0.0.1:51526 conn: { driver: { name: "NetworkInterfaceASIO-Replication", version: "3.6.3" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+2019-03-21T08:44:32.364+0000 I ASIO     [NetworkInterfaceASIO-Replication-0] Connecting to nre-Aspire-F5-573G:21421
+2019-03-21T08:44:32.366+0000 I ASIO     [NetworkInterfaceASIO-Replication-0] Successfully connected to nre-Aspire-F5-573G:21421, took 2ms (1 connections now open to nre-Aspire-F5-573G:21421)
+2019-03-21T08:44:34.375+0000 I NETWORK  [listener] connection accepted from 127.0.0.1:51568 #3 (2 connections now open)
+2019-03-21T08:44:34.381+0000 I NETWORK  [conn3] end connection 127.0.0.1:51568 (1 connection now open)
+2019-03-21T08:44:34.386+0000 I STORAGE  [replexec-0] createCollection: local.system.replset with no UUID.
+2019-03-21T08:44:34.404+0000 I NETWORK  [listener] connection accepted from 127.0.0.1:51574 #4 (2 connections now open)
+2019-03-21T08:44:34.411+0000 I NETWORK  [conn4] end connection 127.0.0.1:51574 (1 connection now open)
+2019-03-21T08:44:34.411+0000 I REPL     [replexec-0] New replica set config in use: { _id: "rs_0_CM", version: 1, configsvr: true, protocolVersion: 1, members: [ { _id: 9, host: "nre-Aspire-F5-573G:21421", arbiterOnly: false, buildIndexes: true, hidden: false, priority: 1.0, tags: {}, slaveDelay: 0, votes: 1 }, { _id: 10, host: "nre-Aspire-F5-573G:22362", arbiterOnly: false, buildIndexes: true, hidden: false, priority: 1.0, tags: {}, slaveDelay: 0, votes: 1 }, { _id: 11, host: "nre-Aspire-F5-573G:30027", arbiterOnly: false, buildIndexes: true, hidden: false, priority: 1.0, tags: {}, slaveDelay: 0, votes: 1 } ], settings: { chainingAllowed: true, heartbeatIntervalMillis: 2000, heartbeatTimeoutSecs: 10, electionTimeoutMillis: 10000, catchUpTimeoutMillis: -1, catchUpTakeoverDelayMillis: 30000, getLastErrorModes: {}, getLastErrorDefaults: { w: 1, wtimeout: 0 }, replicaSetId: ObjectId('5c934ef09cc2f5f62c1be37e') } }
+2019-03-21T08:44:34.411+0000 I REPL     [replexec-0] This node is nre-Aspire-F5-573G:22362 in the config
+2019-03-21T08:44:34.411+0000 I REPL     [replexec-0] transition to STARTUP2 from STARTUP
+2019-03-21T08:44:34.411+0000 I REPL     [replexec-0] Starting replication storage threads
+2019-03-21T08:44:34.411+0000 I ASIO     [NetworkInterfaceASIO-Replication-0] Connecting to nre-Aspire-F5-573G:30027
+2019-03-21T08:44:34.412+0000 I REPL     [replexec-1] Member nre-Aspire-F5-573G:21421 is now in state SECONDARY
+2019-03-21T08:44:34.412+0000 I STORAGE  [replexec-0] createCollection: local.temp_oplog_buffer with no UUID.
+2019-03-21T08:44:34.419+0000 I ASIO     [NetworkInterfaceASIO-Replication-0] Successfully connected to nre-Aspire-F5-573G:30027, took 8ms (1 connections now open to nre-Aspire-F5-573G:30027)
+2019-03-21T08:44:34.419+0000 I NETWORK  [listener] connection accepted from 127.0.0.1:51580 #5 (2 connections now open)
+2019-03-21T08:44:34.419+0000 I REPL     [replexec-1] Member nre-Aspire-F5-573G:30027 is now in state STARTUP
+2019-03-21T08:44:34.423+0000 I NETWORK  [conn5] received client metadata from 127.0.0.1:51580 conn: { driver: { name: "NetworkInterfaceASIO-Replication", version: "3.6.3" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+2019-03-21T08:44:34.463+0000 I REPL     [replication-0] Starting initial sync (attempt 1 of 10)
+2019-03-21T08:44:34.464+0000 I STORAGE  [replication-0] Finishing collection drop for local.temp_oplog_buffer (no UUID).
+2019-03-21T08:44:34.464+0000 I STORAGE  [replication-0] createCollection: local.temp_oplog_buffer with no UUID.
+2019-03-21T08:44:34.508+0000 I REPL     [replication-0] sync source candidate: nre-Aspire-F5-573G:21421
+2019-03-21T08:44:34.509+0000 I REPL     [replication-0] ******
+2019-03-21T08:44:34.509+0000 I REPL     [replication-0] creating replication oplog of size: 10149MB...
+2019-03-21T08:44:34.509+0000 I STORAGE  [replication-0] createCollection: local.oplog.rs with no UUID.
+2019-03-21T08:44:34.528+0000 I STORAGE  [replication-0] Starting WiredTigerRecordStoreThread local.oplog.rs
+2019-03-21T08:44:34.528+0000 I STORAGE  [replication-0] The size storer reports that the oplog contains 0 records totaling to 0 bytes
+2019-03-21T08:44:34.528+0000 I STORAGE  [replication-0] Scanning the oplog to determine where to place markers for truncation
+2019-03-21T08:44:34.669+0000 I REPL     [replication-0] ******
+2019-03-21T08:44:34.669+0000 I STORAGE  [replication-0] dropAllDatabasesExceptLocal 1
+2019-03-21T08:44:34.669+0000 I ASIO     [NetworkInterfaceASIO-RS-0] Connecting to nre-Aspire-F5-573G:21421
+2019-03-21T08:44:34.690+0000 I ASIO     [NetworkInterfaceASIO-RS-0] Successfully connected to nre-Aspire-F5-573G:21421, took 21ms (1 connections now open to nre-Aspire-F5-573G:21421)
+2019-03-21T08:44:34.692+0000 I ASIO     [NetworkInterfaceASIO-RS-0] Connecting to nre-Aspire-F5-573G:21421
+2019-03-21T08:44:34.693+0000 I REPL     [replication-1] CollectionCloner::start called, on ns:admin.system.version
+2019-03-21T08:44:34.699+0000 I ASIO     [NetworkInterfaceASIO-RS-0] Successfully connected to nre-Aspire-F5-573G:21421, took 8ms (2 connections now open to nre-Aspire-F5-573G:21421)
+2019-03-21T08:44:34.699+0000 I STORAGE  [repl writer worker 7] createCollection: admin.system.version with provided UUID: db434a10-a754-407f-b4dd-2d9646be150b
+2019-03-21T08:44:34.728+0000 I INDEX    [repl writer worker 7] build index on: admin.system.version properties: { v: 2, key: { _id: 1 }, name: "_id_", ns: "admin.system.version" }
+2019-03-21T08:44:34.728+0000 I INDEX    [repl writer worker 7] 	 building index using bulk method; build may temporarily use up to 500 megabytes of RAM
+2019-03-21T08:44:34.729+0000 I COMMAND  [repl writer worker 9] setting featureCompatibilityVersion to 3.6
+2019-03-21T08:44:34.729+0000 I NETWORK  [repl writer worker 9] Skip closing connection for connection # 5
+2019-03-21T08:44:34.729+0000 I NETWORK  [repl writer worker 9] Skip closing connection for connection # 2
+2019-03-21T08:44:34.729+0000 I REPL     [repl writer worker 9] CollectionCloner ns:admin.system.version finished cloning with status: OK
+2019-03-21T08:44:34.736+0000 I REPL     [repl writer worker 9] Finished cloning data: OK. Beginning oplog replay.
+2019-03-21T08:44:34.736+0000 I REPL     [replication-1] No need to apply operations. (currently at { : Timestamp(1553157872, 1) })
+2019-03-21T08:44:34.736+0000 I COMMAND  [replication-0] Assigning UUID 0fa37c98-0b93-4400-bb26-402720e538d0 to collection local.system.rollback.id
+2019-03-21T08:44:34.737+0000 I COMMAND  [replication-0] Assigning UUID abb0fb3c-6cd6-49e1-968d-a781097c77f6 to collection local.temp_oplog_buffer
+2019-03-21T08:44:34.737+0000 I COMMAND  [replication-0] Assigning UUID 10fd73e0-158a-4eac-8948-70f4309180e8 to collection local.system.replset
+2019-03-21T08:44:34.737+0000 I COMMAND  [replication-0] Assigning UUID 06aeaf60-1be0-4483-9341-16d10e3bd7f6 to collection local.me
+2019-03-21T08:44:34.737+0000 I COMMAND  [replication-0] Assigning UUID 51d6a8d5-7bce-4d87-93de-84ea624d2419 to collection local.startup_log
+2019-03-21T08:44:34.737+0000 I COMMAND  [replication-0] Assigning UUID 6f105827-ad27-424d-88ef-6318780d8862 to collection local.replset.minvalid
+2019-03-21T08:44:34.737+0000 I COMMAND  [replication-0] Assigning UUID 20703895-bbf6-4ddf-9433-d31f5b69fd7d to collection local.oplog.rs
+2019-03-21T08:44:34.737+0000 I ASIO     [NetworkInterfaceASIO-RS-0] Ending connection to host nre-Aspire-F5-573G:21421 due to bad connection status; 1 connections to that host remain open
+2019-03-21T08:44:34.737+0000 I REPL     [replication-1] Finished fetching oplog during initial sync: CallbackCanceled: error in fetcher batch callback: oplog fetcher is shutting down. Last fetched optime and hash: { ts: Timestamp(0, 0), t: -1 }[0]
+2019-03-21T08:44:34.737+0000 I REPL     [replication-1] Initial sync attempt finishing up.
+2019-03-21T08:44:34.737+0000 I REPL     [replication-1] Initial Sync Attempt Statistics: { failedInitialSyncAttempts: 0, maxFailedInitialSyncAttempts: 10, initialSyncStart: new Date(1553157874463), initialSyncAttempts: [], fetchedMissingDocs: 0, appliedOps: 0, initialSyncOplogStart: Timestamp(1553157872, 1), initialSyncOplogEnd: Timestamp(1553157872, 1), databases: { databasesCloned: 1, admin: { collections: 1, clonedCollections: 1, start: new Date(1553157874692), end: new Date(1553157874736), elapsedMillis: 44, admin.system.version: { documentsToCopy: 1, documentsCopied: 1, indexes: 1, fetchedBatches: 1, start: new Date(1553157874693), end: new Date(1553157874736), elapsedMillis: 43 } } } }
+2019-03-21T08:44:34.737+0000 I STORAGE  [replication-1] Finishing collection drop for local.temp_oplog_buffer (abb0fb3c-6cd6-49e1-968d-a781097c77f6).
+2019-03-21T08:44:34.749+0000 I REPL     [replication-1] initial sync done; took 0s.
+2019-03-21T08:44:34.749+0000 I REPL     [replication-1] transition to RECOVERING from STARTUP2
+2019-03-21T08:44:34.749+0000 I REPL     [replication-1] Starting replication fetcher thread
+2019-03-21T08:44:34.749+0000 I REPL     [replication-1] Starting replication applier thread
+2019-03-21T08:44:34.749+0000 I REPL     [replication-1] Starting replication reporter thread
+2019-03-21T08:44:34.757+0000 I REPL     [rsSync] transition to SECONDARY from RECOVERING
+2019-03-21T08:44:34.758+0000 I REPL     [rsBackgroundSync] could not find member to sync from
+2019-03-21T08:44:34.758+0000 I REPL     [replexec-3] Member nre-Aspire-F5-573G:30027 is now in state STARTUP2
+2019-03-21T08:44:39.758+0000 I REPL     [replexec-3] Member nre-Aspire-F5-573G:30027 is now in state SECONDARY
+2019-03-21T08:44:42.622+0000 I NETWORK  [listener] connection accepted from 127.0.0.1:51592 #6 (3 connections now open)
+2019-03-21T08:44:42.628+0000 I NETWORK  [conn6] received client metadata from 127.0.0.1:51592 conn: { driver: { name: "MongoDB Internal Client", version: "3.6.3" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+2019-03-21T08:44:42.643+0000 I NETWORK  [listener] connection accepted from 127.0.0.1:51596 #7 (4 connections now open)
+2019-03-21T08:44:42.643+0000 I NETWORK  [listener] connection accepted from 127.0.0.1:51598 #8 (5 connections now open)
+2019-03-21T08:44:42.652+0000 I NETWORK  [conn7] received client metadata from 127.0.0.1:51596 conn: { driver: { name: "NetworkInterfaceASIO-ShardRegistry", version: "3.6.3" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+2019-03-21T08:44:42.653+0000 I NETWORK  [conn8] received client metadata from 127.0.0.1:51598 conn: { driver: { name: "NetworkInterfaceASIO-ShardRegistry", version: "3.6.3" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+2019-03-21T08:44:43.613+0000 I STORAGE  [conn2] createCollection: local.replset.election with generated UUID: d4d0e683-7573-4796-b8cb-f8f651dd7cd6
+2019-03-21T08:44:44.758+0000 I REPL     [replexec-0] Member nre-Aspire-F5-573G:21421 is now in state PRIMARY
+2019-03-21T08:44:49.759+0000 I REPL     [rsBackgroundSync] sync source candidate: nre-Aspire-F5-573G:21421
+2019-03-21T08:44:49.760+0000 I ASIO     [NetworkInterfaceASIO-RS-0] Connecting to nre-Aspire-F5-573G:21421
+2019-03-21T08:44:49.760+0000 I STORAGE  [rsSync] createCollection: local.replset.oplogTruncateAfterPoint with generated UUID: b0699a3c-d123-4085-ac3d-64b8cb82c909
+2019-03-21T08:44:49.767+0000 I ASIO     [NetworkInterfaceASIO-RS-0] Successfully connected to nre-Aspire-F5-573G:21421, took 7ms (2 connections now open to nre-Aspire-F5-573G:21421)
+2019-03-21T08:44:49.788+0000 I STORAGE  [repl writer worker 7] createCollection: config.chunks with provided UUID: a90c5029-21bc-4a8c-85dd-1ba106db8a25
+2019-03-21T08:44:49.822+0000 I NETWORK  [listener] connection accepted from 127.0.0.1:51616 #9 (6 connections now open)
+2019-03-21T08:44:49.831+0000 I NETWORK  [conn9] received client metadata from 127.0.0.1:51616 conn: { driver: { name: "NetworkInterfaceASIO-RS", version: "3.6.3" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+2019-03-21T08:44:49.836+0000 I INDEX    [repl writer worker 9] build index on: config.chunks properties: { v: 2, unique: true, key: { ns: 1, min: 1 }, name: "ns_1_min_1", ns: "config.chunks" }
+2019-03-21T08:44:49.836+0000 I INDEX    [repl writer worker 9] 	 building index using bulk method; build may temporarily use up to 500 megabytes of RAM
+2019-03-21T08:44:49.837+0000 I INDEX    [repl writer worker 9] build index done.  scanned 0 total records. 0 secs
+2019-03-21T08:44:49.837+0000 I NETWORK  [listener] connection accepted from 127.0.0.1:51618 #10 (7 connections now open)
+2019-03-21T08:44:49.845+0000 I NETWORK  [conn10] received client metadata from 127.0.0.1:51618 conn: { driver: { name: "NetworkInterfaceASIO-RS", version: "3.6.3" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+2019-03-21T08:44:49.862+0000 I INDEX    [repl writer worker 8] build index on: config.chunks properties: { v: 2, unique: true, key: { ns: 1, shard: 1, min: 1 }, name: "ns_1_shard_1_min_1", ns: "config.chunks" }
+2019-03-21T08:44:49.862+0000 I INDEX    [repl writer worker 8] 	 building index using bulk method; build may temporarily use up to 500 megabytes of RAM
+2019-03-21T08:44:49.863+0000 I INDEX    [repl writer worker 8] build index done.  scanned 0 total records. 0 secs
+2019-03-21T08:44:49.889+0000 I INDEX    [repl writer worker 15] build index on: config.chunks properties: { v: 2, unique: true, key: { ns: 1, lastmod: 1 }, name: "ns_1_lastmod_1", ns: "config.chunks" }
+2019-03-21T08:44:49.889+0000 I INDEX    [repl writer worker 15] 	 building index using bulk method; build may temporarily use up to 500 megabytes of RAM
+2019-03-21T08:44:49.891+0000 I INDEX    [repl writer worker 15] build index done.  scanned 0 total records. 0 secs
+2019-03-21T08:44:49.892+0000 I STORAGE  [repl writer worker 5] createCollection: config.migrations with provided UUID: a794254b-e7fd-49ad-9e50-121ab615e19e
+2019-03-21T08:44:49.967+0000 I INDEX    [repl writer worker 3] build index on: config.migrations properties: { v: 2, unique: true, key: { ns: 1, min: 1 }, name: "ns_1_min_1", ns: "config.migrations" }
+2019-03-21T08:44:49.967+0000 I INDEX    [repl writer worker 3] 	 building index using bulk method; build may temporarily use up to 500 megabytes of RAM
+2019-03-21T08:44:49.968+0000 I INDEX    [repl writer worker 3] build index done.  scanned 0 total records. 0 secs
+2019-03-21T08:44:49.969+0000 I STORAGE  [repl writer worker 1] createCollection: config.shards with provided UUID: ac32007e-212a-4f24-8bed-39989f32ede7
+2019-03-21T08:44:50.018+0000 I INDEX    [repl writer worker 13] build index on: config.shards properties: { v: 2, unique: true, key: { host: 1 }, name: "host_1", ns: "config.shards" }
+2019-03-21T08:44:50.018+0000 I INDEX    [repl writer worker 13] 	 building index using bulk method; build may temporarily use up to 500 megabytes of RAM
+2019-03-21T08:44:50.019+0000 I INDEX    [repl writer worker 13] build index done.  scanned 0 total records. 0 secs
+2019-03-21T08:44:50.022+0000 I STORAGE  [repl writer worker 7] createCollection: config.locks with provided UUID: 4167dedf-4165-4b98-9b46-968efe678d3b
+2019-03-21T08:44:50.082+0000 I INDEX    [repl writer worker 9] build index on: config.locks properties: { v: 2, key: { ts: 1 }, name: "ts_1", ns: "config.locks" }
+2019-03-21T08:44:50.082+0000 I INDEX    [repl writer worker 9] 	 building index using bulk method; build may temporarily use up to 500 megabytes of RAM
+2019-03-21T08:44:50.082+0000 I INDEX    [repl writer worker 9] build index done.  scanned 0 total records. 0 secs
+2019-03-21T08:44:50.097+0000 I INDEX    [repl writer worker 8] build index on: config.locks properties: { v: 2, key: { state: 1, process: 1 }, name: "state_1_process_1", ns: "config.locks" }
+2019-03-21T08:44:50.097+0000 I INDEX    [repl writer worker 8] 	 building index using bulk method; build may temporarily use up to 500 megabytes of RAM
+2019-03-21T08:44:50.098+0000 I INDEX    [repl writer worker 8] build index done.  scanned 0 total records. 0 secs
+2019-03-21T08:44:50.099+0000 I STORAGE  [repl writer worker 15] createCollection: config.lockpings with provided UUID: e49a6782-9613-4fdb-a3e8-1d8376f7db44
+2019-03-21T08:44:50.160+0000 I INDEX    [repl writer worker 5] build index on: config.lockpings properties: { v: 2, key: { ping: 1 }, name: "ping_1", ns: "config.lockpings" }
+2019-03-21T08:44:50.160+0000 I INDEX    [repl writer worker 5] 	 building index using bulk method; build may temporarily use up to 500 megabytes of RAM
+2019-03-21T08:44:50.161+0000 I INDEX    [repl writer worker 5] build index done.  scanned 0 total records. 0 secs
+2019-03-21T08:44:50.161+0000 I STORAGE  [repl writer worker 3] createCollection: config.tags with provided UUID: c1c37d65-44b3-4fce-9950-41289c413b6f
+2019-03-21T08:44:50.227+0000 I INDEX    [repl writer worker 1] build index on: config.tags properties: { v: 2, unique: true, key: { ns: 1, min: 1 }, name: "ns_1_min_1", ns: "config.tags" }
+2019-03-21T08:44:50.227+0000 I INDEX    [repl writer worker 1] 	 building index using bulk method; build may temporarily use up to 500 megabytes of RAM
+2019-03-21T08:44:50.228+0000 I INDEX    [repl writer worker 1] build index done.  scanned 0 total records. 0 secs
+2019-03-21T08:44:50.249+0000 I INDEX    [repl writer worker 13] build index on: config.tags properties: { v: 2, key: { ns: 1, tag: 1 }, name: "ns_1_tag_1", ns: "config.tags" }
+2019-03-21T08:44:50.249+0000 I INDEX    [repl writer worker 13] 	 building index using bulk method; build may temporarily use up to 500 megabytes of RAM
+2019-03-21T08:44:50.255+0000 I INDEX    [repl writer worker 13] build index done.  scanned 0 total records. 0 secs
+2019-03-21T08:44:50.256+0000 I STORAGE  [repl writer worker 7] createCollection: config.version with provided UUID: bfa20abc-f6dd-4740-b748-25a0d8952747
+2019-03-21T08:44:50.298+0000 I STORAGE  [repl writer worker 8] createCollection: config.transactions with provided UUID: 865290cf-5976-4008-9e48-69524eb4efe7
+2019-03-21T08:44:50.368+0000 I COMMAND  [conn8] command config.shards command: find { find: "shards", readConcern: { level: "majority", afterOpTime: { ts: Timestamp(0, 0), t: -1 } }, maxTimeMS: 30000, $readPreference: { mode: "nearest" }, $replData: 1, $clusterTime: { clusterTime: Timestamp(0, 0), signature: { hash: BinData(0, 0000000000000000000000000000000000000000), keyId: 0 } }, $configServerState: { opTime: { ts: Timestamp(0, 0), t: -1 } }, $db: "config" } planSummary: COLLSCAN keysExamined:0 docsExamined:0 cursorExhausted:1 numYields:0 nreturned:0 reslen:477 locks:{ Global: { acquireCount: { r: 2 } }, Database: { acquireCount: { r: 1 } }, Collection: { acquireCount: { r: 1 } } } protocol:op_msg 7714ms
+2019-03-21T08:44:50.368+0000 I COMMAND  [conn7] command config.version command: find { find: "version", readConcern: { level: "majority", afterOpTime: { ts: Timestamp(0, 0), t: -1 } }, maxTimeMS: 30000, $readPreference: { mode: "nearest" }, $replData: 1, $clusterTime: { clusterTime: Timestamp(0, 0), signature: { hash: BinData(0, 0000000000000000000000000000000000000000), keyId: 0 } }, $configServerState: { opTime: { ts: Timestamp(0, 0), t: -1 } }, $db: "config" } planSummary: COLLSCAN keysExamined:0 docsExamined:1 cursorExhausted:1 numYields:0 nreturned:1 reslen:564 locks:{ Global: { acquireCount: { r: 2 } }, Database: { acquireCount: { r: 1 } }, Collection: { acquireCount: { r: 1 } } } protocol:op_msg 7714ms
+2019-03-21T08:44:50.369+0000 I STORAGE  [repl writer worker 5] createCollection: admin.system.keys with provided UUID: c55dca53-fc6d-4e67-b2d7-af4374e46db6
+2019-03-21T08:44:52.429+0000 I STORAGE  [repl writer worker 13] createCollection: config.mongos with provided UUID: cee7364e-dac1-43dc-b30c-1301e562deb5
+2019-03-21T08:44:52.880+0000 I NETWORK  [listener] connection accepted from 127.0.0.1:51642 #11 (8 connections now open)
+2019-03-21T08:44:52.885+0000 I NETWORK  [conn11] received client metadata from 127.0.0.1:51642 conn: { driver: { name: "MongoDB Internal Client", version: "3.6.3" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+2019-03-21T08:44:52.886+0000 I NETWORK  [listener] connection accepted from 127.0.0.1:51648 #12 (9 connections now open)
+2019-03-21T08:44:52.897+0000 I NETWORK  [conn12] received client metadata from 127.0.0.1:51648 conn: { driver: { name: "MongoDB Internal Client", version: "3.6.3" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+2019-03-21T08:44:52.989+0000 I STORAGE  [repl writer worker 5] createCollection: config.changelog with provided UUID: d94f5759-f9f9-42df-ab67-8baafeed9d70
+2019-03-21T08:44:53.073+0000 I NETWORK  [listener] connection accepted from 127.0.0.1:51672 #13 (10 connections now open)
+2019-03-21T08:44:53.079+0000 I NETWORK  [conn13] received client metadata from 127.0.0.1:51672 conn: { driver: { name: "MongoDB Internal Client", version: "3.6.3" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+2019-03-21T08:44:53.099+0000 I NETWORK  [listener] connection accepted from 127.0.0.1:51680 #14 (11 connections now open)
+2019-03-21T08:44:53.107+0000 I NETWORK  [conn14] received client metadata from 127.0.0.1:51680 conn: { driver: { name: "MongoDB Internal Client", version: "3.6.3" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+2019-03-21T08:44:53.127+0000 I NETWORK  [listener] connection accepted from 127.0.0.1:51692 #15 (12 connections now open)
+2019-03-21T08:44:53.134+0000 I NETWORK  [conn15] received client metadata from 127.0.0.1:51692 conn: { driver: { name: "NetworkInterfaceASIO-ShardRegistry", version: "3.6.3" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+2019-03-21T08:44:53.204+0000 I NETWORK  [listener] connection accepted from 127.0.0.1:51712 #16 (13 connections now open)
+2019-03-21T08:44:53.204+0000 I NETWORK  [conn16] received client metadata from 127.0.0.1:51712 conn: { driver: { name: "MongoDB Internal Client", version: "3.6.3" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+2019-03-21T08:44:53.234+0000 I NETWORK  [listener] connection accepted from 127.0.0.1:51716 #17 (14 connections now open)
+2019-03-21T08:44:53.239+0000 I NETWORK  [conn17] received client metadata from 127.0.0.1:51716 conn: { driver: { name: "MongoDB Internal Client", version: "3.6.3" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+2019-03-21T08:44:53.243+0000 I NETWORK  [listener] connection accepted from 127.0.0.1:51724 #18 (15 connections now open)
+2019-03-21T08:44:53.253+0000 I NETWORK  [conn18] received client metadata from 127.0.0.1:51724 conn: { driver: { name: "NetworkInterfaceASIO-ShardRegistry", version: "3.6.3" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+2019-03-21T08:44:53.349+0000 I NETWORK  [listener] connection accepted from 127.0.0.1:51760 #19 (16 connections now open)
+2019-03-21T08:44:53.357+0000 I NETWORK  [conn19] received client metadata from 127.0.0.1:51760 conn: { driver: { name: "MongoDB Internal Client", version: "3.6.3" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+2019-03-21T08:44:53.370+0000 I NETWORK  [listener] connection accepted from 127.0.0.1:51764 #20 (17 connections now open)
+2019-03-21T08:44:53.379+0000 I NETWORK  [conn20] received client metadata from 127.0.0.1:51764 conn: { driver: { name: "MongoDB Internal Client", version: "3.6.3" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+2019-03-21T08:44:53.406+0000 I NETWORK  [listener] connection accepted from 127.0.0.1:51780 #21 (18 connections now open)
+2019-03-21T08:44:53.416+0000 I NETWORK  [conn21] received client metadata from 127.0.0.1:51780 conn: { driver: { name: "NetworkInterfaceASIO-ShardRegistry", version: "3.6.3" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+2019-03-21T08:44:54.868+0000 I NETWORK  [shard registry reload] Starting new replica set monitor for rs_3_M/nre-Aspire-F5-573G:20492,nre-Aspire-F5-573G:36649
+2019-03-21T08:44:54.868+0000 I NETWORK  [shard registry reload] Starting new replica set monitor for rs_0_M/nre-Aspire-F5-573G:30886,nre-Aspire-F5-573G:32777
+2019-03-21T08:44:54.868+0000 I NETWORK  [shard registry reload] Starting new replica set monitor for rs_1_M/nre-Aspire-F5-573G:27793,nre-Aspire-F5-573G:36915
+2019-03-21T08:44:54.868+0000 I NETWORK  [shard registry reload] Starting new replica set monitor for rs_2_M/nre-Aspire-F5-573G:25386,nre-Aspire-F5-573G:38335
+2019-03-21T08:44:54.881+0000 I NETWORK  [ReplicaSetMonitor-TaskExecutor-0] Successfully connected to nre-Aspire-F5-573G:20492 (1 connections now open to nre-Aspire-F5-573G:20492 with a 5 second timeout)
+2019-03-21T08:44:54.889+0000 I NETWORK  [ReplicaSetMonitor-TaskExecutor-0] Successfully connected to nre-Aspire-F5-573G:36649 (1 connections now open to nre-Aspire-F5-573G:36649 with a 5 second timeout)
+2019-03-21T08:44:54.894+0000 I NETWORK  [ReplicaSetMonitor-TaskExecutor-0] Successfully connected to nre-Aspire-F5-573G:30886 (1 connections now open to nre-Aspire-F5-573G:30886 with a 5 second timeout)
+2019-03-21T08:44:54.900+0000 I NETWORK  [ReplicaSetMonitor-TaskExecutor-0] Successfully connected to nre-Aspire-F5-573G:32777 (1 connections now open to nre-Aspire-F5-573G:32777 with a 5 second timeout)
+2019-03-21T08:44:54.909+0000 I NETWORK  [ReplicaSetMonitor-TaskExecutor-0] Successfully connected to nre-Aspire-F5-573G:27793 (1 connections now open to nre-Aspire-F5-573G:27793 with a 5 second timeout)
+2019-03-21T08:44:54.917+0000 I NETWORK  [ReplicaSetMonitor-TaskExecutor-0] Successfully connected to nre-Aspire-F5-573G:36915 (1 connections now open to nre-Aspire-F5-573G:36915 with a 5 second timeout)
+2019-03-21T08:44:54.930+0000 I NETWORK  [ReplicaSetMonitor-TaskExecutor-0] Successfully connected to nre-Aspire-F5-573G:25386 (1 connections now open to nre-Aspire-F5-573G:25386 with a 5 second timeout)
+2019-03-21T08:44:54.942+0000 I NETWORK  [ReplicaSetMonitor-TaskExecutor-0] Successfully connected to nre-Aspire-F5-573G:38335 (1 connections now open to nre-Aspire-F5-573G:38335 with a 5 second timeout)
+2019-03-21T08:45:02.878+0000 I NETWORK  [conn13] end connection 127.0.0.1:51672 (17 connections now open)
+2019-03-21T08:45:02.964+0000 I NETWORK  [conn12] end connection 127.0.0.1:51648 (16 connections now open)
+2019-03-21T08:45:02.989+0000 I NETWORK  [conn15] end connection 127.0.0.1:51692 (15 connections now open)
+2019-03-21T08:45:02.989+0000 I NETWORK  [conn14] end connection 127.0.0.1:51680 (14 connections now open)
+2019-03-21T08:45:03.001+0000 E STORAGE  [ftdc] WiredTiger error (2) [1553157903:1407][19620:0x7f59bf6ed700], WT_SESSION.open_cursor: nre-Aspire-F5-573G/instance_22362/collection-14-5600078699190797879.wt: file-size: stat: No such file or directory
+2019-03-21T08:45:03.079+0000 I NETWORK  [conn11] end connection 127.0.0.1:51642 (13 connections now open)
+2019-03-21T08:45:03.235+0000 E STORAGE  [thread23] WiredTiger error (2) [1553157903:235269][19620:0x7f59c46f7700], log-server: nre-Aspire-F5-573G/instance_22362/journal: directory-list: opendir: No such file or directory
+2019-03-21T08:45:03.235+0000 E STORAGE  [thread23] WiredTiger error (2) [1553157903:235333][19620:0x7f59c46f7700], log-server: log pre-alloc server error: No such file or directory
+2019-03-21T08:45:03.235+0000 E STORAGE  [thread23] WiredTiger error (2) [1553157903:235350][19620:0x7f59c46f7700], log-server: log server error: No such file or directory
+2019-03-21T08:45:03.235+0000 E STORAGE  [thread23] WiredTiger error (-31804) [1553157903:235363][19620:0x7f59c46f7700], log-server: the process must exit and restart: WT_PANIC: WiredTiger library panic
+2019-03-21T08:45:03.235+0000 F -        [thread23] Fatal Assertion 28558 at src/mongo/db/storage/wiredtiger/wiredtiger_util.cpp 361
+2019-03-21T08:45:03.235+0000 F -        [thread23] 
+
+***aborting after fassert() failure
+
+
+2019-03-21T08:45:03.241+0000 F -        [thread23] Got signal: 6 (Aborted).
+
+ 0x558e5f97a01a 0x558e5f9792de 0x558e5f9797b2 0x7f59c73c4890 0x7f59c6fffe97 0x7f59c7001801 0x558e5e17a421 0x558e5e247456 0x558e5e2b3da7 0x558e5e128457 0x558e5e12878a 0x558e5e31b995 0x7f59c73b96db 0x7f59c70e288f
+----- BEGIN BACKTRACE -----
+{"backtrace":[{"b":"558E5D93F000","o":"203B01A","s":"_ZN5mongo15printStackTraceERSo"},{"b":"558E5D93F000","o":"203A2DE"},{"b":"558E5D93F000","o":"203A7B2"},{"b":"7F59C73B2000","o":"12890"},{"b":"7F59C6FC1000","o":"3EE97","s":"gsignal"},{"b":"7F59C6FC1000","o":"40801","s":"abort"},{"b":"558E5D93F000","o":"83B421","s":"_ZN5mongo32fassertFailedNoTraceWithLocationEiPKcj"},{"b":"558E5D93F000","o":"908456"},{"b":"558E5D93F000","o":"974DA7"},{"b":"558E5D93F000","o":"7E9457","s":"__wt_err"},{"b":"558E5D93F000","o":"7E978A","s":"__wt_panic"},{"b":"558E5D93F000","o":"9DC995"},{"b":"7F59C73B2000","o":"76DB"},{"b":"7F59C6FC1000","o":"12188F","s":"clone"}],"processInfo":{ "mongodbVersion" : "3.6.3", "gitVersion" : "9586e557d54ef70f9ca4b43c26892cd55257e1a5", "compiledModules" : [], "uname" : { "sysname" : "Linux", "release" : "4.15.0-45-generic", "version" : "#48-Ubuntu SMP Tue Jan 29 16:28:13 UTC 2019", "machine" : "x86_64" }, "somap" : [ { "b" : "558E5D93F000", "elfType" : 3, "buildId" : "3BC7EC1BD697E0383D04402C13372B9D5B7C4993" }, { "b" : "7FFD35357000", "path" : "linux-vdso.so.1", "elfType" : 3, "buildId" : "025AD7BDF9DF8C7251192246537C451A988B98AE" }, { "b" : "7F59C9DD1000", "path" : "/usr/lib/x86_64-linux-gnu/libstemmer.so.0d", "elfType" : 3, "buildId" : "278CA72E21C11FF2E15A86B0B2C13A8922951702" }, { "b" : "7F59C9BB4000", "path" : "/lib/x86_64-linux-gnu/libz.so.1", "elfType" : 3, "buildId" : "EF3E006DFE3132A41D4D4DC0E407D6EA658E11C4" }, { "b" : "7F59C99AC000", "path" : "/usr/lib/x86_64-linux-gnu/libsnappy.so.1", "elfType" : 3, "buildId" : "55765D88D03CC928130D788F1C7E4BF8415AC7E3" }, { "b" : "7F59C9732000", "path" : "/usr/lib/x86_64-linux-gnu/libyaml-cpp.so.0.5", "elfType" : 3, "buildId" : "BF65D47C8CD968E616F7D179F84A80CA71DB8249" }, { "b" : "7F59C9529000", "path" : "/usr/lib/x86_64-linux-gnu/libpcrecpp.so.0", "elfType" : 3, "buildId" : "089B8438CC1394E978E56C556C9CAE768BD2F18C" }, { "b" : "7F59C92A8000", "path" : "/usr/lib/x86_64-linux-gnu/libboost_program_options.so.1.65.1", "elfType" : 3, "buildId" : "9F69F11220BB1FAAB0B73A2B6F4B0E81D9B901CE" }, { "b" : "7F59C908E000", "path" : "/usr/lib/x86_64-linux-gnu/libboost_filesystem.so.1.65.1", "elfType" : 3, "buildId" : "32B8421A0643426D9FB008005F5A86688065008B" }, { "b" : "7F59C8E89000", "path" : "/usr/lib/x86_64-linux-gnu/libboost_system.so.1.65.1", "elfType" : 3, "buildId" : "4BA851D242F2DB710CB1817DE860CF97AE2F9714" }, { "b" : "7F59C8C19000", "path" : "/usr/lib/x86_64-linux-gnu/libtcmalloc.so.4", "elfType" : 3, "buildId" : "572D5C17FBDA6B678DF653411F676819DE18CA6B" }, { "b" : "7F59C89FE000", "path" : "/lib/x86_64-linux-gnu/libresolv.so.2", "elfType" : 3, "buildId" : "390E9CC4C215314B6D8ADE6D6E28F8518418039C" }, { "b" : "7F59C8794000", "path" : "/usr/lib/x86_64-linux-gnu/libssl.so.1.1", "elfType" : 3, "buildId" : "9787FF1FFFE8D82268D89F6BFA3AF07B3E9D140F" }, { "b" : "7F59C831C000", "path" : "/usr/lib/x86_64-linux-gnu/libcrypto.so.1.1", "elfType" : 3, "buildId" : "A409BCD92DCDD3298E92C359876AC800FDD499AC" }, { "b" : "7F59C8114000", "path" : "/lib/x86_64-linux-gnu/librt.so.1", "elfType" : 3, "buildId" : "9826FBDF57ED7D6965131074CB3C08B1009C1CD8" }, { "b" : "7F59C7F10000", "path" : "/lib/x86_64-linux-gnu/libdl.so.2", "elfType" : 3, "buildId" : "25AD56E902E23B490A9CCDB08A9744D89CB95BCC" }, { "b" : "7F59C7B87000", "path" : "/usr/lib/x86_64-linux-gnu/libstdc++.so.6", "elfType" : 3, "buildId" : "CBCD95969196C3B0B7C538E13E996F62EA17B9D2" }, { "b" : "7F59C77E9000", "path" : "/lib/x86_64-linux-gnu/libm.so.6", "elfType" : 3, "buildId" : "A33761AB8FB485311B3C85BF4253099D7CABE653" }, { "b" : "7F59C75D1000", "path" : "/lib/x86_64-linux-gnu/libgcc_s.so.1", "elfType" : 3, "buildId" : "92E0BE1929D28508CF9C6D5754C7EB48C12255B3" }, { "b" : "7F59C73B2000", "path" : "/lib/x86_64-linux-gnu/libpthread.so.0", "elfType" : 3, "buildId" : "28C6AADE70B2D40D1F0F3D0A1A0CAD1AB816448F" }, { "b" : "7F59C6FC1000", "path" : "/lib/x86_64-linux-gnu/libc.so.6", "elfType" : 3, "buildId" : "B417C0BA7CC5CF06D1D1BED6652CEDB9253C60D0" }, { "b" : "7F59C6D4F000", "path" : "/lib/x86_64-linux-gnu/libpcre.so.3", "elfType" : 3, "buildId" : "5B3416BB188EAF3FA4B7530AAE6C1890B38B0372" }, { "b" : "7F59C6B34000", "path" : "/usr/lib/x86_64-linux-gnu/libunwind.so.8", "elfType" : 3, "buildId" : "7995F03B59E1D6EB7968EEA5B8534910D4E8E8D6" }, { "b" : "7F59CA022000", "path" : "/lib64/ld-linux-x86-64.so.2", "elfType" : 3, "buildId" : "64DF1B961228382FE18684249ED800AB1DCEAAD4" }, { "b" : "7F59C690E000", "path" : "/lib/x86_64-linux-gnu/liblzma.so.5", "elfType" : 3, "buildId" : "8FBCCA354D964860B9E6EB3736E9B7BC6177B417" } ] }}
+ mongod(_ZN5mongo15printStackTraceERSo+0x3A) [0x558e5f97a01a]
+ mongod(+0x203A2DE) [0x558e5f9792de]
+ mongod(+0x203A7B2) [0x558e5f9797b2]
+ libpthread.so.0(+0x12890) [0x7f59c73c4890]
+ libc.so.6(gsignal+0xC7) [0x7f59c6fffe97]
+ libc.so.6(abort+0x141) [0x7f59c7001801]
+ mongod(_ZN5mongo32fassertFailedNoTraceWithLocationEiPKcj+0x0) [0x558e5e17a421]
+ mongod(+0x908456) [0x558e5e247456]
+ mongod(+0x974DA7) [0x558e5e2b3da7]
+ mongod(__wt_err+0xA0) [0x558e5e128457]
+ mongod(__wt_panic+0x34) [0x558e5e12878a]
+ mongod(+0x9DC995) [0x558e5e31b995]
+ libpthread.so.0(+0x76DB) [0x7f59c73b96db]
+ libc.so.6(clone+0x3F) [0x7f59c70e288f]
+-----  END BACKTRACE  -----
+2019-03-26T09:27:06.833+0000 I CONTROL  [initandlisten] MongoDB starting : pid=2212 port=22362 dbpath=nre-Aspire-F5-573G/instance_22362 64-bit host=nre-Aspire-F5-573G
+2019-03-26T09:27:06.836+0000 I CONTROL  [initandlisten] db version v3.6.3
+2019-03-26T09:27:06.836+0000 I CONTROL  [initandlisten] git version: 9586e557d54ef70f9ca4b43c26892cd55257e1a5
+2019-03-26T09:27:06.836+0000 I CONTROL  [initandlisten] OpenSSL version: OpenSSL 1.1.0g  2 Nov 2017
+2019-03-26T09:27:06.836+0000 I CONTROL  [initandlisten] allocator: tcmalloc
+2019-03-26T09:27:06.836+0000 I CONTROL  [initandlisten] modules: none
+2019-03-26T09:27:06.836+0000 I CONTROL  [initandlisten] build environment:
+2019-03-26T09:27:06.836+0000 I CONTROL  [initandlisten]     distarch: x86_64
+2019-03-26T09:27:06.836+0000 I CONTROL  [initandlisten]     target_arch: x86_64
+2019-03-26T09:27:06.836+0000 I CONTROL  [initandlisten] options: { net: { bindIp: "nre-Aspire-F5-573G", port: 22362 }, replication: { replSet: "rs_0_CM" }, sharding: { clusterRole: "configsvr" }, storage: { dbPath: "nre-Aspire-F5-573G/instance_22362" } }
+2019-03-26T09:27:06.838+0000 I STORAGE  [initandlisten] 
+2019-03-26T09:27:06.838+0000 I STORAGE  [initandlisten] ** WARNING: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine
+2019-03-26T09:27:06.838+0000 I STORAGE  [initandlisten] **          See http://dochub.mongodb.org/core/prodnotes-filesystem
+2019-03-26T09:27:06.838+0000 I STORAGE  [initandlisten] wiredtiger_open config: create,cache_size=3410M,session_max=20000,eviction=(threads_min=4,threads_max=4),config_base=false,statistics=(fast),log=(enabled=true,archive=true,path=journal,compressor=snappy),file_manager=(close_idle_time=100000),statistics_log=(wait=0),verbose=(recovery_progress),
+2019-03-26T09:27:11.038+0000 I CONTROL  [initandlisten] 
+2019-03-26T09:27:11.038+0000 I CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.
+2019-03-26T09:27:11.038+0000 I CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.
+2019-03-26T09:27:11.038+0000 I CONTROL  [initandlisten] 
+2019-03-26T09:27:11.041+0000 I STORAGE  [initandlisten] createCollection: local.startup_log with no UUID.
+2019-03-26T09:27:11.109+0000 I FTDC     [initandlisten] Initializing full-time diagnostic data capture with directory 'nre-Aspire-F5-573G/instance_22362/diagnostic.data'
+2019-03-26T09:27:11.110+0000 I SHARDING [initandlisten] first cluster operation detected, adding sharding hook to enable versioning and authentication to remote servers
+2019-03-26T09:27:11.110+0000 I SHARDING [thread1] creating distributed lock ping thread for process ConfigServer (sleeping for 30000ms)
+2019-03-26T09:27:11.110+0000 I STORAGE  [initandlisten] createCollection: local.me with no UUID.
+2019-03-26T09:27:11.110+0000 I SHARDING [shard registry reload] Periodic reload of shard registry failed  :: caused by :: ReadConcernMajorityNotAvailableYet: could not get updated shard list from config server due to Read concern majority reads are currently not possible.; will retry after 30s
+2019-03-26T09:27:11.168+0000 I STORAGE  [initandlisten] createCollection: local.replset.minvalid with no UUID.
+2019-03-26T09:27:11.249+0000 I REPL     [initandlisten] Did not find local voted for document at startup.
+2019-03-26T09:27:11.249+0000 I REPL     [initandlisten] Did not find local Rollback ID document at startup. Creating one.
+2019-03-26T09:27:11.249+0000 I STORAGE  [initandlisten] createCollection: local.system.rollback.id with no UUID.
+2019-03-26T09:27:11.306+0000 I REPL     [initandlisten] Initialized the rollback ID to 1
+2019-03-26T09:27:11.306+0000 I REPL     [initandlisten] Did not find local replica set configuration document at startup;  NoMatchingDocument: Did not find replica set configuration document in local.system.replset
+2019-03-26T09:27:11.306+0000 I NETWORK  [initandlisten] waiting for connections on port 22362
+2019-03-26T09:27:18.608+0000 I NETWORK  [listener] connection accepted from 127.0.0.1:43668 #1 (1 connection now open)
+2019-03-26T09:27:18.622+0000 I NETWORK  [conn1] end connection 127.0.0.1:43668 (0 connections now open)
+2019-03-26T09:27:18.638+0000 I NETWORK  [listener] connection accepted from 127.0.0.1:43672 #2 (1 connection now open)
+2019-03-26T09:27:18.649+0000 I NETWORK  [conn2] received client metadata from 127.0.0.1:43672 conn: { driver: { name: "NetworkInterfaceASIO-Replication", version: "3.6.3" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+2019-03-26T09:27:18.650+0000 I ASIO     [NetworkInterfaceASIO-Replication-0] Connecting to nre-Aspire-F5-573G:21421
+2019-03-26T09:27:18.660+0000 I ASIO     [NetworkInterfaceASIO-Replication-0] Successfully connected to nre-Aspire-F5-573G:21421, took 10ms (1 connections now open to nre-Aspire-F5-573G:21421)
+2019-03-26T09:27:20.660+0000 I NETWORK  [listener] connection accepted from 127.0.0.1:43714 #3 (2 connections now open)
+2019-03-26T09:27:20.668+0000 I NETWORK  [listener] connection accepted from 127.0.0.1:43718 #4 (3 connections now open)
+2019-03-26T09:27:20.671+0000 I NETWORK  [conn3] end connection 127.0.0.1:43714 (2 connections now open)
+2019-03-26T09:27:20.678+0000 I NETWORK  [conn4] end connection 127.0.0.1:43718 (1 connection now open)
+2019-03-26T09:27:20.687+0000 I STORAGE  [replexec-0] createCollection: local.system.replset with no UUID.
+2019-03-26T09:27:20.720+0000 I NETWORK  [listener] connection accepted from 127.0.0.1:43724 #5 (2 connections now open)
+2019-03-26T09:27:20.728+0000 I NETWORK  [conn5] received client metadata from 127.0.0.1:43724 conn: { driver: { name: "NetworkInterfaceASIO-Replication", version: "3.6.3" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+2019-03-26T09:27:20.729+0000 I ASIO     [NetworkInterfaceASIO-Replication-0] Connecting to nre-Aspire-F5-573G:30027
+2019-03-26T09:27:20.733+0000 I REPL     [replexec-0] New replica set config in use: { _id: "rs_0_CM", version: 1, configsvr: true, protocolVersion: 1, members: [ { _id: 9, host: "nre-Aspire-F5-573G:21421", arbiterOnly: false, buildIndexes: true, hidden: false, priority: 1.0, tags: {}, slaveDelay: 0, votes: 1 }, { _id: 10, host: "nre-Aspire-F5-573G:22362", arbiterOnly: false, buildIndexes: true, hidden: false, priority: 1.0, tags: {}, slaveDelay: 0, votes: 1 }, { _id: 11, host: "nre-Aspire-F5-573G:30027", arbiterOnly: false, buildIndexes: true, hidden: false, priority: 1.0, tags: {}, slaveDelay: 0, votes: 1 } ], settings: { chainingAllowed: true, heartbeatIntervalMillis: 2000, heartbeatTimeoutSecs: 10, electionTimeoutMillis: 10000, catchUpTimeoutMillis: -1, catchUpTakeoverDelayMillis: 30000, getLastErrorModes: {}, getLastErrorDefaults: { w: 1, wtimeout: 0 }, replicaSetId: ObjectId('5c99f076bb4709ffd6faca44') } }
+2019-03-26T09:27:20.733+0000 I REPL     [replexec-0] This node is nre-Aspire-F5-573G:22362 in the config
+2019-03-26T09:27:20.734+0000 I REPL     [replexec-0] transition to STARTUP2 from STARTUP
+2019-03-26T09:27:20.734+0000 I ASIO     [NetworkInterfaceASIO-Replication-0] Connecting to nre-Aspire-F5-573G:30027
+2019-03-26T09:27:20.734+0000 I REPL     [replexec-1] Member nre-Aspire-F5-573G:21421 is now in state SECONDARY
+2019-03-26T09:27:20.734+0000 I REPL     [replexec-0] Starting replication storage threads
+2019-03-26T09:27:20.738+0000 I ASIO     [NetworkInterfaceASIO-Replication-0] Successfully connected to nre-Aspire-F5-573G:30027, took 9ms (2 connections now open to nre-Aspire-F5-573G:30027)
+2019-03-26T09:27:20.738+0000 I REPL     [replexec-1] Member nre-Aspire-F5-573G:30027 is now in state STARTUP2
+2019-03-26T09:27:20.747+0000 I STORAGE  [replexec-0] createCollection: local.temp_oplog_buffer with no UUID.
+2019-03-26T09:27:20.747+0000 I ASIO     [NetworkInterfaceASIO-Replication-0] Successfully connected to nre-Aspire-F5-573G:30027, took 13ms (2 connections now open to nre-Aspire-F5-573G:30027)
+2019-03-26T09:27:20.793+0000 I REPL     [replication-0] Starting initial sync (attempt 1 of 10)
+2019-03-26T09:27:20.793+0000 I STORAGE  [replication-0] Finishing collection drop for local.temp_oplog_buffer (no UUID).
+2019-03-26T09:27:20.806+0000 I STORAGE  [replication-0] createCollection: local.temp_oplog_buffer with no UUID.
+2019-03-26T09:27:20.831+0000 I REPL     [replication-0] sync source candidate: nre-Aspire-F5-573G:21421
+2019-03-26T09:27:20.831+0000 I REPL     [replication-0] ******
+2019-03-26T09:27:20.831+0000 I REPL     [replication-0] creating replication oplog of size: 9247MB...
+2019-03-26T09:27:20.831+0000 I STORAGE  [replication-0] createCollection: local.oplog.rs with no UUID.
+2019-03-26T09:27:20.857+0000 I STORAGE  [replication-0] Starting WiredTigerRecordStoreThread local.oplog.rs
+2019-03-26T09:27:20.857+0000 I STORAGE  [replication-0] The size storer reports that the oplog contains 0 records totaling to 0 bytes
+2019-03-26T09:27:20.857+0000 I STORAGE  [replication-0] Scanning the oplog to determine where to place markers for truncation
+2019-03-26T09:27:21.002+0000 I REPL     [replication-0] ******
+2019-03-26T09:27:21.009+0000 I STORAGE  [replication-0] dropAllDatabasesExceptLocal 1
+2019-03-26T09:27:21.010+0000 I ASIO     [NetworkInterfaceASIO-RS-0] Connecting to nre-Aspire-F5-573G:21421
+2019-03-26T09:27:21.036+0000 I ASIO     [NetworkInterfaceASIO-RS-0] Successfully connected to nre-Aspire-F5-573G:21421, took 26ms (1 connections now open to nre-Aspire-F5-573G:21421)
+2019-03-26T09:27:21.037+0000 I ASIO     [NetworkInterfaceASIO-RS-0] Connecting to nre-Aspire-F5-573G:21421
+2019-03-26T09:27:21.038+0000 I REPL     [replication-1] CollectionCloner::start called, on ns:admin.system.version
+2019-03-26T09:27:21.046+0000 I ASIO     [NetworkInterfaceASIO-RS-0] Successfully connected to nre-Aspire-F5-573G:21421, took 9ms (2 connections now open to nre-Aspire-F5-573G:21421)
+2019-03-26T09:27:21.047+0000 I STORAGE  [repl writer worker 6] createCollection: admin.system.version with provided UUID: e4a812c4-67fa-4a66-a606-8cf7358d1293
+2019-03-26T09:27:21.082+0000 I INDEX    [repl writer worker 6] build index on: admin.system.version properties: { v: 2, key: { _id: 1 }, name: "_id_", ns: "admin.system.version" }
+2019-03-26T09:27:21.082+0000 I INDEX    [repl writer worker 6] 	 building index using bulk method; build may temporarily use up to 500 megabytes of RAM
+2019-03-26T09:27:21.083+0000 I COMMAND  [repl writer worker 8] setting featureCompatibilityVersion to 3.6
+2019-03-26T09:27:21.083+0000 I NETWORK  [repl writer worker 8] Skip closing connection for connection # 5
+2019-03-26T09:27:21.083+0000 I NETWORK  [repl writer worker 8] Skip closing connection for connection # 2
+2019-03-26T09:27:21.083+0000 I REPL     [repl writer worker 8] CollectionCloner ns:admin.system.version finished cloning with status: OK
+2019-03-26T09:27:21.090+0000 I REPL     [repl writer worker 8] Finished cloning data: OK. Beginning oplog replay.
+2019-03-26T09:27:21.090+0000 I REPL     [replication-1] No need to apply operations. (currently at { : Timestamp(1553592438, 1) })
+2019-03-26T09:27:21.090+0000 I COMMAND  [replication-0] Assigning UUID 9409e427-e76e-4866-ab5e-9fbd1c15db11 to collection local.system.rollback.id
+2019-03-26T09:27:21.090+0000 I COMMAND  [replication-0] Assigning UUID 78856e27-3294-4a1a-a6ff-1dcd100f7517 to collection local.temp_oplog_buffer
+2019-03-26T09:27:21.091+0000 I COMMAND  [replication-0] Assigning UUID 18561895-89a8-4f58-a864-eb6b6f21c00a to collection local.system.replset
+2019-03-26T09:27:21.091+0000 I COMMAND  [replication-0] Assigning UUID b6e046a9-43f1-44c9-a42d-04f33d42f4d3 to collection local.me
+2019-03-26T09:27:21.091+0000 I COMMAND  [replication-0] Assigning UUID 04962ae8-09ee-4e77-aed5-d0eaed12026e to collection local.startup_log
+2019-03-26T09:27:21.091+0000 I COMMAND  [replication-0] Assigning UUID 35aed1e0-9cab-4ee6-8f1d-e37976fcc5d8 to collection local.replset.minvalid
+2019-03-26T09:27:21.091+0000 I COMMAND  [replication-0] Assigning UUID b68e1094-be71-4aa6-bef1-5dc47e3a24c1 to collection local.oplog.rs
+2019-03-26T09:27:21.091+0000 I ASIO     [NetworkInterfaceASIO-RS-0] Ending connection to host nre-Aspire-F5-573G:21421 due to bad connection status; 1 connections to that host remain open
+2019-03-26T09:27:21.091+0000 I REPL     [replication-1] Finished fetching oplog during initial sync: CallbackCanceled: error in fetcher batch callback: oplog fetcher is shutting down. Last fetched optime and hash: { ts: Timestamp(0, 0), t: -1 }[0]
+2019-03-26T09:27:21.091+0000 I REPL     [replication-1] Initial sync attempt finishing up.
+2019-03-26T09:27:21.091+0000 I REPL     [replication-1] Initial Sync Attempt Statistics: { failedInitialSyncAttempts: 0, maxFailedInitialSyncAttempts: 10, initialSyncStart: new Date(1553592440793), initialSyncAttempts: [], fetchedMissingDocs: 0, appliedOps: 0, initialSyncOplogStart: Timestamp(1553592438, 1), initialSyncOplogEnd: Timestamp(1553592438, 1), databases: { databasesCloned: 1, admin: { collections: 1, clonedCollections: 1, start: new Date(1553592441037), end: new Date(1553592441090), elapsedMillis: 53, admin.system.version: { documentsToCopy: 1, documentsCopied: 1, indexes: 1, fetchedBatches: 1, start: new Date(1553592441038), end: new Date(1553592441090), elapsedMillis: 52 } } } }
+2019-03-26T09:27:21.091+0000 I STORAGE  [replication-1] Finishing collection drop for local.temp_oplog_buffer (78856e27-3294-4a1a-a6ff-1dcd100f7517).
+2019-03-26T09:27:21.093+0000 I REPL     [replication-1] initial sync done; took 0s.
+2019-03-26T09:27:21.093+0000 I REPL     [replication-1] transition to RECOVERING from STARTUP2
+2019-03-26T09:27:21.093+0000 I REPL     [replication-1] Starting replication fetcher thread
+2019-03-26T09:27:21.093+0000 I REPL     [replication-1] Starting replication applier thread
+2019-03-26T09:27:21.093+0000 I REPL     [replication-1] Starting replication reporter thread
+2019-03-26T09:27:21.104+0000 I REPL     [rsBackgroundSync] could not find member to sync from
+2019-03-26T09:27:21.104+0000 I REPL     [replexec-3] Member nre-Aspire-F5-573G:30027 is now in state SECONDARY
+2019-03-26T09:27:21.105+0000 I REPL     [rsSync] transition to SECONDARY from RECOVERING
+2019-03-26T09:27:28.955+0000 I NETWORK  [listener] connection accepted from 127.0.0.1:43742 #6 (3 connections now open)
+2019-03-26T09:27:28.961+0000 I NETWORK  [conn6] received client metadata from 127.0.0.1:43742 conn: { driver: { name: "MongoDB Internal Client", version: "3.6.3" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+2019-03-26T09:27:28.976+0000 I NETWORK  [listener] connection accepted from 127.0.0.1:43744 #7 (4 connections now open)
+2019-03-26T09:27:28.987+0000 I NETWORK  [conn7] received client metadata from 127.0.0.1:43744 conn: { driver: { name: "NetworkInterfaceASIO-ShardRegistry", version: "3.6.3" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+2019-03-26T09:27:29.031+0000 I STORAGE  [conn2] createCollection: local.replset.election with generated UUID: c22b3730-bb4c-46d8-9adb-526c35131b9b
+2019-03-26T09:27:29.089+0000 I NETWORK  [listener] connection accepted from 127.0.0.1:43750 #8 (5 connections now open)
+2019-03-26T09:27:29.090+0000 I NETWORK  [conn2] end connection 127.0.0.1:43672 (4 connections now open)
+2019-03-26T09:27:29.090+0000 I NETWORK  [conn8] received client metadata from 127.0.0.1:43750 conn: { driver: { name: "NetworkInterfaceASIO-Replication", version: "3.6.3" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+2019-03-26T09:27:31.105+0000 I REPL     [replexec-4] Member nre-Aspire-F5-573G:21421 is now in state PRIMARY
+2019-03-26T09:27:31.105+0000 I REPL     [rsBackgroundSync] sync source candidate: nre-Aspire-F5-573G:21421
+2019-03-26T09:27:31.185+0000 I ASIO     [NetworkInterfaceASIO-RS-0] Connecting to nre-Aspire-F5-573G:21421
+2019-03-26T09:27:31.186+0000 I STORAGE  [rsSync] createCollection: local.replset.oplogTruncateAfterPoint with generated UUID: 33241b42-150f-449e-a23c-d5c76f76625b
+2019-03-26T09:27:31.194+0000 I ASIO     [NetworkInterfaceASIO-RS-0] Successfully connected to nre-Aspire-F5-573G:21421, took 9ms (2 connections now open to nre-Aspire-F5-573G:21421)
+2019-03-26T09:27:31.237+0000 I STORAGE  [repl writer worker 13] createCollection: config.chunks with provided UUID: 4be33afb-69c1-49ae-985b-b641ed437c2a
+2019-03-26T09:27:31.306+0000 I INDEX    [repl writer worker 6] build index on: config.chunks properties: { v: 2, unique: true, key: { ns: 1, min: 1 }, name: "ns_1_min_1", ns: "config.chunks" }
+2019-03-26T09:27:31.306+0000 I INDEX    [repl writer worker 6] 	 building index using bulk method; build may temporarily use up to 500 megabytes of RAM
+2019-03-26T09:27:31.308+0000 I INDEX    [repl writer worker 6] build index done.  scanned 0 total records. 0 secs
+2019-03-26T09:27:31.340+0000 I INDEX    [repl writer worker 12] build index on: config.chunks properties: { v: 2, unique: true, key: { ns: 1, shard: 1, min: 1 }, name: "ns_1_shard_1_min_1", ns: "config.chunks" }
+2019-03-26T09:27:31.340+0000 I INDEX    [repl writer worker 12] 	 building index using bulk method; build may temporarily use up to 500 megabytes of RAM
+2019-03-26T09:27:31.350+0000 I INDEX    [repl writer worker 12] build index done.  scanned 0 total records. 0 secs
+2019-03-26T09:27:31.373+0000 I INDEX    [repl writer worker 2] build index on: config.chunks properties: { v: 2, unique: true, key: { ns: 1, lastmod: 1 }, name: "ns_1_lastmod_1", ns: "config.chunks" }
+2019-03-26T09:27:31.373+0000 I INDEX    [repl writer worker 2] 	 building index using bulk method; build may temporarily use up to 500 megabytes of RAM
+2019-03-26T09:27:31.374+0000 I INDEX    [repl writer worker 2] build index done.  scanned 0 total records. 0 secs
+2019-03-26T09:27:31.375+0000 I STORAGE  [repl writer worker 0] createCollection: config.migrations with provided UUID: f346797e-6246-4d8b-bdd9-354d4ecf62e7
+2019-03-26T09:27:31.446+0000 I INDEX    [repl writer worker 9] build index on: config.migrations properties: { v: 2, unique: true, key: { ns: 1, min: 1 }, name: "ns_1_min_1", ns: "config.migrations" }
+2019-03-26T09:27:31.447+0000 I INDEX    [repl writer worker 9] 	 building index using bulk method; build may temporarily use up to 500 megabytes of RAM
+2019-03-26T09:27:31.465+0000 I INDEX    [repl writer worker 9] build index done.  scanned 0 total records. 0 secs
+2019-03-26T09:27:31.466+0000 I STORAGE  [repl writer worker 15] createCollection: config.shards with provided UUID: a1ebc870-4c6a-4e37-a068-5428fece1ed5
+2019-03-26T09:27:31.511+0000 I COMMAND  [conn7] command config.version command: find { find: "version", readConcern: { level: "majority", afterOpTime: { ts: Timestamp(0, 0), t: -1 } }, maxTimeMS: 30000, $readPreference: { mode: "nearest" }, $replData: 1, $clusterTime: { clusterTime: Timestamp(0, 0), signature: { hash: BinData(0, 0000000000000000000000000000000000000000), keyId: 0 } }, $configServerState: { opTime: { ts: Timestamp(0, 0), t: -1 } }, $db: "config" } planSummary: EOF keysExamined:0 docsExamined:0 cursorExhausted:1 numYields:0 nreturned:0 reslen:478 locks:{ Global: { acquireCount: { r: 2 }, acquireWaitCount: { r: 1 }, timeAcquiringMicros: { r: 21630 } }, Database: { acquireCount: { r: 1 } }, Collection: { acquireCount: { r: 1 } } } protocol:op_msg 2523ms
+2019-03-26T09:27:31.538+0000 I INDEX    [repl writer worker 1] build index on: config.shards properties: { v: 2, unique: true, key: { host: 1 }, name: "host_1", ns: "config.shards" }
+2019-03-26T09:27:31.538+0000 I INDEX    [repl writer worker 1] 	 building index using bulk method; build may temporarily use up to 500 megabytes of RAM
+2019-03-26T09:27:31.539+0000 I INDEX    [repl writer worker 1] build index done.  scanned 0 total records. 0 secs
+2019-03-26T09:27:31.540+0000 I STORAGE  [repl writer worker 13] createCollection: config.locks with provided UUID: 6b05e8e2-6b85-4f35-af5d-b4c17d30b78c
+2019-03-26T09:27:31.622+0000 I INDEX    [repl writer worker 6] build index on: config.locks properties: { v: 2, key: { ts: 1 }, name: "ts_1", ns: "config.locks" }
+2019-03-26T09:27:31.623+0000 I INDEX    [repl writer worker 6] 	 building index using bulk method; build may temporarily use up to 500 megabytes of RAM
+2019-03-26T09:27:31.623+0000 I INDEX    [repl writer worker 6] build index done.  scanned 0 total records. 0 secs
+2019-03-26T09:27:31.650+0000 I INDEX    [repl writer worker 12] build index on: config.locks properties: { v: 2, key: { state: 1, process: 1 }, name: "state_1_process_1", ns: "config.locks" }
+2019-03-26T09:27:31.650+0000 I INDEX    [repl writer worker 12] 	 building index using bulk method; build may temporarily use up to 500 megabytes of RAM
+2019-03-26T09:27:31.656+0000 I INDEX    [repl writer worker 12] build index done.  scanned 0 total records. 0 secs
+2019-03-26T09:27:31.657+0000 I STORAGE  [repl writer worker 2] createCollection: config.lockpings with provided UUID: 28bedb0f-c887-48b4-ba5e-268017d83fd6
+2019-03-26T09:27:31.723+0000 I INDEX    [repl writer worker 0] build index on: config.lockpings properties: { v: 2, key: { ping: 1 }, name: "ping_1", ns: "config.lockpings" }
+2019-03-26T09:27:31.723+0000 I INDEX    [repl writer worker 0] 	 building index using bulk method; build may temporarily use up to 500 megabytes of RAM
+2019-03-26T09:27:31.731+0000 I INDEX    [repl writer worker 0] build index done.  scanned 0 total records. 0 secs
+2019-03-26T09:27:31.731+0000 I STORAGE  [repl writer worker 9] createCollection: config.tags with provided UUID: 95f45c45-b460-4d1b-9ccc-9f82fab8d126
+2019-03-26T09:27:31.792+0000 I INDEX    [repl writer worker 15] build index on: config.tags properties: { v: 2, unique: true, key: { ns: 1, min: 1 }, name: "ns_1_min_1", ns: "config.tags" }
+2019-03-26T09:27:31.792+0000 I INDEX    [repl writer worker 15] 	 building index using bulk method; build may temporarily use up to 500 megabytes of RAM
+2019-03-26T09:27:31.793+0000 I INDEX    [repl writer worker 15] build index done.  scanned 0 total records. 0 secs
+2019-03-26T09:27:31.816+0000 I INDEX    [repl writer worker 1] build index on: config.tags properties: { v: 2, key: { ns: 1, tag: 1 }, name: "ns_1_tag_1", ns: "config.tags" }
+2019-03-26T09:27:31.816+0000 I INDEX    [repl writer worker 1] 	 building index using bulk method; build may temporarily use up to 500 megabytes of RAM
+2019-03-26T09:27:31.823+0000 I INDEX    [repl writer worker 1] build index done.  scanned 0 total records. 0 secs
+2019-03-26T09:27:31.824+0000 I STORAGE  [repl writer worker 13] createCollection: config.version with provided UUID: 9bf83665-31b1-4dde-9c01-1a70623cfc49
+2019-03-26T09:27:31.884+0000 I STORAGE  [repl writer worker 12] createCollection: config.transactions with provided UUID: 81a1ee91-97cf-4dea-a099-ae79021f1d50
+2019-03-26T09:27:31.915+0000 I STORAGE  [repl writer worker 0] createCollection: admin.system.keys with provided UUID: 2fd25046-40b5-4bd4-9c8f-f22f7d9c6d76
+2019-03-26T09:27:32.544+0000 I STORAGE  [repl writer worker 1] createCollection: config.mongos with provided UUID: b504156c-7ef7-4756-88b1-2f90536d4458
+2019-03-26T09:27:39.189+0000 I NETWORK  [listener] connection accepted from 127.0.0.1:43794 #9 (5 connections now open)
+2019-03-26T09:27:39.200+0000 I NETWORK  [conn9] received client metadata from 127.0.0.1:43794 conn: { driver: { name: "MongoDB Internal Client", version: "3.6.3" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+2019-03-26T09:27:39.209+0000 I NETWORK  [listener] connection accepted from 127.0.0.1:43798 #10 (6 connections now open)
+2019-03-26T09:27:39.214+0000 I NETWORK  [conn10] received client metadata from 127.0.0.1:43798 conn: { driver: { name: "MongoDB Internal Client", version: "3.6.3" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+2019-03-26T09:27:39.294+0000 I STORAGE  [repl writer worker 0] createCollection: config.changelog with provided UUID: 1d4ddf18-3a01-4675-a061-2df1813a8ca8
+2019-03-26T09:27:39.393+0000 I NETWORK  [listener] connection accepted from 127.0.0.1:43816 #11 (7 connections now open)
+2019-03-26T09:27:39.403+0000 I NETWORK  [conn11] received client metadata from 127.0.0.1:43816 conn: { driver: { name: "MongoDB Internal Client", version: "3.6.3" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+2019-03-26T09:27:39.422+0000 I NETWORK  [listener] connection accepted from 127.0.0.1:43826 #12 (8 connections now open)
+2019-03-26T09:27:39.429+0000 I NETWORK  [conn12] received client metadata from 127.0.0.1:43826 conn: { driver: { name: "MongoDB Internal Client", version: "3.6.3" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+2019-03-26T09:27:39.541+0000 I NETWORK  [listener] connection accepted from 127.0.0.1:43864 #13 (9 connections now open)
+2019-03-26T09:27:39.548+0000 I NETWORK  [conn13] received client metadata from 127.0.0.1:43864 conn: { driver: { name: "MongoDB Internal Client", version: "3.6.3" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+2019-03-26T09:27:39.549+0000 I NETWORK  [listener] connection accepted from 127.0.0.1:43866 #14 (10 connections now open)
+2019-03-26T09:27:39.559+0000 I NETWORK  [conn14] received client metadata from 127.0.0.1:43866 conn: { driver: { name: "MongoDB Internal Client", version: "3.6.3" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+2019-03-26T09:27:39.666+0000 I NETWORK  [listener] connection accepted from 127.0.0.1:43912 #15 (11 connections now open)
+2019-03-26T09:27:39.673+0000 I NETWORK  [conn15] received client metadata from 127.0.0.1:43912 conn: { driver: { name: "MongoDB Internal Client", version: "3.6.3" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+2019-03-26T09:27:39.674+0000 I NETWORK  [listener] connection accepted from 127.0.0.1:43916 #16 (12 connections now open)
+2019-03-26T09:27:39.677+0000 I NETWORK  [listener] connection accepted from 127.0.0.1:43918 #17 (13 connections now open)
+2019-03-26T09:27:39.682+0000 I NETWORK  [conn16] received client metadata from 127.0.0.1:43916 conn: { driver: { name: "NetworkInterfaceASIO-ShardRegistry", version: "3.6.3" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+2019-03-26T09:27:39.688+0000 I NETWORK  [conn17] received client metadata from 127.0.0.1:43918 conn: { driver: { name: "MongoDB Internal Client", version: "3.6.3" }, os: { type: "Linux", name: "Ubuntu", architecture: "x86_64", version: "18.04" } }
+2019-03-26T09:27:41.111+0000 I NETWORK  [shard registry reload] Starting new replica set monitor for rs_3_M/nre-Aspire-F5-573G:20492,nre-Aspire-F5-573G:36649
+2019-03-26T09:27:41.111+0000 I NETWORK  [shard registry reload] Starting new replica set monitor for rs_0_M/nre-Aspire-F5-573G:30886,nre-Aspire-F5-573G:32777
+2019-03-26T09:27:41.111+0000 I NETWORK  [shard registry reload] Starting new replica set monitor for rs_2_M/nre-Aspire-F5-573G:25386,nre-Aspire-F5-573G:38335
+2019-03-26T09:27:41.111+0000 I NETWORK  [shard registry reload] Starting new replica set monitor for rs_1_M/nre-Aspire-F5-573G:27793,nre-Aspire-F5-573G:36915
+2019-03-26T09:27:41.113+0000 I NETWORK  [ReplicaSetMonitor-TaskExecutor-0] Successfully connected to nre-Aspire-F5-573G:20492 (1 connections now open to nre-Aspire-F5-573G:20492 with a 5 second timeout)
+2019-03-26T09:27:41.130+0000 I NETWORK  [ReplicaSetMonitor-TaskExecutor-0] Successfully connected to nre-Aspire-F5-573G:36649 (1 connections now open to nre-Aspire-F5-573G:36649 with a 5 second timeout)
+2019-03-26T09:27:41.132+0000 I NETWORK  [ReplicaSetMonitor-TaskExecutor-0] Successfully connected to nre-Aspire-F5-573G:30886 (1 connections now open to nre-Aspire-F5-573G:30886 with a 5 second timeout)
+2019-03-26T09:27:41.134+0000 I NETWORK  [ReplicaSetMonitor-TaskExecutor-0] Successfully connected to nre-Aspire-F5-573G:32777 (1 connections now open to nre-Aspire-F5-573G:32777 with a 5 second timeout)
+2019-03-26T09:27:41.136+0000 I NETWORK  [ReplicaSetMonitor-TaskExecutor-0] Successfully connected to nre-Aspire-F5-573G:25386 (1 connections now open to nre-Aspire-F5-573G:25386 with a 5 second timeout)
+2019-03-26T09:27:41.137+0000 I NETWORK  [ReplicaSetMonitor-TaskExecutor-0] Successfully connected to nre-Aspire-F5-573G:38335 (1 connections now open to nre-Aspire-F5-573G:38335 with a 5 second timeout)
+2019-03-26T09:27:41.139+0000 I NETWORK  [ReplicaSetMonitor-TaskExecutor-0] Successfully connected to nre-Aspire-F5-573G:27793 (1 connections now open to nre-Aspire-F5-573G:27793 with a 5 second timeout)
+2019-03-26T09:27:41.140+0000 I NETWORK  [ReplicaSetMonitor-TaskExecutor-0] Successfully connected to nre-Aspire-F5-573G:36915 (1 connections now open to nre-Aspire-F5-573G:36915 with a 5 second timeout)
