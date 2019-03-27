@@ -1,0 +1,12 @@
+# MPI myname 
+#BSUB -q  par-single 
+#BSUB -n 16
+#BSUB -W 00:2
+#BSUB -o %J.lo 
+#BSUB -e %J.err  
+
+# Load any environment modules (needed for mpi_myname.exe)
+module load libfftw/intel/3.2.2_mpi
+
+# Submit the job using
+mpirun.lotus ./a.out

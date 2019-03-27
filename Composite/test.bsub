@@ -1,0 +1,14 @@
+#!/bin/bash 
+#BSUB -q short-serial
+#BSUB -W 02:00
+#BSUB -o j.out
+#BSUB -e j.err
+
+cd /home/users/stefstef/
+
+#cloning 
+#echo "install gcc"
+/home/users/stefstef/package_manager/spack/bin/spack install scons@3.0.1
+#echo "install python"
+#/home/users/stefstef/package_manager/spack/bin/spack install python
+echo "OK"
