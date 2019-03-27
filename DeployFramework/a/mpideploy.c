@@ -5,6 +5,7 @@
 #include <unistd.h>
 #include "cjson/cJSON.h"
 #define HOSTNAME_MAXSIZE 255
+#define COMMAND_MAXSIZE  1000
 #define MONGO_ROUTER_ADDSHARD_COMMAND_MAXSIZE 500
 #define MONGOS_ROUTER_START_COMMAND_MAXSIZE 500
 #define RICH_STRING_MAX_PAYLOAD 255
@@ -158,14 +159,11 @@ char*main_server_not_applicable(char**ptr){
 struct argv{
 	unsigned short server_nodes;				//the amount of server nodes
 	unsigned short replicas_per_shard;			//replicas per shards(obviously)
-
-
-	unsigned short config_server_nodes;				//the amount of server nodes
-	unsigned short config_replicas_per_shard;			//replicas per shards(obviously)
-
+	unsigned short config_server_nodes;			//the amount of server nodes
+	unsigned short config_replicas_per_shard;	//replicas per shards(obviously)
 	unsigned short client_nodes;				//the amount of client nodes
-
-
+	char*prefix;								//mongo executables folder (default /usr/bin)
+	//char*benchmark_scripts_prefix				//benchmarks_scripts_prefix(defailt $pwd)
 
 };
 
@@ -197,6 +195,7 @@ argvinfo*free_argv(argvinfo*ptr){
  *
  */
 argvinfo*default_construct(argvinfo*param,int procsize){
+	param->prefix=concat("/usr/bin","");
 	param->config_server_nodes=3;
 	param->config_replicas_per_shard=3;
 
@@ -225,6 +224,10 @@ argvinfo*parseargv(int argc,char*argv[],int procsize){
 		}
 		else if(!strcmp("--rps",argv[i])){
 			retval->replicas_per_shard=strtol(argv[i+1],NULL,10);
+		}
+		else if(!strcmp("--prefix",argv[i])){
+			free(retval->prefix);
+			retval->prefix=concat(argv[i+1],"");
 		}
 	}
 	return retval;
@@ -377,9 +380,9 @@ char* setupPath(char*hostname,int port){
  *Given the hostname , port , replica name and dbPath , this routine starts the mongod instances 
  *
  */
-void startReplicaServer(char*hostname,int port,char*replicaName,char*dbpath){
+void startReplicaServer(argvinfo*user_params,char*hostname,int port,char*replicaName,char*dbpath){
 	char command[1000];
-	sprintf(command,"mongod --shardsvr --replSet %s --port %d --bind_ip %s --dbpath %s >> log_%d & \n",replicaName,port,hostname,dbpath,port);
+	sprintf(command,"%s/mongod --shardsvr --replSet %s --port %d --bind_ip %s --dbpath %s >> log_%d & \n",user_params->prefix,replicaName,port,hostname,dbpath,port);
 	//printf("%s",command);
 	system(command);	
 }
@@ -388,9 +391,9 @@ void startReplicaServer(char*hostname,int port,char*replicaName,char*dbpath){
  *Given the hostname , port , replica name and dbPath , this routine starts the mongod instances 
  *
  */
-void startConfReplicaServer(char*hostname,int port,char*replicaName,char*dbpath){
+void startConfReplicaServer(argvinfo*user_params,char*hostname,int port,char*replicaName,char*dbpath){
 	char command[1000];
-	sprintf(command,"mongod --configsvr --replSet %s --port %d --bind_ip %s --dbpath %s >> log_%d & \n",replicaName,port,hostname,dbpath,port);
+	sprintf(command,"%s/mongod --configsvr --replSet %s --port %d --bind_ip %s --dbpath %s >> log_%d & \n",user_params->prefix,replicaName,port,hostname,dbpath,port);
 	//printf("%s",command);
 	system(command);	
 }
@@ -441,14 +444,14 @@ char*getReplicaName(){
  *(1->)	COMMAND_SUICIDE on tag SERVER_TAG
  *	This command deletes the dbPath data , causing the mongodb instance to crash(and eventually stop(#TheEasyWay))
  */
-void server_start(char*hostname,int port){
+void server_start(argvinfo*user_params,char*hostname,int port){
 	MPI_Status status;
     int receiveCommand;
 	char *dbpath=setupPath(hostname,port);
 	int isDead=0;
 	
 	char*replicaName=getReplicaName();
-	startReplicaServer(hostname,port,replicaName,dbpath);
+	startReplicaServer(user_params,hostname,port,replicaName,dbpath);
         
 	while(1){
 		if(isDead)break;
@@ -470,21 +473,27 @@ void server_start(char*hostname,int port){
  * @NotImplemented
  *
  */
-void client_start(char*hostname,int port){}
+void client_start(char*hostname,int port){
+	char buff[COMMAND_MAXSIZE];
+	
+
+
+
+}
 
 /***
  *This is every confs servers slave mainloop
  * @NotImplemented
  *
  */
-void server_conf_start(char*hostname,int port){
+void server_conf_start(argvinfo*user_params,char*hostname,int port){
 	MPI_Status status;
     int receiveCommand;
 	char *dbpath=setupPath(hostname,port);
 	int isDead=0;
 	
 	char*replicaName=getReplicaName();
-	startConfReplicaServer(hostname,port,replicaName,dbpath);
+	startConfReplicaServer(user_params,hostname,port,replicaName,dbpath);
         
 	while(1){
 		if(isDead)break;
@@ -505,10 +514,10 @@ void server_conf_start(char*hostname,int port){
  *Triggered by every slave .Here happenes the main split between client and server slaves by slave side
  *
  */
-void applyPurpose(int purpose,char*hostname,int port){
+void applyPurpose(argvinfo*user_params,int purpose,char*hostname,int port){
 	switch(purpose){
-		case PURPOSE_SERVER:server_start(hostname,port);break;
-		case PURPOSE_CONF:server_conf_start(hostname,port);break;
+		case PURPOSE_SERVER:server_start(user_params,hostname,port);break;
+		case PURPOSE_CONF:server_conf_start(user_params,hostname,port);break;
 		case PURPOSE_CLIENT:client_start(hostname,port);break;
 	
 	}
@@ -603,9 +612,9 @@ char** sentReplicaNames(argvinfo*user_args,int procsize){
 
 }
 
-void evaluate_rs_initiate(char*primary_hostname,int port,char*rs_initiate_json){
+void evaluate_rs_initiate(argvinfo*user_params,char*primary_hostname,int port,char*rs_initiate_json){
 	char buff[5000];
-	sprintf(buff,"mongo --host %s --port %d --eval 'rs.initiate(%s)' \0",primary_hostname,port,rs_initiate_json);
+	sprintf(buff,"%s/mongo --host %s --port %d --eval 'rs.initiate(%s)' \0",user_params->prefix,primary_hostname,port,rs_initiate_json);
 	//printf("%s",buff);
 	system(buff);
 }
@@ -623,7 +632,7 @@ void ack_instances(argvinfo*user_params,char**hostnames,int*ports,int*purposes,c
 			memcpy_slow(curr_replica,replicaNames[i],strlen(replicaNames[i]));
 			curr_port=ports[i];
 			printf("%s is %d at index %d with replicas %d\n",curr_replica,curr_port,i,user_params->replicas_per_shard);	
-			evaluate_rs_initiate(hostnames[i],ports[i],cJSON_Print(_rs_replica_initiate_buildJson(replicaNames[i],hostnames,ports,i,user_params->replicas_per_shard)));
+			evaluate_rs_initiate(user_params,hostnames[i],ports[i],cJSON_Print(_rs_replica_initiate_buildJson(replicaNames[i],hostnames,ports,i,user_params->replicas_per_shard)));
 			printf("%s",cJSON_Print(_rs_replica_initiate_buildJson(replicaNames[i],hostnames,ports,i,user_params->replicas_per_shard)));
 		
 		}
@@ -643,7 +652,7 @@ void ack_config_instances(argvinfo*user_params,char**hostnames,int*ports,int*pur
 		if(strcmp(curr_replica,replicaNames[i])){
 			memcpy_slow(curr_replica,replicaNames[i],strlen(replicaNames[i]));
 			curr_port=ports[i];	
-			evaluate_rs_initiate(hostnames[i],ports[i],cJSON_Print(_rs_configsvr_initiate_buildJson(replicaNames[i],hostnames,ports,i,user_params->config_replicas_per_shard)));
+			evaluate_rs_initiate(user_params,hostnames[i],ports[i],cJSON_Print(_rs_configsvr_initiate_buildJson(replicaNames[i],hostnames,ports,i,user_params->config_replicas_per_shard)));
 		
 		}
 	}	
@@ -652,7 +661,7 @@ void ack_config_instances(argvinfo*user_params,char**hostnames,int*ports,int*pur
  * Called by the main server , keeps the clock . after 10 seconds commands every slave to SUICIDE
  */
 void run(int my_rank,int p,int *ports){
-	system("sleep 10");
+	system("sleep 10000");
 	int command=COMMAND_SUICIDE;
 	for(int i=1;i<=p+1;i++){
 		MPI_Send(&command,1,MPI_INT,i,SERVER_TAG,MPI_COMM_WORLD);
@@ -748,14 +757,14 @@ char**get_config_master_hosts(argvinfo*user_params,char**hosts){
 void activate_query_router_mongos(argvinfo*user_params,char**replicaNames,char**hosts,int*ports){
 	char buff[1000];
 	for every_conf_server(user_params,i){
-		sprintf(buff,"mongos --configdb %s/%s:21421 --bind_ip nre-Aspire-F5-573G --port 20000 >> mongos_log &",replicaNames[i],hosts[i],ports[i]);
+		sprintf(buff,"%s/mongos --configdb %s/%s:21421 --bind_ip nre-Aspire-F5-573G --port 20000 >> mongos_log &",user_params->prefix,replicaNames[i],hosts[i],ports[i]);
 		printf("%s\n",buff);
 		system(buff);
 		break;
 	}
 	system("sleep 10");
 	for every_replica_server_set(user_params,i,j){
-		sprintf(buff,"mongo --host nre-Aspire-F5-573G --port 20000 --eval 'sh.addShard(\"%s/%s:%d\")' >> addShard_log f& ",replicaNames[j],hosts[j],ports[j]);
+		sprintf(buff,"%s/mongo --host nre-Aspire-F5-573G --port 20000 --eval 'sh.addShard(\"%s/%s:%d\")' >> addShard_log f& ",user_params->prefix,replicaNames[j],hosts[j],ports[j]);
 		printf("%s\n",buff);
 		system(buff);
 	}
@@ -794,7 +803,7 @@ int main(int argc,char*argv[]){
 
 	MPI_Comm_rank(MPI_COMM_WORLD,&my_rank);
 	MPI_Comm_size(MPI_COMM_WORLD,&p);
-
+	argvinfo*user_params=parseargv(argc,argv,p);                    //parse user arguments 
 	
 	/*
 	 * Secondary Processors
@@ -813,7 +822,7 @@ int main(int argc,char*argv[]){
 		MPI_Recv(&port,1,MPI_INT,mainServer,tag,MPI_COMM_WORLD,&status);			//receive my port number to main
 		MPI_Recv(&purpose,1,MPI_INT,mainServer,tag,MPI_COMM_WORLD,&status);			//receive purpose
 
-		applyPurpose(purpose,local_hostname,port);
+		applyPurpose(user_params,purpose,local_hostname,port);
 	
 
 
@@ -837,11 +846,7 @@ int main(int argc,char*argv[]){
 
 
 
-		printf("Size of cluster %d\n",p);
-
-
-
-		argvinfo*user_params=parseargv(argc,argv,p);			//parse user arguments 
+		printf("Size of cluster %d\n",p); 
 
 		printf("argvinfo server_nodes %d\n",user_params->server_nodes);
 

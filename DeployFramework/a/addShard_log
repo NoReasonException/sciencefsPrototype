@@ -178,3 +178,191 @@ MongoDB server version: 3.6.3
 	},
 	"operationTime" : Timestamp(1553592459, 18)
 }
+MongoDB shell version v3.6.3
+MongoDB shell version v3.6.3
+MongoDB shell version v3.6.3
+MongoDB shell version v3.6.3
+connecting to: mongodb://nre-Aspire-F5-573G:20000/f
+connecting to: mongodb://nre-Aspire-F5-573G:20000/f
+MongoDB server version: 3.6.3
+MongoDB server version: 3.6.3
+connecting to: mongodb://nre-Aspire-F5-573G:20000/f
+MongoDB server version: 3.6.3
+connecting to: mongodb://nre-Aspire-F5-573G:20000/f
+MongoDB server version: 3.6.3
+{
+	"shardAdded" : "rs_1_M",
+	"ok" : 1,
+	"$clusterTime" : {
+		"clusterTime" : Timestamp(1553599433, 7),
+		"signature" : {
+			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+			"keyId" : NumberLong(0)
+		}
+	},
+	"operationTime" : Timestamp(1553599433, 7)
+}
+{
+	"shardAdded" : "rs_0_M",
+	"ok" : 1,
+	"$clusterTime" : {
+		"clusterTime" : Timestamp(1553599433, 11),
+		"signature" : {
+			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+			"keyId" : NumberLong(0)
+		}
+	},
+	"operationTime" : Timestamp(1553599433, 11)
+}
+{
+	"shardAdded" : "rs_2_M",
+	"ok" : 1,
+	"$clusterTime" : {
+		"clusterTime" : Timestamp(1553599433, 15),
+		"signature" : {
+			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+			"keyId" : NumberLong(0)
+		}
+	},
+	"operationTime" : Timestamp(1553599433, 15)
+}
+MongoDB shell version v3.6.3
+MongoDB shell version v3.6.3
+MongoDB shell version v3.6.3
+MongoDB shell version v3.6.3
+connecting to: mongodb://nre-Aspire-F5-573G:20000/f
+connecting to: mongodb://nre-Aspire-F5-573G:20000/f
+MongoDB server version: 3.6.3
+MongoDB server version: 3.6.3
+MongoDB shell version v3.6.3
+MongoDB shell version v3.6.3
+MongoDB shell version v3.6.3
+MongoDB shell version v3.6.3
+connecting to: mongodb://nre-Aspire-F5-573G:20000/f
+MongoDB server version: 3.6.3
+connecting to: mongodb://nre-Aspire-F5-573G:20000/f
+MongoDB server version: 3.6.3
+connecting to: mongodb://nre-Aspire-F5-573G:20000/f
+MongoDB server version: 3.6.3
+connecting to: mongodb://nre-Aspire-F5-573G:20000/f
+MongoDB server version: 3.6.3
+MongoDB shell version v3.6.3
+MongoDB shell version v3.6.3
+MongoDB shell version v3.6.3
+MongoDB shell version v3.6.3
+connecting to: mongodb://nre-Aspire-F5-573G:20000/f
+MongoDB server version: 3.6.3
+connecting to: mongodb://nre-Aspire-F5-573G:20000/f
+MongoDB server version: 3.6.3
+connecting to: mongodb://nre-Aspire-F5-573G:20000/f
+connecting to: mongodb://nre-Aspire-F5-573G:20000/f
+MongoDB server version: 3.6.3
+MongoDB server version: 3.6.3
+{
+	"shardAdded" : "rs_2_M",
+	"ok" : 1,
+	"$clusterTime" : {
+		"clusterTime" : Timestamp(1553602098, 7),
+		"signature" : {
+			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+			"keyId" : NumberLong(0)
+		}
+	},
+	"operationTime" : Timestamp(1553602098, 7)
+}
+{
+	"shardAdded" : "rs_3_M",
+	"ok" : 1,
+	"$clusterTime" : {
+		"clusterTime" : Timestamp(1553602098, 11),
+		"signature" : {
+			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+			"keyId" : NumberLong(0)
+		}
+	},
+	"operationTime" : Timestamp(1553602098, 11)
+}
+{
+	"shardAdded" : "rs_0_M",
+	"ok" : 1,
+	"$clusterTime" : {
+		"clusterTime" : Timestamp(1553602098, 15),
+		"signature" : {
+			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+			"keyId" : NumberLong(0)
+		}
+	},
+	"operationTime" : Timestamp(1553602098, 15)
+}
+{
+	"shardAdded" : "rs_1_M",
+	"ok" : 1,
+	"$clusterTime" : {
+		"clusterTime" : Timestamp(1553602098, 19),
+		"signature" : {
+			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+			"keyId" : NumberLong(0)
+		}
+	},
+	"operationTime" : Timestamp(1553602098, 19)
+}
+MongoDB shell version v3.6.3
+MongoDB shell version v3.6.3
+MongoDB shell version v3.6.3
+MongoDB shell version v3.6.3
+connecting to: mongodb://nre-Aspire-F5-573G:20000/f
+connecting to: mongodb://nre-Aspire-F5-573G:20000/f
+MongoDB server version: 3.6.3
+MongoDB server version: 3.6.3
+connecting to: mongodb://nre-Aspire-F5-573G:20000/f
+MongoDB server version: 3.6.3
+connecting to: mongodb://nre-Aspire-F5-573G:20000/f
+MongoDB server version: 3.6.3
+{
+	"shardAdded" : "rs_0_M",
+	"ok" : 1,
+	"$clusterTime" : {
+		"clusterTime" : Timestamp(1553684523, 7),
+		"signature" : {
+			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+			"keyId" : NumberLong(0)
+		}
+	},
+	"operationTime" : Timestamp(1553684523, 7)
+}
+{
+	"shardAdded" : "rs_1_M",
+	"ok" : 1,
+	"$clusterTime" : {
+		"clusterTime" : Timestamp(1553684523, 11),
+		"signature" : {
+			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+			"keyId" : NumberLong(0)
+		}
+	},
+	"operationTime" : Timestamp(1553684523, 11)
+}
+{
+	"shardAdded" : "rs_2_M",
+	"ok" : 1,
+	"$clusterTime" : {
+		"clusterTime" : Timestamp(1553684523, 15),
+		"signature" : {
+			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+			"keyId" : NumberLong(0)
+		}
+	},
+	"operationTime" : Timestamp(1553684523, 15)
+}
+{
+	"shardAdded" : "rs_3_M",
+	"ok" : 1,
+	"$clusterTime" : {
+		"clusterTime" : Timestamp(1553684523, 19),
+		"signature" : {
+			"hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+			"keyId" : NumberLong(0)
+		}
+	},
+	"operationTime" : Timestamp(1553684523, 19)
+}
